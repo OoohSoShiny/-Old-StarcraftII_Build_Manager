@@ -1,0 +1,15 @@
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\bin\Debug\StarcraftBuildManager.exe.config
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\bin\Debug\StarcraftBuildManager.exe
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\bin\Debug\StarcraftBuildManager.pdb
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\bin\Debug\aa\StarcraftBuildManager.resources.dll
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.csprojAssemblyReference.cache
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.MainFrame.resources
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.Properties.Resources.resources
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.StartWindow.resources
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.StartWindow.aa.resources
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.csproj.GenerateResource.cache
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.csproj.CoreCompileInputs.cache
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\aa\StarcraftBuildManager.resources.dll
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.exe
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.pdb
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.BuildWindow.resources
