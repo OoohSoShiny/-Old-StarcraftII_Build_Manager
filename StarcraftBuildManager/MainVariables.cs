@@ -16,6 +16,10 @@ namespace StarcraftBuildManager
         public string Active_Race
         { get { return activeRace; } set { activeRace = value; } }
 
+        int individualNumber = 0;
+        public int Individual_Number
+        { get { return individualNumber; } set { individualNumber = value; } }
+
         //Standard menu
         readonly int mainMenuXSize = 245;
         readonly int mainMenuYSize = 355;

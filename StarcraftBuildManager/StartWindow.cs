@@ -42,7 +42,7 @@ namespace StarcraftBuildManager
             }
             else
             {
-                buildWindow = new BuildWindow("Zerg", mainVariables, mainMethods);
+                buildWindow = new BuildWindow("Zerg", mainVariables);
                 buildWindow.Show();
                 this.Icon.Dispose();
                 this.Close();
@@ -58,7 +58,7 @@ namespace StarcraftBuildManager
             }
             else
             {
-                buildWindow = new BuildWindow("Protoss", mainVariables, mainMethods);
+                buildWindow = new BuildWindow("Protoss", mainVariables);
                 buildWindow.Show();
                 this.Icon.Dispose();
                 this.Close();
@@ -74,7 +74,7 @@ namespace StarcraftBuildManager
             }
             else
             {
-                buildWindow = new BuildWindow("Terran", mainVariables, mainMethods);
+                buildWindow = new BuildWindow("Terran", mainVariables);
                 buildWindow.Show();
                 this.Icon.Dispose();
                 this.Close();

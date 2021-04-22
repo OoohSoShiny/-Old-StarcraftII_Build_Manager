@@ -12,6 +12,15 @@ namespace StarcraftBuildManager
 {
     public class MainMethods
     {
+        BuildWindow buildWindow;
+
+        public MainMethods(BuildWindow givenBuildWindow)
+        {
+            buildWindow = givenBuildWindow;
+        }
+        public MainMethods()
+        { }
+
         //Activating/Deactivating pictureboxes
         public void Activate_Picturebox(PictureBox pictureBox)
         { pictureBox.Visible = true; pictureBox.Enabled = true; }
