@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildRunner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuildRunner.Designer.cs">
+      <DependentUpon>BuildRunner.cs</DependentUpon>
+    </Compile>
     <Compile Include="BuildWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
     <Compile Include="StartWindow.Designer.cs">
       <DependentUpon>StartWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BuildRunner.resx">
+      <DependentUpon>BuildRunner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BuildWindow.resx">
       <DependentUpon>BuildWindow.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,9 +16,12 @@ namespace StarcraftBuildManager
         MainVariables mainVariables;
         MainMethods mainMethods;
         
-        //The List for everything
+        //The Lists for everything
         List<Prefab> prefabList;
         List<string> stringSafeList;
+
+        public List<string> Safe_List
+        { get { return stringSafeList; } set { stringSafeList = value; } }
 
 
         //UI Elements
@@ -36,11 +39,16 @@ namespace StarcraftBuildManager
         
         Prefab[] building_Array;
 
+        public Prefab[] Building_Array
+        { get { return building_Array; } }
+
         //Zerg Units
         Prefab baneling, brood_Lord, corruptor, drone, hydralisk, infestor, lurker, mutalisk, overlord, overseer, queen,
             ravager, roach, swarm_Host, ultralisk, viper, zergling;
        
         Prefab[] unit_Array;
+        public Prefab[] Unit_Array
+        { get { return unit_Array; } }
         
         //Zerg Upgrades
         Prefab adaptive_Talons, adrenal_Glands, anabolic_Synthesis, burrow, centrifugal_Hooks, chitinious_Plating, flyer_Attacks1, flyer_Attacks2, flyer_Attacks3,
@@ -48,6 +56,8 @@ namespace StarcraftBuildManager
             missile_Attacks1, missile_Attacks2, missile_Attacks3, muscular_Augments, neural_Parasite, pathogen_Glands, pneumatized_Carapace, seismic_Spines, tunneling_Claws;
 
         Prefab[] upgrade_Array;
+        public Prefab[] Upgrade_Array
+        { get { return upgrade_Array; } }
 
 
         public BuildWindow(string race, MainVariables givenMainVariables)
@@ -71,11 +81,13 @@ namespace StarcraftBuildManager
             picbTooltipTime.Image = mainVariables.BuildingArea_UiClock;
             picbMinerals.Image = mainVariables.BuildingArea_UiMinerals;
             picbVespin.Image = mainVariables.BuildingArea_UiVespin;
+            picBOpenRunner.Image = mainVariables.BuildingArea_OpenRunner;
             trackbarTimeline.Location = new Point(39, 46);
             lblTimeEnd.Location = new Point(36, 30);
             lbltimeStart.Location = new Point(36, 625);
 
             lblCurrentTrackbarValue.Text = trackbarTimeline.Value.ToString();
+            mainMethods.Fill_Picturebox(picbExit, mainVariables.BuildingArea_UiClose);
 
             switch (race)
             {
@@ -96,23 +108,23 @@ namespace StarcraftBuildManager
         {              
 
             //Initializing the Buildings and set them on their place in the UI
-            hatchery = new Prefab("Hatchery", 300, 0, 100f, mainVariables.HatcheryBM, -3);
+            hatchery = new Prefab("Hatchery", 300, 0, 100f, mainVariables.HatcheryBM, 4);
             lair = new Prefab("Lair", 150, 100, 80f, mainVariables.LairBM);
             hive = new Prefab("Hive", 200, 150, 100f, mainVariables.HiveBM);
-            zerg_Extractor = new Prefab("Extractor", 25, 0, 30f, mainVariables.Zerg_ExtractorBM);
-            spawning_Pool = new Prefab("Spawning Pool", 200, 0, 65f, mainVariables.Spawning_PoolBM);
-            evolution_Chamber = new Prefab("Evolution Chamber", 75, 0, 35f, mainVariables.Evolution_ChamberBM);
-            spine_Crawler = new Prefab("Spine Crawler", 100, 0, 50f, mainVariables.Spine_CrawlerBM);
-            spore_Crawler = new Prefab("Spore Crawler", 75, 0, 30f, mainVariables.Spore_CrawlerBM);
-            hydralisk_Den = new Prefab("Hydralisk Den", 100, 100, 60f, mainVariables.Hydralisk_DenBM);
-            baneling_Nest = new Prefab("Baneling Nest", 100, 50, 60f, mainVariables.Baneling_NestBM);
-            roach_Warren = new Prefab("Roach Warren", 150, 0, 55f, mainVariables.Roach_WarrenBM);
-            infestation_Pit = new Prefab("Infestation Pit", 100, 100, 50f, mainVariables.Infestation_PitBM);
-            spire = new Prefab("Spire", 200, 200, 100f, mainVariables.SpireBM);
+            zerg_Extractor = new Prefab("Extractor", 25, 0, 30f, mainVariables.Zerg_ExtractorBM, 1);
+            spawning_Pool = new Prefab("Spawning Pool", 200, 0, 65f, mainVariables.Spawning_PoolBM, 1);
+            evolution_Chamber = new Prefab("Evolution Chamber", 75, 0, 35f, mainVariables.Evolution_ChamberBM, 1);
+            spine_Crawler = new Prefab("Spine Crawler", 100, 0, 50f, mainVariables.Spine_CrawlerBM, 1);
+            spore_Crawler = new Prefab("Spore Crawler", 75, 0, 30f, mainVariables.Spore_CrawlerBM, 1);
+            hydralisk_Den = new Prefab("Hydralisk Den", 100, 100, 60f, mainVariables.Hydralisk_DenBM, 1);
+            baneling_Nest = new Prefab("Baneling Nest", 100, 50, 60f, mainVariables.Baneling_NestBM, 1);
+            roach_Warren = new Prefab("Roach Warren", 150, 0, 55f, mainVariables.Roach_WarrenBM, 1);
+            infestation_Pit = new Prefab("Infestation Pit", 100, 100, 50f, mainVariables.Infestation_PitBM, 1);
+            spire = new Prefab("Spire", 200, 200, 100f, mainVariables.SpireBM, 1);
             greater_Spire = new Prefab("Greater Spire", 100, 150, 100, mainVariables.Greater_SpireBM);
-            nydus_Network = new Prefab("Nydus Network", 150, 200, 50f, mainVariables.Nydus_NetworkBM);
-            ultralisk_Cavern = new Prefab("Ultralisk Cavern", 150, 200, 65f, mainVariables.Ultralisk_CavernBM);
-            lurker_Den = new Prefab("Lurker Den", 150, 100, 57f, mainVariables.Lurker_DenBM);
+            nydus_Network = new Prefab("Nydus Network", 150, 200, 50f, mainVariables.Nydus_NetworkBM, 1);
+            ultralisk_Cavern = new Prefab("Ultralisk Cavern", 150, 200, 65f, mainVariables.Ultralisk_CavernBM, 1);
+            lurker_Den = new Prefab("Lurker Den", 150, 100, 57f, mainVariables.Lurker_DenBM, 1);
 
             building_Array = new Prefab[] {hatchery, lair, hive, zerg_Extractor, spawning_Pool, evolution_Chamber, spine_Crawler, spore_Crawler,
             hydralisk_Den, baneling_Nest, roach_Warren, infestation_Pit, spire, greater_Spire, nydus_Network, ultralisk_Cavern, lurker_Den};
@@ -120,23 +132,23 @@ namespace StarcraftBuildManager
             mainMethods.Fill_Picturebox_Array(building_Pictureboxes, building_Array);
             //Initialzing units 
 
-            baneling = new Prefab("Baneling", 50, 25, 44f, mainVariables.BanelingBM, 1.5f);
-            drone = new Prefab("Drone", 50, 0, 17f, mainVariables.DroneBM, 1);
-            overlord = new Prefab("Overlord", 100, 0, 25f, mainVariables.OverlordBM, -8);
-            zergling = new Prefab("Zergling", 50, 0, 24f, mainVariables.ZerglingBM, 1);
-            roach = new Prefab("Roach", 75, 25, 27f, mainVariables.RoachBM, 2);
-            queen = new Prefab("Queen", 150, 0, 50f, mainVariables.QueenBM, 2);
-            hydralisk = new Prefab("Hydralisk", 100, 50, 33f, mainVariables.HydraliskBM, 2);
-            mutalisk = new Prefab("Mutalisk", 100, 100, 33f, mainVariables.MutaliskBM, 2);
-            corruptor = new Prefab("Corrupter", 150, 100, 40f, mainVariables.CorrupterBM, 4);
-            infestor = new Prefab("Infestor", 100, 150, 50f, mainVariables.InfestorBM, 2);
-            swarm_Host = new Prefab("Swarm Host", 200, 100, 40f, mainVariables.Swarm_HostBM, 3);
-            ultralisk = new Prefab("Ultralisk", 300, 200, 55f, mainVariables.UltraliskBM, 6);
-            viper = new Prefab("Viper", 100, 200, 40f, mainVariables.ViperBM, 3);
-            brood_Lord = new Prefab("Brood Lord", 300, 250, 77f, mainVariables.Boord_LordBM, 4);
-            overseer = new Prefab("Overseer", 150, 50, 42f, mainVariables.OverseerBM, -8);
-            lurker = new Prefab("Lurker", 150, 100, 42f, mainVariables.LurkerBM, 3);
-            ravager = new Prefab("Ravager", 100, 100, 28f, mainVariables.RavagerBM, 3);
+            baneling = new Prefab("Baneling", 50, 25, 44f, mainVariables.BanelingBM, -1.5f);
+            drone = new Prefab("Drone", 50, 0, 17f, mainVariables.DroneBM, -1);
+            overlord = new Prefab("Overlord", 100, 0, 25f, mainVariables.OverlordBM, 8);
+            zergling = new Prefab("Zergling", 50, 0, 24f, mainVariables.ZerglingBM, -1);
+            roach = new Prefab("Roach", 75, 25, 27f, mainVariables.RoachBM, -2);
+            queen = new Prefab("Queen", 150, 0, 50f, mainVariables.QueenBM, -2);
+            hydralisk = new Prefab("Hydralisk", 100, 50, 33f, mainVariables.HydraliskBM, -2);
+            mutalisk = new Prefab("Mutalisk", 100, 100, 33f, mainVariables.MutaliskBM, -2);
+            corruptor = new Prefab("Corrupter", 150, 100, 40f, mainVariables.CorrupterBM, -4);
+            infestor = new Prefab("Infestor", 100, 150, 50f, mainVariables.InfestorBM, -2);
+            swarm_Host = new Prefab("Swarm Host", 200, 100, 40f, mainVariables.Swarm_HostBM, -3);
+            ultralisk = new Prefab("Ultralisk", 300, 200, 55f, mainVariables.UltraliskBM, -6);
+            viper = new Prefab("Viper", 100, 200, 40f, mainVariables.ViperBM, -3);
+            brood_Lord = new Prefab("Brood Lord", 300, 250, 77f, mainVariables.Boord_LordBM, -4);
+            overseer = new Prefab("Overseer", 150, 50, 42f, mainVariables.OverseerBM);
+            lurker = new Prefab("Lurker", 150, 100, 42f, mainVariables.LurkerBM, -3);
+            ravager = new Prefab("Ravager", 100, 100, 28f, mainVariables.RavagerBM, -3);
             
             unit_Array = new Prefab[] {baneling, brood_Lord, corruptor, drone, hydralisk, infestor, lurker, mutalisk, overlord, overseer, queen,
             ravager, roach, swarm_Host, ultralisk, viper, zergling};
@@ -182,10 +194,7 @@ namespace StarcraftBuildManager
             mainMethods.Fill_Picturebox_Array(upgrade_Pictureboxes, upgrade_Array);
 
             prefabList = new List<Prefab> { };
-
-            Add_To_Mainlist(building_Array);
-            Add_To_Mainlist(unit_Array);
-            Add_To_Mainlist(upgrade_Array);
+            stringSafeList = new List<string> { };
         }
         public void Protoss()
         {
@@ -751,6 +760,39 @@ namespace StarcraftBuildManager
         { picbBuilding1.DoDragDrop(upgrade_Array[41], DragDropEffects.Copy | DragDropEffects.Move); }
         #endregion
 
+        private void picBOpenRunner_Click(object sender, EventArgs e)
+        {
+            if (Safe_List.Count > 0)
+            {
+                BuildRunner buildRunner = new BuildRunner(mainMethods, mainVariables, this);
+                buildRunner.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("No build found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void picbExit_MouseHover(object sender, EventArgs e)
+        {
+            lblMenuTooltip.Text = "Exit";
+        }
+        private void picbExit_MouseLeave(object sender, EventArgs e)
+        {
+            lblMenuTooltip.Text = "";
+        }
+
+
+        //The main timer tick
+        private void mainTimer_Tick(object sender, EventArgs e)
+        {
+           
+        }
+
+        //Exit button
+        private void picbExit_Click(object sender, EventArgs e)
+        { Environment.Exit(0); }
 
         //Entering the target of the drag/drop event (a trackbar), breakpoint doesnt get triggered
         private void trackbarTimeline_DragEnter(object sender, DragEventArgs e)
@@ -767,7 +809,7 @@ namespace StarcraftBuildManager
             Prefab prefabGiven = (Prefab)e.Data.GetData(typeof(Prefab));
             
             //Setting the time
-            int timing = trackbarTimeline.Value;
+            int timing = trackbarTimeline.Value*2;
 
             //Setting the index and which array to look for
             int indexFinder = Array.FindIndex(building_Array, prefabGiven.Equals); string arrayFinderString = "building";
@@ -779,11 +821,25 @@ namespace StarcraftBuildManager
             {
                 indexFinder = Array.FindIndex(upgrade_Array, prefabGiven.Equals); arrayFinderString = "upgrade";
             }
-
+            //Setting up individual number
             mainVariables.Individual_Number++;
 
-            string addBuilding = timing.ToString() + "_" + arrayFinderString + "_" + indexFinder.ToString() + "_" + mainVariables.Individual_Number.ToString();
+            //Adding this state into the safelist
+            string timeString;
+            if(timing < 10)
+            { timeString = "00" + timing.ToString(); }
+            else if(timing > 9 && timing < 100)
+            { timeString = "0" + timing.ToString(); }
+            else
+            { timeString = timing.ToString(); }
+
+            string addBuilding = timeString + "_" + arrayFinderString + "_" + indexFinder.ToString() + "_" + mainVariables.Individual_Number.ToString();
+            Update_Tooltip(prefabGiven);
+            stringSafeList.Add(addBuilding);
+            stringSafeList.Sort();
         }
+        
+        //Showing the current clicked prefab in the tooltip menu
         private void Update_Tooltip(Prefab prefab)
         {
             groupTooltip.Text = prefab.Name;
@@ -792,17 +848,10 @@ namespace StarcraftBuildManager
             lblTooltipTime.Text = prefab.BuildTime.ToString();
         }
 
+        //Updates the label that is linked to the Trackbar
         private void trackbarTimeline_ValueChanged(object sender, EventArgs e)
         {
             lblCurrentTrackbarValue.Text = (trackbarTimeline.Value*2).ToString();
-        }
-
-        private void Add_To_Mainlist(Prefab[] prefabs)
-        {
-            foreach(Prefab prefab in prefabs)
-            {
-                prefabList.Add(prefab);
-            }
-        }
+        }       
     }
 }

@@ -37,6 +37,7 @@ namespace StarcraftBuildManager
         readonly Icon starcraftII_Icon = new Icon(@"Pictures\StarcraftII_Icon.ico");
         public Icon BuildManager_Icon
         { get { return starcraftII_Icon; } }
+        
         //Button bitmaps Main Menu
         readonly Bitmap mainMenuNewBuild = new Bitmap(@"Pictures\MainMenuNewBuild.png");
         readonly Bitmap mainMenuLoadBuild = new Bitmap(@"Pictures\MainMenuLoadBuild.png");
@@ -64,6 +65,8 @@ namespace StarcraftBuildManager
         readonly Bitmap buildingarea_UiMinerals = new Bitmap(@"Pictures\Minerals_Icon.png");
         readonly Bitmap buildingarea_UiVespin = new Bitmap(@"Pictures\Vespin_Icon.png");
         readonly Bitmap buildingarea_UiClock = new Bitmap(@"Pictures\Clock_Icon.png");
+        readonly Bitmap buildarea_UiClose = new Bitmap(@"Pictures\CloseApp.png");
+        readonly Bitmap buildingarea_OpenRunner = new Bitmap(@"Pictures\BuildWindowOpenBuildRunner.png");
 
         public Bitmap BuildingArea_UiMinerals
         { get { return buildingarea_UiMinerals; } }
@@ -71,6 +74,10 @@ namespace StarcraftBuildManager
         { get { return buildingarea_UiVespin; } }
         public Bitmap BuildingArea_UiClock
         { get { return buildingarea_UiClock; } }
+        public Bitmap BuildingArea_UiClose
+        { get { return buildarea_UiClose; } }
+        public Bitmap BuildingArea_OpenRunner
+        { get { return buildingarea_OpenRunner; } }
 
         //Bitmaps New Build menu
         readonly Bitmap newBuildZerg = new Bitmap(@"Pictures\NewBuildZerg.png");
@@ -86,6 +93,22 @@ namespace StarcraftBuildManager
         { get { return newBuildTerran; } }
         public Bitmap NewBuild_Back
         { get { return newBuildBack; } }
+
+        //Build Runner menu
+
+        readonly Bitmap buildRunnerBackground = new Bitmap(@"Backgrounds\BuildRunnerBackground.png");
+        readonly Bitmap buildRunnerStart = new Bitmap(@"Pictures\RunnerStart.png");
+        readonly Bitmap buildArrowRight = new Bitmap(@"Pictures\ArrowRight.png");
+        readonly Bitmap buildArrowLeft = new Bitmap(@"Pictures\ArrowLeft.png");
+
+        public Bitmap BuildRunner_BackgroundBM
+        { get { return buildRunnerBackground; } }
+        public Bitmap BuildRunner_StartBM
+        { get { return buildRunnerStart; } }
+        public Bitmap BuildRunner_ArrowRightBM
+        { get { return buildArrowRight; } }
+        public Bitmap BuildRunner_ArrowLeftBM
+        { get { return buildArrowLeft; } }
 
         //Bitmaps
         //ZERG

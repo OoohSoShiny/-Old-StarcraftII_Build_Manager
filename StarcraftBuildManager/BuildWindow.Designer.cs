@@ -29,6 +29,7 @@ namespace StarcraftBuildManager
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.trackbarTimeline = new System.Windows.Forms.TrackBar();
             this.lbltimeStart = new System.Windows.Forms.Label();
             this.lblTimeEnd = new System.Windows.Forms.Label();
@@ -133,6 +134,10 @@ namespace StarcraftBuildManager
             this.picbVespin = new System.Windows.Forms.PictureBox();
             this.lblMineralCost = new System.Windows.Forms.Label();
             this.lblCurrentTrackbarValue = new System.Windows.Forms.Label();
+            this.mainTimer = new System.Windows.Forms.Timer(this.components);
+            this.picbExit = new System.Windows.Forms.PictureBox();
+            this.lblMenuTooltip = new System.Windows.Forms.Label();
+            this.picBOpenRunner = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackbarTimeline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbBuilding1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbBuilding2)).BeginInit();
@@ -231,6 +236,8 @@ namespace StarcraftBuildManager
             this.groupTooltip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picbTooltipTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbVespin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picbExit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBOpenRunner)).BeginInit();
             this.SuspendLayout();
             // 
             // trackbarTimeline
@@ -276,8 +283,8 @@ namespace StarcraftBuildManager
             this.picbBuilding1.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding1.TabIndex = 3;
             this.picbBuilding1.TabStop = false;
-            this.picbBuilding1.Click += new System.EventHandler(this.PicbBuilding1_Click);
             this.picbBuilding1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding1_MouseDown);
+            this.picbBuilding1.MouseHover += new System.EventHandler(this.PicbBuilding1_Click);
             // 
             // picbBuilding2
             // 
@@ -287,8 +294,8 @@ namespace StarcraftBuildManager
             this.picbBuilding2.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding2.TabIndex = 8;
             this.picbBuilding2.TabStop = false;
-            this.picbBuilding2.Click += new System.EventHandler(this.PicbBuilding2_Click);
             this.picbBuilding2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding2_MouseDown);
+            this.picbBuilding2.MouseHover += new System.EventHandler(this.PicbBuilding2_Click);
             // 
             // picbBuilding3
             // 
@@ -298,8 +305,8 @@ namespace StarcraftBuildManager
             this.picbBuilding3.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding3.TabIndex = 9;
             this.picbBuilding3.TabStop = false;
-            this.picbBuilding3.Click += new System.EventHandler(this.PicbBuilding3_Click);
             this.picbBuilding3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding3_MouseDown);
+            this.picbBuilding3.MouseHover += new System.EventHandler(this.PicbBuilding3_Click);
             // 
             // picbBuilding4
             // 
@@ -309,8 +316,8 @@ namespace StarcraftBuildManager
             this.picbBuilding4.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding4.TabIndex = 10;
             this.picbBuilding4.TabStop = false;
-            this.picbBuilding4.Click += new System.EventHandler(this.PicbBuilding4_Click);
             this.picbBuilding4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding4_MouseDown);
+            this.picbBuilding4.MouseHover += new System.EventHandler(this.PicbBuilding4_Click);
             // 
             // picbBuilding5
             // 
@@ -320,8 +327,8 @@ namespace StarcraftBuildManager
             this.picbBuilding5.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding5.TabIndex = 11;
             this.picbBuilding5.TabStop = false;
-            this.picbBuilding5.Click += new System.EventHandler(this.PicbBuilding5_Click);
             this.picbBuilding5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding5_MouseDown);
+            this.picbBuilding5.MouseHover += new System.EventHandler(this.PicbBuilding5_Click);
             // 
             // picbBuilding6
             // 
@@ -331,8 +338,8 @@ namespace StarcraftBuildManager
             this.picbBuilding6.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding6.TabIndex = 12;
             this.picbBuilding6.TabStop = false;
-            this.picbBuilding6.Click += new System.EventHandler(this.PicbBuilding6_Click);
             this.picbBuilding6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding6_MouseDown);
+            this.picbBuilding6.MouseHover += new System.EventHandler(this.PicbBuilding6_Click);
             // 
             // picbBuilding12
             // 
@@ -342,8 +349,8 @@ namespace StarcraftBuildManager
             this.picbBuilding12.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding12.TabIndex = 13;
             this.picbBuilding12.TabStop = false;
-            this.picbBuilding12.Click += new System.EventHandler(this.PicbBuilding12_Click);
             this.picbBuilding12.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding12_MouseDown);
+            this.picbBuilding12.MouseHover += new System.EventHandler(this.PicbBuilding12_Click);
             // 
             // picbBuilding11
             // 
@@ -353,8 +360,8 @@ namespace StarcraftBuildManager
             this.picbBuilding11.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding11.TabIndex = 14;
             this.picbBuilding11.TabStop = false;
-            this.picbBuilding11.Click += new System.EventHandler(this.PicbBuilding11_Click);
             this.picbBuilding11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding11_MouseDown);
+            this.picbBuilding11.MouseHover += new System.EventHandler(this.PicbBuilding11_Click);
             // 
             // picbBuilding10
             // 
@@ -364,8 +371,8 @@ namespace StarcraftBuildManager
             this.picbBuilding10.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding10.TabIndex = 15;
             this.picbBuilding10.TabStop = false;
-            this.picbBuilding10.Click += new System.EventHandler(this.PicbBuilding10_Click);
             this.picbBuilding10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding10_MouseDown);
+            this.picbBuilding10.MouseHover += new System.EventHandler(this.PicbBuilding10_Click);
             // 
             // picbBuilding9
             // 
@@ -375,8 +382,8 @@ namespace StarcraftBuildManager
             this.picbBuilding9.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding9.TabIndex = 16;
             this.picbBuilding9.TabStop = false;
-            this.picbBuilding9.Click += new System.EventHandler(this.PicbBuilding9_Click);
             this.picbBuilding9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding9_MouseDown);
+            this.picbBuilding9.MouseHover += new System.EventHandler(this.PicbBuilding9_Click);
             // 
             // picbBuilding8
             // 
@@ -386,8 +393,8 @@ namespace StarcraftBuildManager
             this.picbBuilding8.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding8.TabIndex = 17;
             this.picbBuilding8.TabStop = false;
-            this.picbBuilding8.Click += new System.EventHandler(this.PicbBuilding8_Click);
             this.picbBuilding8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding8_MouseDown);
+            this.picbBuilding8.MouseHover += new System.EventHandler(this.PicbBuilding8_Click);
             // 
             // picbBuilding7
             // 
@@ -397,8 +404,8 @@ namespace StarcraftBuildManager
             this.picbBuilding7.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding7.TabIndex = 18;
             this.picbBuilding7.TabStop = false;
-            this.picbBuilding7.Click += new System.EventHandler(this.PicbBuilding7_Click);
             this.picbBuilding7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding7_MouseDown);
+            this.picbBuilding7.MouseHover += new System.EventHandler(this.PicbBuilding7_Click);
             // 
             // picbBuilding13
             // 
@@ -408,8 +415,8 @@ namespace StarcraftBuildManager
             this.picbBuilding13.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding13.TabIndex = 19;
             this.picbBuilding13.TabStop = false;
-            this.picbBuilding13.Click += new System.EventHandler(this.PicbBuilding13_Click);
             this.picbBuilding13.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding13_MouseDown);
+            this.picbBuilding13.MouseHover += new System.EventHandler(this.PicbBuilding13_Click);
             // 
             // picbBuilding14
             // 
@@ -419,8 +426,8 @@ namespace StarcraftBuildManager
             this.picbBuilding14.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding14.TabIndex = 20;
             this.picbBuilding14.TabStop = false;
-            this.picbBuilding14.Click += new System.EventHandler(this.PicbBuilding14_Click);
             this.picbBuilding14.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding14_MouseDown);
+            this.picbBuilding14.MouseHover += new System.EventHandler(this.PicbBuilding14_Click);
             // 
             // picbBuilding15
             // 
@@ -430,8 +437,8 @@ namespace StarcraftBuildManager
             this.picbBuilding15.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding15.TabIndex = 21;
             this.picbBuilding15.TabStop = false;
-            this.picbBuilding15.Click += new System.EventHandler(this.PicbBuilding15_Click);
             this.picbBuilding15.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding15_MouseDown);
+            this.picbBuilding15.MouseHover += new System.EventHandler(this.PicbBuilding15_Click);
             // 
             // picbBuilding16
             // 
@@ -441,8 +448,8 @@ namespace StarcraftBuildManager
             this.picbBuilding16.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding16.TabIndex = 22;
             this.picbBuilding16.TabStop = false;
-            this.picbBuilding16.Click += new System.EventHandler(this.PicbBuilding16_Click);
             this.picbBuilding16.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding16_MouseDown);
+            this.picbBuilding16.MouseHover += new System.EventHandler(this.PicbBuilding16_Click);
             // 
             // picbBuilding17
             // 
@@ -452,8 +459,8 @@ namespace StarcraftBuildManager
             this.picbBuilding17.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding17.TabIndex = 23;
             this.picbBuilding17.TabStop = false;
-            this.picbBuilding17.Click += new System.EventHandler(this.PicbBuilding17_Click);
             this.picbBuilding17.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding17_MouseDown);
+            this.picbBuilding17.MouseHover += new System.EventHandler(this.PicbBuilding17_Click);
             // 
             // picbBuilding18
             // 
@@ -463,8 +470,8 @@ namespace StarcraftBuildManager
             this.picbBuilding18.Size = new System.Drawing.Size(50, 50);
             this.picbBuilding18.TabIndex = 24;
             this.picbBuilding18.TabStop = false;
-            this.picbBuilding18.Click += new System.EventHandler(this.PicbBuilding18_Click);
             this.picbBuilding18.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbBuilding18_MouseDown);
+            this.picbBuilding18.MouseHover += new System.EventHandler(this.PicbBuilding18_Click);
             // 
             // groupBuildings
             // 
@@ -544,8 +551,8 @@ namespace StarcraftBuildManager
             this.picbUnit25.Size = new System.Drawing.Size(50, 50);
             this.picbUnit25.TabIndex = 36;
             this.picbUnit25.TabStop = false;
-            this.picbUnit25.Click += new System.EventHandler(this.picbUnit25_Click);
             this.picbUnit25.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit25_MouseDown);
+            this.picbUnit25.MouseHover += new System.EventHandler(this.picbUnit25_Click);
             // 
             // picbUnit26
             // 
@@ -555,8 +562,8 @@ namespace StarcraftBuildManager
             this.picbUnit26.Size = new System.Drawing.Size(50, 50);
             this.picbUnit26.TabIndex = 35;
             this.picbUnit26.TabStop = false;
-            this.picbUnit26.Click += new System.EventHandler(this.picbUnit26_Click);
             this.picbUnit26.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit26_MouseDown);
+            this.picbUnit26.MouseHover += new System.EventHandler(this.picbUnit26_Click);
             // 
             // picbUnit27
             // 
@@ -566,8 +573,8 @@ namespace StarcraftBuildManager
             this.picbUnit27.Size = new System.Drawing.Size(50, 50);
             this.picbUnit27.TabIndex = 34;
             this.picbUnit27.TabStop = false;
-            this.picbUnit27.Click += new System.EventHandler(this.picbUnit27_Click);
             this.picbUnit27.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit27_MouseDown);
+            this.picbUnit27.MouseHover += new System.EventHandler(this.picbUnit27_Click);
             // 
             // picbUnit28
             // 
@@ -577,8 +584,8 @@ namespace StarcraftBuildManager
             this.picbUnit28.Size = new System.Drawing.Size(50, 50);
             this.picbUnit28.TabIndex = 33;
             this.picbUnit28.TabStop = false;
-            this.picbUnit28.Click += new System.EventHandler(this.picbUnit28_Click);
             this.picbUnit28.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit28_MouseDown);
+            this.picbUnit28.MouseHover += new System.EventHandler(this.picbUnit28_Click);
             // 
             // picbUnit29
             // 
@@ -588,8 +595,8 @@ namespace StarcraftBuildManager
             this.picbUnit29.Size = new System.Drawing.Size(50, 50);
             this.picbUnit29.TabIndex = 32;
             this.picbUnit29.TabStop = false;
-            this.picbUnit29.Click += new System.EventHandler(this.picbUnit29_Click);
             this.picbUnit29.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit29_MouseDown);
+            this.picbUnit29.MouseHover += new System.EventHandler(this.picbUnit29_Click);
             // 
             // picbUnit30
             // 
@@ -599,8 +606,8 @@ namespace StarcraftBuildManager
             this.picbUnit30.Size = new System.Drawing.Size(50, 50);
             this.picbUnit30.TabIndex = 31;
             this.picbUnit30.TabStop = false;
-            this.picbUnit30.Click += new System.EventHandler(this.picbUnit30_Click);
             this.picbUnit30.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit30_MouseDown);
+            this.picbUnit30.MouseHover += new System.EventHandler(this.picbUnit30_Click);
             // 
             // picbUnit24
             // 
@@ -610,8 +617,8 @@ namespace StarcraftBuildManager
             this.picbUnit24.Size = new System.Drawing.Size(50, 50);
             this.picbUnit24.TabIndex = 30;
             this.picbUnit24.TabStop = false;
-            this.picbUnit24.Click += new System.EventHandler(this.picbUnit24_Click);
             this.picbUnit24.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit24_MouseDown);
+            this.picbUnit24.MouseHover += new System.EventHandler(this.picbUnit24_Click);
             // 
             // picbUnit23
             // 
@@ -621,8 +628,8 @@ namespace StarcraftBuildManager
             this.picbUnit23.Size = new System.Drawing.Size(50, 50);
             this.picbUnit23.TabIndex = 29;
             this.picbUnit23.TabStop = false;
-            this.picbUnit23.Click += new System.EventHandler(this.picbUnit23_Click);
             this.picbUnit23.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit23_MouseDown);
+            this.picbUnit23.MouseHover += new System.EventHandler(this.picbUnit23_Click);
             // 
             // picbUnit22
             // 
@@ -632,8 +639,8 @@ namespace StarcraftBuildManager
             this.picbUnit22.Size = new System.Drawing.Size(50, 50);
             this.picbUnit22.TabIndex = 28;
             this.picbUnit22.TabStop = false;
-            this.picbUnit22.Click += new System.EventHandler(this.picbUnit22_Click);
             this.picbUnit22.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit22_MouseDown);
+            this.picbUnit22.MouseHover += new System.EventHandler(this.picbUnit22_Click);
             // 
             // picbUnit21
             // 
@@ -643,8 +650,8 @@ namespace StarcraftBuildManager
             this.picbUnit21.Size = new System.Drawing.Size(50, 50);
             this.picbUnit21.TabIndex = 27;
             this.picbUnit21.TabStop = false;
-            this.picbUnit21.Click += new System.EventHandler(this.picbUnit21_Click);
             this.picbUnit21.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit21_MouseDown);
+            this.picbUnit21.MouseHover += new System.EventHandler(this.picbUnit21_Click);
             // 
             // picturepicbUnit20
             // 
@@ -654,8 +661,8 @@ namespace StarcraftBuildManager
             this.picturepicbUnit20.Size = new System.Drawing.Size(50, 50);
             this.picturepicbUnit20.TabIndex = 26;
             this.picturepicbUnit20.TabStop = false;
-            this.picturepicbUnit20.Click += new System.EventHandler(this.picturepicbUnit20_Click);
             this.picturepicbUnit20.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picturepicbUnit20_MouseDown);
+            this.picturepicbUnit20.MouseHover += new System.EventHandler(this.picturepicbUnit20_Click);
             // 
             // picbUnit19
             // 
@@ -665,8 +672,8 @@ namespace StarcraftBuildManager
             this.picbUnit19.Size = new System.Drawing.Size(50, 50);
             this.picbUnit19.TabIndex = 25;
             this.picbUnit19.TabStop = false;
-            this.picbUnit19.Click += new System.EventHandler(this.picbUnit19_Click);
             this.picbUnit19.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit19_MouseDown);
+            this.picbUnit19.MouseHover += new System.EventHandler(this.picbUnit19_Click);
             // 
             // picbUnit18
             // 
@@ -676,8 +683,8 @@ namespace StarcraftBuildManager
             this.picbUnit18.Size = new System.Drawing.Size(50, 50);
             this.picbUnit18.TabIndex = 24;
             this.picbUnit18.TabStop = false;
-            this.picbUnit18.Click += new System.EventHandler(this.picbUnit18_Click);
             this.picbUnit18.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit18_MouseDown);
+            this.picbUnit18.MouseHover += new System.EventHandler(this.picbUnit18_Click);
             // 
             // picbUnit17
             // 
@@ -687,8 +694,8 @@ namespace StarcraftBuildManager
             this.picbUnit17.Size = new System.Drawing.Size(50, 50);
             this.picbUnit17.TabIndex = 23;
             this.picbUnit17.TabStop = false;
-            this.picbUnit17.Click += new System.EventHandler(this.picbUnit17_Click);
             this.picbUnit17.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit17_MouseDown);
+            this.picbUnit17.MouseHover += new System.EventHandler(this.picbUnit17_Click);
             // 
             // picbUnit16
             // 
@@ -698,8 +705,8 @@ namespace StarcraftBuildManager
             this.picbUnit16.Size = new System.Drawing.Size(50, 50);
             this.picbUnit16.TabIndex = 22;
             this.picbUnit16.TabStop = false;
-            this.picbUnit16.Click += new System.EventHandler(this.picbUnit16_Click);
             this.picbUnit16.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit16_MouseDown);
+            this.picbUnit16.MouseHover += new System.EventHandler(this.picbUnit16_Click);
             // 
             // picbUnit15
             // 
@@ -709,8 +716,8 @@ namespace StarcraftBuildManager
             this.picbUnit15.Size = new System.Drawing.Size(50, 50);
             this.picbUnit15.TabIndex = 21;
             this.picbUnit15.TabStop = false;
-            this.picbUnit15.Click += new System.EventHandler(this.picbUnit15_Click);
             this.picbUnit15.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit15_MouseDown);
+            this.picbUnit15.MouseHover += new System.EventHandler(this.picbUnit15_Click);
             // 
             // picbUnit14
             // 
@@ -720,8 +727,8 @@ namespace StarcraftBuildManager
             this.picbUnit14.Size = new System.Drawing.Size(50, 50);
             this.picbUnit14.TabIndex = 20;
             this.picbUnit14.TabStop = false;
-            this.picbUnit14.Click += new System.EventHandler(this.picbUnit14_Click);
             this.picbUnit14.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit14_MouseDown);
+            this.picbUnit14.MouseHover += new System.EventHandler(this.picbUnit14_Click);
             // 
             // picbUnit13
             // 
@@ -731,8 +738,8 @@ namespace StarcraftBuildManager
             this.picbUnit13.Size = new System.Drawing.Size(50, 50);
             this.picbUnit13.TabIndex = 19;
             this.picbUnit13.TabStop = false;
-            this.picbUnit13.Click += new System.EventHandler(this.picbUnit13_Click);
             this.picbUnit13.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit13_MouseDown);
+            this.picbUnit13.MouseHover += new System.EventHandler(this.picbUnit13_Click);
             // 
             // picbUnit7
             // 
@@ -742,8 +749,8 @@ namespace StarcraftBuildManager
             this.picbUnit7.Size = new System.Drawing.Size(50, 50);
             this.picbUnit7.TabIndex = 18;
             this.picbUnit7.TabStop = false;
-            this.picbUnit7.Click += new System.EventHandler(this.picbUnit7_Click);
             this.picbUnit7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit7_MouseDown);
+            this.picbUnit7.MouseHover += new System.EventHandler(this.picbUnit7_Click);
             // 
             // picbUnit8
             // 
@@ -753,8 +760,8 @@ namespace StarcraftBuildManager
             this.picbUnit8.Size = new System.Drawing.Size(50, 50);
             this.picbUnit8.TabIndex = 17;
             this.picbUnit8.TabStop = false;
-            this.picbUnit8.Click += new System.EventHandler(this.picbUnit8_Click);
             this.picbUnit8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit8_MouseDown);
+            this.picbUnit8.MouseHover += new System.EventHandler(this.picbUnit8_Click);
             // 
             // picbUnit9
             // 
@@ -764,8 +771,8 @@ namespace StarcraftBuildManager
             this.picbUnit9.Size = new System.Drawing.Size(50, 50);
             this.picbUnit9.TabIndex = 16;
             this.picbUnit9.TabStop = false;
-            this.picbUnit9.Click += new System.EventHandler(this.picbUnit9_Click);
             this.picbUnit9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit9_MouseDown);
+            this.picbUnit9.MouseHover += new System.EventHandler(this.picbUnit9_Click);
             // 
             // picbUnit10
             // 
@@ -775,8 +782,8 @@ namespace StarcraftBuildManager
             this.picbUnit10.Size = new System.Drawing.Size(50, 50);
             this.picbUnit10.TabIndex = 15;
             this.picbUnit10.TabStop = false;
-            this.picbUnit10.Click += new System.EventHandler(this.picbUnit10_Click);
             this.picbUnit10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit10_MouseDown);
+            this.picbUnit10.MouseHover += new System.EventHandler(this.picbUnit10_Click);
             // 
             // picbUnit11
             // 
@@ -786,8 +793,8 @@ namespace StarcraftBuildManager
             this.picbUnit11.Size = new System.Drawing.Size(50, 50);
             this.picbUnit11.TabIndex = 14;
             this.picbUnit11.TabStop = false;
-            this.picbUnit11.Click += new System.EventHandler(this.picbUnit11_Click);
             this.picbUnit11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit11_MouseDown);
+            this.picbUnit11.MouseHover += new System.EventHandler(this.picbUnit11_Click);
             // 
             // picbUnit12
             // 
@@ -797,8 +804,8 @@ namespace StarcraftBuildManager
             this.picbUnit12.Size = new System.Drawing.Size(50, 50);
             this.picbUnit12.TabIndex = 13;
             this.picbUnit12.TabStop = false;
-            this.picbUnit12.Click += new System.EventHandler(this.picbUnit12_Click);
             this.picbUnit12.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit12_MouseDown);
+            this.picbUnit12.MouseHover += new System.EventHandler(this.picbUnit12_Click);
             // 
             // picbUnit6
             // 
@@ -808,8 +815,8 @@ namespace StarcraftBuildManager
             this.picbUnit6.Size = new System.Drawing.Size(50, 50);
             this.picbUnit6.TabIndex = 12;
             this.picbUnit6.TabStop = false;
-            this.picbUnit6.Click += new System.EventHandler(this.picbUnit6_Click);
             this.picbUnit6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit6_MouseDown);
+            this.picbUnit6.MouseHover += new System.EventHandler(this.picbUnit6_Click);
             // 
             // picbUnit5
             // 
@@ -819,8 +826,8 @@ namespace StarcraftBuildManager
             this.picbUnit5.Size = new System.Drawing.Size(50, 50);
             this.picbUnit5.TabIndex = 11;
             this.picbUnit5.TabStop = false;
-            this.picbUnit5.Click += new System.EventHandler(this.picbUnit5_Click);
             this.picbUnit5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit5_MouseDown);
+            this.picbUnit5.MouseHover += new System.EventHandler(this.picbUnit5_Click);
             // 
             // picbUnit4
             // 
@@ -830,8 +837,8 @@ namespace StarcraftBuildManager
             this.picbUnit4.Size = new System.Drawing.Size(50, 50);
             this.picbUnit4.TabIndex = 10;
             this.picbUnit4.TabStop = false;
-            this.picbUnit4.Click += new System.EventHandler(this.picbUnit4_Click);
             this.picbUnit4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit4_MouseDown);
+            this.picbUnit4.MouseHover += new System.EventHandler(this.picbUnit4_Click);
             // 
             // picbUnit3
             // 
@@ -841,8 +848,8 @@ namespace StarcraftBuildManager
             this.picbUnit3.Size = new System.Drawing.Size(50, 50);
             this.picbUnit3.TabIndex = 9;
             this.picbUnit3.TabStop = false;
-            this.picbUnit3.Click += new System.EventHandler(this.picbUnit3_Click);
             this.picbUnit3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit3_MouseDown);
+            this.picbUnit3.MouseHover += new System.EventHandler(this.picbUnit3_Click);
             // 
             // picbUnit2
             // 
@@ -852,8 +859,8 @@ namespace StarcraftBuildManager
             this.picbUnit2.Size = new System.Drawing.Size(50, 50);
             this.picbUnit2.TabIndex = 8;
             this.picbUnit2.TabStop = false;
-            this.picbUnit2.Click += new System.EventHandler(this.picbUnit2_Click);
             this.picbUnit2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit2_MouseDown);
+            this.picbUnit2.MouseHover += new System.EventHandler(this.picbUnit2_Click);
             // 
             // picbUnit1
             // 
@@ -863,8 +870,8 @@ namespace StarcraftBuildManager
             this.picbUnit1.Size = new System.Drawing.Size(50, 50);
             this.picbUnit1.TabIndex = 3;
             this.picbUnit1.TabStop = false;
-            this.picbUnit1.Click += new System.EventHandler(this.picbUnit1_Click);
             this.picbUnit1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUnit1_MouseDown);
+            this.picbUnit1.MouseHover += new System.EventHandler(this.picbUnit1_Click);
             // 
             // groupUpgrades
             // 
@@ -927,8 +934,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade42.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade42.TabIndex = 48;
             this.picbUpgrade42.TabStop = false;
-            this.picbUpgrade42.Click += new System.EventHandler(this.picbUpgrade42_Click);
             this.picbUpgrade42.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade42_MouseDown);
+            this.picbUpgrade42.MouseHover += new System.EventHandler(this.picbUpgrade42_Click);
             // 
             // picbUpgrade41
             // 
@@ -938,8 +945,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade41.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade41.TabIndex = 47;
             this.picbUpgrade41.TabStop = false;
-            this.picbUpgrade41.Click += new System.EventHandler(this.picbUpgrade41_Click);
             this.picbUpgrade41.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade41_MouseDown);
+            this.picbUpgrade41.MouseHover += new System.EventHandler(this.picbUpgrade41_Click);
             // 
             // picbUpgrade40
             // 
@@ -949,8 +956,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade40.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade40.TabIndex = 46;
             this.picbUpgrade40.TabStop = false;
-            this.picbUpgrade40.Click += new System.EventHandler(this.picbUpgrade40_Click);
             this.picbUpgrade40.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade40_MouseDown);
+            this.picbUpgrade40.MouseHover += new System.EventHandler(this.picbUpgrade40_Click);
             // 
             // picbUpgrade39
             // 
@@ -960,8 +967,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade39.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade39.TabIndex = 45;
             this.picbUpgrade39.TabStop = false;
-            this.picbUpgrade39.Click += new System.EventHandler(this.picbUpgrade39_Click);
             this.picbUpgrade39.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade39_MouseDown);
+            this.picbUpgrade39.MouseHover += new System.EventHandler(this.picbUpgrade39_Click);
             // 
             // picbUpgrade38
             // 
@@ -971,8 +978,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade38.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade38.TabIndex = 44;
             this.picbUpgrade38.TabStop = false;
-            this.picbUpgrade38.Click += new System.EventHandler(this.picbUpgrade38_Click);
             this.picbUpgrade38.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade38_MouseDown);
+            this.picbUpgrade38.MouseHover += new System.EventHandler(this.picbUpgrade38_Click);
             // 
             // picbUpgrade37
             // 
@@ -982,8 +989,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade37.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade37.TabIndex = 43;
             this.picbUpgrade37.TabStop = false;
-            this.picbUpgrade37.Click += new System.EventHandler(this.picbUpgrade37_Click);
             this.picbUpgrade37.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade37_MouseDown);
+            this.picbUpgrade37.MouseHover += new System.EventHandler(this.picbUpgrade37_Click);
             // 
             // picbUpgrade36
             // 
@@ -993,8 +1000,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade36.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade36.TabIndex = 42;
             this.picbUpgrade36.TabStop = false;
-            this.picbUpgrade36.Click += new System.EventHandler(this.picbUpgrade36_Click);
             this.picbUpgrade36.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade36_MouseDown);
+            this.picbUpgrade36.MouseHover += new System.EventHandler(this.picbUpgrade36_Click);
             // 
             // picbUpgrade35
             // 
@@ -1004,8 +1011,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade35.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade35.TabIndex = 41;
             this.picbUpgrade35.TabStop = false;
-            this.picbUpgrade35.Click += new System.EventHandler(this.picbUpgrade35_Click);
             this.picbUpgrade35.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade35_MouseDown);
+            this.picbUpgrade35.MouseHover += new System.EventHandler(this.picbUpgrade35_Click);
             // 
             // picbUpgrade34
             // 
@@ -1015,8 +1022,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade34.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade34.TabIndex = 40;
             this.picbUpgrade34.TabStop = false;
-            this.picbUpgrade34.Click += new System.EventHandler(this.picbUpgrade34_Click);
             this.picbUpgrade34.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade34_MouseDown);
+            this.picbUpgrade34.MouseHover += new System.EventHandler(this.picbUpgrade34_Click);
             // 
             // picbUpgrade33
             // 
@@ -1026,8 +1033,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade33.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade33.TabIndex = 39;
             this.picbUpgrade33.TabStop = false;
-            this.picbUpgrade33.Click += new System.EventHandler(this.picbUpgrade33_Click);
             this.picbUpgrade33.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade33_MouseDown);
+            this.picbUpgrade33.MouseHover += new System.EventHandler(this.picbUpgrade33_Click);
             // 
             // picbUpgrade32
             // 
@@ -1037,8 +1044,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade32.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade32.TabIndex = 38;
             this.picbUpgrade32.TabStop = false;
-            this.picbUpgrade32.Click += new System.EventHandler(this.picbUpgrade32_Click);
             this.picbUpgrade32.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade32_MouseDown);
+            this.picbUpgrade32.MouseHover += new System.EventHandler(this.picbUpgrade32_Click);
             // 
             // picbUpgrade31
             // 
@@ -1048,8 +1055,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade31.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade31.TabIndex = 37;
             this.picbUpgrade31.TabStop = false;
-            this.picbUpgrade31.Click += new System.EventHandler(this.picbUpgrade31_Click);
             this.picbUpgrade31.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade31_MouseDown);
+            this.picbUpgrade31.MouseHover += new System.EventHandler(this.picbUpgrade31_Click);
             // 
             // picbUpgrade30
             // 
@@ -1059,8 +1066,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade30.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade30.TabIndex = 36;
             this.picbUpgrade30.TabStop = false;
-            this.picbUpgrade30.Click += new System.EventHandler(this.picbUpgrade30_Click);
             this.picbUpgrade30.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade30_MouseDown);
+            this.picbUpgrade30.MouseHover += new System.EventHandler(this.picbUpgrade30_Click);
             // 
             // picbUpgrade29
             // 
@@ -1070,8 +1077,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade29.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade29.TabIndex = 35;
             this.picbUpgrade29.TabStop = false;
-            this.picbUpgrade29.Click += new System.EventHandler(this.picbUpgrade29_Click);
             this.picbUpgrade29.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade29_MouseDown);
+            this.picbUpgrade29.MouseHover += new System.EventHandler(this.picbUpgrade29_Click);
             // 
             // picbUpgrade28
             // 
@@ -1081,8 +1088,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade28.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade28.TabIndex = 34;
             this.picbUpgrade28.TabStop = false;
-            this.picbUpgrade28.Click += new System.EventHandler(this.picbUpgrade28_Click);
             this.picbUpgrade28.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade28_MouseDown);
+            this.picbUpgrade28.MouseHover += new System.EventHandler(this.picbUpgrade28_Click);
             // 
             // picbUpgrade27
             // 
@@ -1092,8 +1099,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade27.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade27.TabIndex = 33;
             this.picbUpgrade27.TabStop = false;
-            this.picbUpgrade27.Click += new System.EventHandler(this.picbUpgrade27_Click);
             this.picbUpgrade27.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade27_MouseDown);
+            this.picbUpgrade27.MouseHover += new System.EventHandler(this.picbUpgrade27_Click);
             // 
             // picbUpgrade26
             // 
@@ -1103,8 +1110,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade26.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade26.TabIndex = 32;
             this.picbUpgrade26.TabStop = false;
-            this.picbUpgrade26.Click += new System.EventHandler(this.picbUpgrade26_Click);
             this.picbUpgrade26.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade26_MouseDown);
+            this.picbUpgrade26.MouseHover += new System.EventHandler(this.picbUpgrade26_Click);
             // 
             // picbUpgrade25
             // 
@@ -1114,8 +1121,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade25.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade25.TabIndex = 31;
             this.picbUpgrade25.TabStop = false;
-            this.picbUpgrade25.Click += new System.EventHandler(this.picbUpgrade25_Click);
             this.picbUpgrade25.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade25_MouseDown);
+            this.picbUpgrade25.MouseHover += new System.EventHandler(this.picbUpgrade25_Click);
             // 
             // picbUpgrade24
             // 
@@ -1125,8 +1132,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade24.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade24.TabIndex = 30;
             this.picbUpgrade24.TabStop = false;
-            this.picbUpgrade24.Click += new System.EventHandler(this.picbUpgrade24_Click);
             this.picbUpgrade24.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade24_MouseDown);
+            this.picbUpgrade24.MouseHover += new System.EventHandler(this.picbUpgrade24_Click);
             // 
             // picbUpgrade23
             // 
@@ -1136,8 +1143,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade23.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade23.TabIndex = 29;
             this.picbUpgrade23.TabStop = false;
-            this.picbUpgrade23.Click += new System.EventHandler(this.picbUpgrade23_Click);
             this.picbUpgrade23.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade23_MouseDown);
+            this.picbUpgrade23.MouseHover += new System.EventHandler(this.picbUpgrade23_Click);
             // 
             // picbUpgrade22
             // 
@@ -1147,8 +1154,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade22.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade22.TabIndex = 28;
             this.picbUpgrade22.TabStop = false;
-            this.picbUpgrade22.Click += new System.EventHandler(this.picbUpgrade22_Click);
             this.picbUpgrade22.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade22_MouseDown);
+            this.picbUpgrade22.MouseHover += new System.EventHandler(this.picbUpgrade22_Click);
             // 
             // picbUpgrade21
             // 
@@ -1158,8 +1165,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade21.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade21.TabIndex = 27;
             this.picbUpgrade21.TabStop = false;
-            this.picbUpgrade21.Click += new System.EventHandler(this.picbUpgrade21_Click);
             this.picbUpgrade21.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade21_MouseDown);
+            this.picbUpgrade21.MouseHover += new System.EventHandler(this.picbUpgrade21_Click);
             // 
             // picbUpgrade20
             // 
@@ -1169,8 +1176,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade20.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade20.TabIndex = 26;
             this.picbUpgrade20.TabStop = false;
-            this.picbUpgrade20.Click += new System.EventHandler(this.picbUpgrade20_Click);
             this.picbUpgrade20.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade20_MouseDown);
+            this.picbUpgrade20.MouseHover += new System.EventHandler(this.picbUpgrade20_Click);
             // 
             // picbUpgrade19
             // 
@@ -1180,8 +1187,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade19.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade19.TabIndex = 25;
             this.picbUpgrade19.TabStop = false;
-            this.picbUpgrade19.Click += new System.EventHandler(this.picbUpgrade19_Click);
             this.picbUpgrade19.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade19_MouseDown);
+            this.picbUpgrade19.MouseHover += new System.EventHandler(this.picbUpgrade19_Click);
             // 
             // picbUpgrade18
             // 
@@ -1191,8 +1198,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade18.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade18.TabIndex = 24;
             this.picbUpgrade18.TabStop = false;
-            this.picbUpgrade18.Click += new System.EventHandler(this.picbUpgrade18_Click);
             this.picbUpgrade18.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade18_MouseDown);
+            this.picbUpgrade18.MouseHover += new System.EventHandler(this.picbUpgrade18_Click);
             // 
             // picbUpgrade17
             // 
@@ -1202,8 +1209,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade17.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade17.TabIndex = 23;
             this.picbUpgrade17.TabStop = false;
-            this.picbUpgrade17.Click += new System.EventHandler(this.picbUpgrade17_Click);
             this.picbUpgrade17.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade17_MouseDown);
+            this.picbUpgrade17.MouseHover += new System.EventHandler(this.picbUpgrade17_Click);
             // 
             // picbUpgrade16
             // 
@@ -1213,8 +1220,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade16.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade16.TabIndex = 22;
             this.picbUpgrade16.TabStop = false;
-            this.picbUpgrade16.Click += new System.EventHandler(this.picbUpgrade16_Click);
             this.picbUpgrade16.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade16_MouseDown);
+            this.picbUpgrade16.MouseHover += new System.EventHandler(this.picbUpgrade16_Click);
             // 
             // picbUpgrade15
             // 
@@ -1224,8 +1231,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade15.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade15.TabIndex = 21;
             this.picbUpgrade15.TabStop = false;
-            this.picbUpgrade15.Click += new System.EventHandler(this.picbUpgrade15_Click);
             this.picbUpgrade15.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade15_MouseDown);
+            this.picbUpgrade15.MouseHover += new System.EventHandler(this.picbUpgrade15_Click);
             // 
             // picbUpgrade14
             // 
@@ -1235,8 +1242,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade14.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade14.TabIndex = 20;
             this.picbUpgrade14.TabStop = false;
-            this.picbUpgrade14.Click += new System.EventHandler(this.picbUpgrade14_Click);
             this.picbUpgrade14.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade14_MouseDown);
+            this.picbUpgrade14.MouseHover += new System.EventHandler(this.picbUpgrade14_Click);
             // 
             // picbUpgrade13
             // 
@@ -1246,8 +1253,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade13.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade13.TabIndex = 19;
             this.picbUpgrade13.TabStop = false;
-            this.picbUpgrade13.Click += new System.EventHandler(this.picbUpgrade13_Click);
             this.picbUpgrade13.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade13_MouseDown);
+            this.picbUpgrade13.MouseHover += new System.EventHandler(this.picbUpgrade13_Click);
             // 
             // picbUpgrade7
             // 
@@ -1257,8 +1264,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade7.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade7.TabIndex = 18;
             this.picbUpgrade7.TabStop = false;
-            this.picbUpgrade7.Click += new System.EventHandler(this.picbUpgrade7_Click);
             this.picbUpgrade7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade7_MouseDown);
+            this.picbUpgrade7.MouseHover += new System.EventHandler(this.picbUpgrade7_Click);
             // 
             // picbUpgrade8
             // 
@@ -1268,8 +1275,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade8.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade8.TabIndex = 17;
             this.picbUpgrade8.TabStop = false;
-            this.picbUpgrade8.Click += new System.EventHandler(this.picbUpgrade8_Click);
             this.picbUpgrade8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade8_MouseDown);
+            this.picbUpgrade8.MouseHover += new System.EventHandler(this.picbUpgrade8_Click);
             // 
             // picbUpgrade9
             // 
@@ -1279,8 +1286,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade9.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade9.TabIndex = 16;
             this.picbUpgrade9.TabStop = false;
-            this.picbUpgrade9.Click += new System.EventHandler(this.picbUpgrade9_Click);
             this.picbUpgrade9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade9_MouseDown);
+            this.picbUpgrade9.MouseHover += new System.EventHandler(this.picbUpgrade9_Click);
             // 
             // picbUpgrade10
             // 
@@ -1290,8 +1297,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade10.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade10.TabIndex = 15;
             this.picbUpgrade10.TabStop = false;
-            this.picbUpgrade10.Click += new System.EventHandler(this.picbUpgrade10_Click);
             this.picbUpgrade10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade10_MouseDown);
+            this.picbUpgrade10.MouseHover += new System.EventHandler(this.picbUpgrade10_Click);
             // 
             // picbUpgrade11
             // 
@@ -1301,8 +1308,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade11.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade11.TabIndex = 14;
             this.picbUpgrade11.TabStop = false;
-            this.picbUpgrade11.Click += new System.EventHandler(this.picbUpgrade11_Click);
             this.picbUpgrade11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade11_MouseDown);
+            this.picbUpgrade11.MouseHover += new System.EventHandler(this.picbUpgrade11_Click);
             // 
             // picbUpgrade12
             // 
@@ -1312,8 +1319,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade12.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade12.TabIndex = 13;
             this.picbUpgrade12.TabStop = false;
-            this.picbUpgrade12.Click += new System.EventHandler(this.picbUpgrade12_Click);
             this.picbUpgrade12.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade12_MouseDown);
+            this.picbUpgrade12.MouseHover += new System.EventHandler(this.picbUpgrade12_Click);
             // 
             // picbUpgrade6
             // 
@@ -1323,8 +1330,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade6.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade6.TabIndex = 12;
             this.picbUpgrade6.TabStop = false;
-            this.picbUpgrade6.Click += new System.EventHandler(this.picbUpgrade6_Click);
             this.picbUpgrade6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade6_MouseDown);
+            this.picbUpgrade6.MouseHover += new System.EventHandler(this.picbUpgrade6_Click);
             // 
             // picbUpgrade5
             // 
@@ -1334,8 +1341,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade5.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade5.TabIndex = 11;
             this.picbUpgrade5.TabStop = false;
-            this.picbUpgrade5.Click += new System.EventHandler(this.picbUpgrade5_Click);
             this.picbUpgrade5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade5_MouseDown);
+            this.picbUpgrade5.MouseHover += new System.EventHandler(this.picbUpgrade5_Click);
             // 
             // picbUpgrade4
             // 
@@ -1345,8 +1352,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade4.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade4.TabIndex = 10;
             this.picbUpgrade4.TabStop = false;
-            this.picbUpgrade4.Click += new System.EventHandler(this.picbUpgrade4_Click);
             this.picbUpgrade4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade4_MouseDown);
+            this.picbUpgrade4.MouseHover += new System.EventHandler(this.picbUpgrade4_Click);
             // 
             // picbUpgrade3
             // 
@@ -1356,8 +1363,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade3.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade3.TabIndex = 9;
             this.picbUpgrade3.TabStop = false;
-            this.picbUpgrade3.Click += new System.EventHandler(this.picbUpgrade3_Click);
             this.picbUpgrade3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade3_MouseDown);
+            this.picbUpgrade3.MouseHover += new System.EventHandler(this.picbUpgrade3_Click);
             // 
             // picbUpgrade2
             // 
@@ -1367,8 +1374,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade2.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade2.TabIndex = 8;
             this.picbUpgrade2.TabStop = false;
-            this.picbUpgrade2.Click += new System.EventHandler(this.picbUpgrade2_Click);
             this.picbUpgrade2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade2_MouseDown);
+            this.picbUpgrade2.MouseHover += new System.EventHandler(this.picbUpgrade2_Click);
             // 
             // picbUpgrade1
             // 
@@ -1378,8 +1385,8 @@ namespace StarcraftBuildManager
             this.picbUpgrade1.Size = new System.Drawing.Size(50, 50);
             this.picbUpgrade1.TabIndex = 3;
             this.picbUpgrade1.TabStop = false;
-            this.picbUpgrade1.Click += new System.EventHandler(this.picbUpgrade1_Click);
             this.picbUpgrade1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbUpgrade1_MouseDown);
+            this.picbUpgrade1.MouseHover += new System.EventHandler(this.picbUpgrade1_Click);
             // 
             // picbMinerals
             // 
@@ -1454,11 +1461,48 @@ namespace StarcraftBuildManager
             this.lblCurrentTrackbarValue.AutoSize = true;
             this.lblCurrentTrackbarValue.BackColor = System.Drawing.Color.Transparent;
             this.lblCurrentTrackbarValue.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblCurrentTrackbarValue.Location = new System.Drawing.Point(90, 124);
+            this.lblCurrentTrackbarValue.Location = new System.Drawing.Point(127, 30);
             this.lblCurrentTrackbarValue.Name = "lblCurrentTrackbarValue";
-            this.lblCurrentTrackbarValue.Size = new System.Drawing.Size(71, 13);
+            this.lblCurrentTrackbarValue.Size = new System.Drawing.Size(13, 13);
             this.lblCurrentTrackbarValue.TabIndex = 30;
-            this.lblCurrentTrackbarValue.Text = "Current Value";
+            this.lblCurrentTrackbarValue.Text = "0";
+            // 
+            // mainTimer
+            // 
+            this.mainTimer.Interval = 1000;
+            this.mainTimer.Tick += new System.EventHandler(this.mainTimer_Tick);
+            // 
+            // picbExit
+            // 
+            this.picbExit.BackColor = System.Drawing.Color.Transparent;
+            this.picbExit.Location = new System.Drawing.Point(970, 28);
+            this.picbExit.Name = "picbExit";
+            this.picbExit.Size = new System.Drawing.Size(20, 20);
+            this.picbExit.TabIndex = 49;
+            this.picbExit.TabStop = false;
+            this.picbExit.Click += new System.EventHandler(this.picbExit_Click);
+            this.picbExit.MouseLeave += new System.EventHandler(this.picbExit_MouseLeave);
+            this.picbExit.MouseHover += new System.EventHandler(this.picbExit_MouseHover);
+            // 
+            // lblMenuTooltip
+            // 
+            this.lblMenuTooltip.AutoSize = true;
+            this.lblMenuTooltip.BackColor = System.Drawing.Color.Transparent;
+            this.lblMenuTooltip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMenuTooltip.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblMenuTooltip.Location = new System.Drawing.Point(700, 12);
+            this.lblMenuTooltip.Name = "lblMenuTooltip";
+            this.lblMenuTooltip.Size = new System.Drawing.Size(0, 13);
+            this.lblMenuTooltip.TabIndex = 50;
+            // 
+            // picBOpenRunner
+            // 
+            this.picBOpenRunner.Location = new System.Drawing.Point(770, 513);
+            this.picBOpenRunner.Name = "picBOpenRunner";
+            this.picBOpenRunner.Size = new System.Drawing.Size(220, 45);
+            this.picBOpenRunner.TabIndex = 51;
+            this.picBOpenRunner.TabStop = false;
+            this.picBOpenRunner.Click += new System.EventHandler(this.picBOpenRunner_Click);
             // 
             // BuildWindow
             // 
@@ -1466,6 +1510,9 @@ namespace StarcraftBuildManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1070, 680);
+            this.Controls.Add(this.picBOpenRunner);
+            this.Controls.Add(this.lblMenuTooltip);
+            this.Controls.Add(this.picbExit);
             this.Controls.Add(this.lblCurrentTrackbarValue);
             this.Controls.Add(this.groupTooltip);
             this.Controls.Add(this.groupUpgrades);
@@ -1577,6 +1624,8 @@ namespace StarcraftBuildManager
             this.groupTooltip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picbTooltipTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbVespin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picbExit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBOpenRunner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1688,5 +1737,9 @@ namespace StarcraftBuildManager
         private System.Windows.Forms.Label lblMineralCost;
         private System.Windows.Forms.PictureBox picbBuilding1;
         private System.Windows.Forms.Label lblCurrentTrackbarValue;
+        private System.Windows.Forms.Timer mainTimer;
+        private System.Windows.Forms.PictureBox picbExit;
+        private System.Windows.Forms.Label lblMenuTooltip;
+        private System.Windows.Forms.PictureBox picBOpenRunner;
     }
 }
