@@ -48,5 +48,21 @@ namespace StarcraftBuildManager
                 pictureBoxes[i].Visible = false;
             }
         }
+        //Takes the arrayname and index and gives out the according prefab
+        public Prefab Prefab_Finder(string arrayString, int index)
+        {
+            switch (arrayString)
+            {
+                case "building":
+                    return buildWindow.Building_Array[index];
+
+                case "unit":
+                    return buildWindow.Unit_Array[index];
+
+                case "upgrade":
+                    return buildWindow.Upgrade_Array[index];
+            }
+            return null;
+        }
     }
 }

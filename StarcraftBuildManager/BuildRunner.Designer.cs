@@ -30,7 +30,7 @@ namespace StarcraftBuildManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.timeBar = new System.Windows.Forms.TrackBar();
             this.lblTimeFixed = new System.Windows.Forms.Label();
             this.lblTimeValue = new System.Windows.Forms.Label();
             this.picBPreviousLast = new System.Windows.Forms.PictureBox();
@@ -52,7 +52,7 @@ namespace StarcraftBuildManager
             this.lblNextFirst = new System.Windows.Forms.Label();
             this.lblNextMid = new System.Windows.Forms.Label();
             this.lblNextLast = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousLast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousMid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousFirst)).BeginInit();
@@ -65,20 +65,20 @@ namespace StarcraftBuildManager
             ((System.ComponentModel.ISupportInitialize)(this.picBArrowLeft)).BeginInit();
             this.SuspendLayout();
             // 
-            // trackBar1
+            // timeBar
             // 
-            this.trackBar1.Enabled = false;
-            this.trackBar1.Location = new System.Drawing.Point(16, 100);
-            this.trackBar1.Maximum = 600;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(714, 45);
-            this.trackBar1.TabIndex = 0;
+            this.timeBar.Enabled = false;
+            this.timeBar.Location = new System.Drawing.Point(16, 100);
+            this.timeBar.Maximum = 600;
+            this.timeBar.Name = "timeBar";
+            this.timeBar.Size = new System.Drawing.Size(714, 45);
+            this.timeBar.TabIndex = 0;
             // 
             // lblTimeFixed
             // 
             this.lblTimeFixed.AutoSize = true;
             this.lblTimeFixed.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblTimeFixed.Location = new System.Drawing.Point(23, 25);
+            this.lblTimeFixed.Location = new System.Drawing.Point(20, 25);
             this.lblTimeFixed.Name = "lblTimeFixed";
             this.lblTimeFixed.Size = new System.Drawing.Size(33, 13);
             this.lblTimeFixed.TabIndex = 1;
@@ -88,7 +88,7 @@ namespace StarcraftBuildManager
             // 
             this.lblTimeValue.AutoSize = true;
             this.lblTimeValue.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblTimeValue.Location = new System.Drawing.Point(62, 25);
+            this.lblTimeValue.Location = new System.Drawing.Point(56, 25);
             this.lblTimeValue.Name = "lblTimeValue";
             this.lblTimeValue.Size = new System.Drawing.Size(13, 13);
             this.lblTimeValue.TabIndex = 2;
@@ -159,7 +159,8 @@ namespace StarcraftBuildManager
             // 
             // MainTimer
             // 
-            this.MainTimer.Interval = 1000;
+            this.MainTimer.Interval = 10;
+            this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
             // 
             // picBRunnerStart
             // 
@@ -208,9 +209,8 @@ namespace StarcraftBuildManager
             this.lblPreviousLast.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblPreviousLast.Location = new System.Drawing.Point(100, 84);
             this.lblPreviousLast.Name = "lblPreviousLast";
-            this.lblPreviousLast.Size = new System.Drawing.Size(13, 13);
+            this.lblPreviousLast.Size = new System.Drawing.Size(0, 13);
             this.lblPreviousLast.TabIndex = 56;
-            this.lblPreviousLast.Text = "0";
             // 
             // lblPreviousMid
             // 
@@ -219,9 +219,8 @@ namespace StarcraftBuildManager
             this.lblPreviousMid.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblPreviousMid.Location = new System.Drawing.Point(156, 84);
             this.lblPreviousMid.Name = "lblPreviousMid";
-            this.lblPreviousMid.Size = new System.Drawing.Size(13, 13);
+            this.lblPreviousMid.Size = new System.Drawing.Size(0, 13);
             this.lblPreviousMid.TabIndex = 57;
-            this.lblPreviousMid.Text = "0";
             // 
             // lblPreviousFirst
             // 
@@ -230,9 +229,8 @@ namespace StarcraftBuildManager
             this.lblPreviousFirst.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblPreviousFirst.Location = new System.Drawing.Point(212, 84);
             this.lblPreviousFirst.Name = "lblPreviousFirst";
-            this.lblPreviousFirst.Size = new System.Drawing.Size(13, 13);
+            this.lblPreviousFirst.Size = new System.Drawing.Size(0, 13);
             this.lblPreviousFirst.TabIndex = 58;
-            this.lblPreviousFirst.Text = "0";
             // 
             // lblNow
             // 
@@ -241,9 +239,8 @@ namespace StarcraftBuildManager
             this.lblNow.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblNow.Location = new System.Drawing.Point(366, 84);
             this.lblNow.Name = "lblNow";
-            this.lblNow.Size = new System.Drawing.Size(13, 13);
+            this.lblNow.Size = new System.Drawing.Size(0, 13);
             this.lblNow.TabIndex = 59;
-            this.lblNow.Text = "0";
             // 
             // lblNextFirst
             // 
@@ -252,9 +249,8 @@ namespace StarcraftBuildManager
             this.lblNextFirst.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblNextFirst.Location = new System.Drawing.Point(537, 84);
             this.lblNextFirst.Name = "lblNextFirst";
-            this.lblNextFirst.Size = new System.Drawing.Size(13, 13);
+            this.lblNextFirst.Size = new System.Drawing.Size(0, 13);
             this.lblNextFirst.TabIndex = 60;
-            this.lblNextFirst.Text = "0";
             // 
             // lblNextMid
             // 
@@ -263,9 +259,8 @@ namespace StarcraftBuildManager
             this.lblNextMid.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblNextMid.Location = new System.Drawing.Point(592, 84);
             this.lblNextMid.Name = "lblNextMid";
-            this.lblNextMid.Size = new System.Drawing.Size(13, 13);
+            this.lblNextMid.Size = new System.Drawing.Size(0, 13);
             this.lblNextMid.TabIndex = 61;
-            this.lblNextMid.Text = "0";
             // 
             // lblNextLast
             // 
@@ -274,9 +269,8 @@ namespace StarcraftBuildManager
             this.lblNextLast.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblNextLast.Location = new System.Drawing.Point(647, 84);
             this.lblNextLast.Name = "lblNextLast";
-            this.lblNextLast.Size = new System.Drawing.Size(13, 13);
+            this.lblNextLast.Size = new System.Drawing.Size(0, 13);
             this.lblNextLast.TabIndex = 62;
-            this.lblNextLast.Text = "0";
             // 
             // BuildRunner
             // 
@@ -304,12 +298,14 @@ namespace StarcraftBuildManager
             this.Controls.Add(this.picBPreviousLast);
             this.Controls.Add(this.lblTimeValue);
             this.Controls.Add(this.lblTimeFixed);
-            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.timeBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "BuildRunner";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BuildRunner";
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousLast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousMid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousFirst)).EndInit();
@@ -327,7 +323,7 @@ namespace StarcraftBuildManager
 
         #endregion
 
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar timeBar;
         private System.Windows.Forms.Label lblTimeFixed;
         private System.Windows.Forms.Label lblTimeValue;
         private System.Windows.Forms.PictureBox picBPreviousLast;

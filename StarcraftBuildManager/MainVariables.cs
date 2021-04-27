@@ -67,6 +67,9 @@ namespace StarcraftBuildManager
         readonly Bitmap buildingarea_UiClock = new Bitmap(@"Pictures\Clock_Icon.png");
         readonly Bitmap buildarea_UiClose = new Bitmap(@"Pictures\CloseApp.png");
         readonly Bitmap buildingarea_OpenRunner = new Bitmap(@"Pictures\BuildWindowOpenBuildRunner.png");
+        readonly Bitmap buildarea_optimize = new Bitmap(@"Pictures\BuildMenuOptimize.png");
+        readonly Bitmap buildWindow_arrowUp = new Bitmap(@"Pictures\ArrowUp.png");
+        readonly Bitmap buildWindow_arrowDown = new Bitmap(@"Pictures\ArrowDown.png");
 
         public Bitmap BuildingArea_UiMinerals
         { get { return buildingarea_UiMinerals; } }
@@ -78,6 +81,13 @@ namespace StarcraftBuildManager
         { get { return buildarea_UiClose; } }
         public Bitmap BuildingArea_OpenRunner
         { get { return buildingarea_OpenRunner; } }
+        public Bitmap BuildingArea_Optimize
+        { get { return buildarea_optimize; } }
+        public Bitmap BuildingArea_ArrowDown
+        { get { return buildWindow_arrowDown; } }
+        public Bitmap BuildingArea_ArrowUp
+        { get { return buildWindow_arrowUp; } }
+
 
         //Bitmaps New Build menu
         readonly Bitmap newBuildZerg = new Bitmap(@"Pictures\NewBuildZerg.png");

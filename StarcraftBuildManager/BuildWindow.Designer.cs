@@ -137,7 +137,24 @@ namespace StarcraftBuildManager
             this.mainTimer = new System.Windows.Forms.Timer(this.components);
             this.picbExit = new System.Windows.Forms.PictureBox();
             this.lblMenuTooltip = new System.Windows.Forms.Label();
-            this.picBOpenRunner = new System.Windows.Forms.PictureBox();
+            this.picBStartRunner = new System.Windows.Forms.PictureBox();
+            this.picBOptimize = new System.Windows.Forms.PictureBox();
+            this.picBArrowDown = new System.Windows.Forms.PictureBox();
+            this.picBArrowUp = new System.Windows.Forms.PictureBox();
+            this.picBNextLast = new System.Windows.Forms.PictureBox();
+            this.picBNextMid = new System.Windows.Forms.PictureBox();
+            this.picBNextFirst = new System.Windows.Forms.PictureBox();
+            this.picBBuildNow = new System.Windows.Forms.PictureBox();
+            this.picBPreviousFirst = new System.Windows.Forms.PictureBox();
+            this.picBPreviousMid = new System.Windows.Forms.PictureBox();
+            this.picBPreviousLast = new System.Windows.Forms.PictureBox();
+            this.lblNextLast = new System.Windows.Forms.Label();
+            this.lblNextMid = new System.Windows.Forms.Label();
+            this.lblNextFirst = new System.Windows.Forms.Label();
+            this.lblNow = new System.Windows.Forms.Label();
+            this.lblPreviousFirst = new System.Windows.Forms.Label();
+            this.lblPreviousMid = new System.Windows.Forms.Label();
+            this.lblPreviousLast = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackbarTimeline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbBuilding1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbBuilding2)).BeginInit();
@@ -237,14 +254,24 @@ namespace StarcraftBuildManager
             ((System.ComponentModel.ISupportInitialize)(this.picbTooltipTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbVespin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbExit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBOpenRunner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBStartRunner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBOptimize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBArrowDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBArrowUp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBNextLast)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBNextMid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBNextFirst)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBBuildNow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBPreviousFirst)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBPreviousMid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBPreviousLast)).BeginInit();
             this.SuspendLayout();
             // 
             // trackbarTimeline
             // 
             this.trackbarTimeline.AllowDrop = true;
             this.trackbarTimeline.Location = new System.Drawing.Point(39, 46);
-            this.trackbarTimeline.Maximum = 300;
+            this.trackbarTimeline.Maximum = 600;
             this.trackbarTimeline.Name = "trackbarTimeline";
             this.trackbarTimeline.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackbarTimeline.Size = new System.Drawing.Size(45, 576);
@@ -1461,7 +1488,7 @@ namespace StarcraftBuildManager
             this.lblCurrentTrackbarValue.AutoSize = true;
             this.lblCurrentTrackbarValue.BackColor = System.Drawing.Color.Transparent;
             this.lblCurrentTrackbarValue.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblCurrentTrackbarValue.Location = new System.Drawing.Point(127, 30);
+            this.lblCurrentTrackbarValue.Location = new System.Drawing.Point(133, 30);
             this.lblCurrentTrackbarValue.Name = "lblCurrentTrackbarValue";
             this.lblCurrentTrackbarValue.Size = new System.Drawing.Size(13, 13);
             this.lblCurrentTrackbarValue.TabIndex = 30;
@@ -1469,8 +1496,8 @@ namespace StarcraftBuildManager
             // 
             // mainTimer
             // 
-            this.mainTimer.Interval = 1000;
-            this.mainTimer.Tick += new System.EventHandler(this.mainTimer_Tick);
+            this.mainTimer.Interval = 10;
+            this.mainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
             // 
             // picbExit
             // 
@@ -1495,14 +1522,178 @@ namespace StarcraftBuildManager
             this.lblMenuTooltip.Size = new System.Drawing.Size(0, 13);
             this.lblMenuTooltip.TabIndex = 50;
             // 
-            // picBOpenRunner
+            // picBStartRunner
             // 
-            this.picBOpenRunner.Location = new System.Drawing.Point(770, 513);
-            this.picBOpenRunner.Name = "picBOpenRunner";
-            this.picBOpenRunner.Size = new System.Drawing.Size(220, 45);
-            this.picBOpenRunner.TabIndex = 51;
-            this.picBOpenRunner.TabStop = false;
-            this.picBOpenRunner.Click += new System.EventHandler(this.picBOpenRunner_Click);
+            this.picBStartRunner.BackColor = System.Drawing.Color.Transparent;
+            this.picBStartRunner.Location = new System.Drawing.Point(770, 513);
+            this.picBStartRunner.Name = "picBStartRunner";
+            this.picBStartRunner.Size = new System.Drawing.Size(220, 45);
+            this.picBStartRunner.TabIndex = 51;
+            this.picBStartRunner.TabStop = false;
+            this.picBStartRunner.Click += new System.EventHandler(this.picBRunnerStart_Click);
+            // 
+            // picBOptimize
+            // 
+            this.picBOptimize.BackColor = System.Drawing.Color.Transparent;
+            this.picBOptimize.Location = new System.Drawing.Point(770, 593);
+            this.picBOptimize.Name = "picBOptimize";
+            this.picBOptimize.Size = new System.Drawing.Size(220, 45);
+            this.picBOptimize.TabIndex = 52;
+            this.picBOptimize.TabStop = false;
+            this.picBOptimize.Click += new System.EventHandler(this.picBOptimize_Click);
+            // 
+            // picBArrowDown
+            // 
+            this.picBArrowDown.BackColor = System.Drawing.Color.Transparent;
+            this.picBArrowDown.Location = new System.Drawing.Point(106, 380);
+            this.picBArrowDown.Name = "picBArrowDown";
+            this.picBArrowDown.Size = new System.Drawing.Size(50, 50);
+            this.picBArrowDown.TabIndex = 63;
+            this.picBArrowDown.TabStop = false;
+            this.picBArrowDown.Click += new System.EventHandler(this.picBArrowDown_Click);
+            // 
+            // picBArrowUp
+            // 
+            this.picBArrowUp.BackColor = System.Drawing.Color.Transparent;
+            this.picBArrowUp.Location = new System.Drawing.Point(106, 236);
+            this.picBArrowUp.Name = "picBArrowUp";
+            this.picBArrowUp.Size = new System.Drawing.Size(50, 50);
+            this.picBArrowUp.TabIndex = 62;
+            this.picBArrowUp.TabStop = false;
+            this.picBArrowUp.Click += new System.EventHandler(this.picBArrowUp_Click);
+            // 
+            // picBNextLast
+            // 
+            this.picBNextLast.BackColor = System.Drawing.Color.Transparent;
+            this.picBNextLast.Location = new System.Drawing.Point(106, 46);
+            this.picBNextLast.Name = "picBNextLast";
+            this.picBNextLast.Size = new System.Drawing.Size(50, 50);
+            this.picBNextLast.TabIndex = 61;
+            this.picBNextLast.TabStop = false;
+            // 
+            // picBNextMid
+            // 
+            this.picBNextMid.BackColor = System.Drawing.Color.Transparent;
+            this.picBNextMid.Location = new System.Drawing.Point(106, 102);
+            this.picBNextMid.Name = "picBNextMid";
+            this.picBNextMid.Size = new System.Drawing.Size(50, 50);
+            this.picBNextMid.TabIndex = 60;
+            this.picBNextMid.TabStop = false;
+            // 
+            // picBNextFirst
+            // 
+            this.picBNextFirst.BackColor = System.Drawing.Color.Transparent;
+            this.picBNextFirst.Location = new System.Drawing.Point(106, 158);
+            this.picBNextFirst.Name = "picBNextFirst";
+            this.picBNextFirst.Size = new System.Drawing.Size(50, 50);
+            this.picBNextFirst.TabIndex = 59;
+            this.picBNextFirst.TabStop = false;
+            // 
+            // picBBuildNow
+            // 
+            this.picBBuildNow.BackColor = System.Drawing.Color.Transparent;
+            this.picBBuildNow.Location = new System.Drawing.Point(106, 312);
+            this.picBBuildNow.Name = "picBBuildNow";
+            this.picBBuildNow.Size = new System.Drawing.Size(50, 50);
+            this.picBBuildNow.TabIndex = 58;
+            this.picBBuildNow.TabStop = false;
+            // 
+            // picBPreviousFirst
+            // 
+            this.picBPreviousFirst.BackColor = System.Drawing.Color.Transparent;
+            this.picBPreviousFirst.Location = new System.Drawing.Point(106, 450);
+            this.picBPreviousFirst.Name = "picBPreviousFirst";
+            this.picBPreviousFirst.Size = new System.Drawing.Size(50, 50);
+            this.picBPreviousFirst.TabIndex = 57;
+            this.picBPreviousFirst.TabStop = false;
+            // 
+            // picBPreviousMid
+            // 
+            this.picBPreviousMid.BackColor = System.Drawing.Color.Transparent;
+            this.picBPreviousMid.Location = new System.Drawing.Point(106, 506);
+            this.picBPreviousMid.Name = "picBPreviousMid";
+            this.picBPreviousMid.Size = new System.Drawing.Size(50, 50);
+            this.picBPreviousMid.TabIndex = 56;
+            this.picBPreviousMid.TabStop = false;
+            // 
+            // picBPreviousLast
+            // 
+            this.picBPreviousLast.BackColor = System.Drawing.Color.Transparent;
+            this.picBPreviousLast.Location = new System.Drawing.Point(106, 562);
+            this.picBPreviousLast.Name = "picBPreviousLast";
+            this.picBPreviousLast.Size = new System.Drawing.Size(50, 50);
+            this.picBPreviousLast.TabIndex = 55;
+            this.picBPreviousLast.TabStop = false;
+            // 
+            // lblNextLast
+            // 
+            this.lblNextLast.AutoSize = true;
+            this.lblNextLast.BackColor = System.Drawing.Color.Transparent;
+            this.lblNextLast.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblNextLast.Location = new System.Drawing.Point(162, 68);
+            this.lblNextLast.Name = "lblNextLast";
+            this.lblNextLast.Size = new System.Drawing.Size(0, 13);
+            this.lblNextLast.TabIndex = 70;
+            // 
+            // lblNextMid
+            // 
+            this.lblNextMid.AutoSize = true;
+            this.lblNextMid.BackColor = System.Drawing.Color.Transparent;
+            this.lblNextMid.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblNextMid.Location = new System.Drawing.Point(162, 124);
+            this.lblNextMid.Name = "lblNextMid";
+            this.lblNextMid.Size = new System.Drawing.Size(0, 13);
+            this.lblNextMid.TabIndex = 69;
+            // 
+            // lblNextFirst
+            // 
+            this.lblNextFirst.AutoSize = true;
+            this.lblNextFirst.BackColor = System.Drawing.Color.Transparent;
+            this.lblNextFirst.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblNextFirst.Location = new System.Drawing.Point(162, 180);
+            this.lblNextFirst.Name = "lblNextFirst";
+            this.lblNextFirst.Size = new System.Drawing.Size(0, 13);
+            this.lblNextFirst.TabIndex = 68;
+            // 
+            // lblNow
+            // 
+            this.lblNow.AutoSize = true;
+            this.lblNow.BackColor = System.Drawing.Color.Transparent;
+            this.lblNow.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblNow.Location = new System.Drawing.Point(133, 329);
+            this.lblNow.Name = "lblNow";
+            this.lblNow.Size = new System.Drawing.Size(0, 13);
+            this.lblNow.TabIndex = 67;
+            // 
+            // lblPreviousFirst
+            // 
+            this.lblPreviousFirst.AutoSize = true;
+            this.lblPreviousFirst.BackColor = System.Drawing.Color.Transparent;
+            this.lblPreviousFirst.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblPreviousFirst.Location = new System.Drawing.Point(162, 474);
+            this.lblPreviousFirst.Name = "lblPreviousFirst";
+            this.lblPreviousFirst.Size = new System.Drawing.Size(0, 13);
+            this.lblPreviousFirst.TabIndex = 66;
+            // 
+            // lblPreviousMid
+            // 
+            this.lblPreviousMid.AutoSize = true;
+            this.lblPreviousMid.BackColor = System.Drawing.Color.Transparent;
+            this.lblPreviousMid.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblPreviousMid.Location = new System.Drawing.Point(162, 527);
+            this.lblPreviousMid.Name = "lblPreviousMid";
+            this.lblPreviousMid.Size = new System.Drawing.Size(0, 13);
+            this.lblPreviousMid.TabIndex = 65;
+            // 
+            // lblPreviousLast
+            // 
+            this.lblPreviousLast.AutoSize = true;
+            this.lblPreviousLast.BackColor = System.Drawing.Color.Transparent;
+            this.lblPreviousLast.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblPreviousLast.Location = new System.Drawing.Point(162, 581);
+            this.lblPreviousLast.Name = "lblPreviousLast";
+            this.lblPreviousLast.Size = new System.Drawing.Size(0, 13);
+            this.lblPreviousLast.TabIndex = 64;
             // 
             // BuildWindow
             // 
@@ -1510,7 +1701,24 @@ namespace StarcraftBuildManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1070, 680);
-            this.Controls.Add(this.picBOpenRunner);
+            this.Controls.Add(this.lblNextLast);
+            this.Controls.Add(this.lblNextMid);
+            this.Controls.Add(this.lblNextFirst);
+            this.Controls.Add(this.lblNow);
+            this.Controls.Add(this.lblPreviousFirst);
+            this.Controls.Add(this.lblPreviousMid);
+            this.Controls.Add(this.lblPreviousLast);
+            this.Controls.Add(this.picBArrowDown);
+            this.Controls.Add(this.picBArrowUp);
+            this.Controls.Add(this.picBNextLast);
+            this.Controls.Add(this.picBNextMid);
+            this.Controls.Add(this.picBNextFirst);
+            this.Controls.Add(this.picBBuildNow);
+            this.Controls.Add(this.picBPreviousFirst);
+            this.Controls.Add(this.picBPreviousMid);
+            this.Controls.Add(this.picBPreviousLast);
+            this.Controls.Add(this.picBOptimize);
+            this.Controls.Add(this.picBStartRunner);
             this.Controls.Add(this.lblMenuTooltip);
             this.Controls.Add(this.picbExit);
             this.Controls.Add(this.lblCurrentTrackbarValue);
@@ -1625,7 +1833,17 @@ namespace StarcraftBuildManager
             ((System.ComponentModel.ISupportInitialize)(this.picbTooltipTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbVespin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbExit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBOpenRunner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBStartRunner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBOptimize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBArrowDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBArrowUp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBNextLast)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBNextMid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBNextFirst)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBBuildNow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBPreviousFirst)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBPreviousMid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBPreviousLast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1740,6 +1958,23 @@ namespace StarcraftBuildManager
         private System.Windows.Forms.Timer mainTimer;
         private System.Windows.Forms.PictureBox picbExit;
         private System.Windows.Forms.Label lblMenuTooltip;
-        private System.Windows.Forms.PictureBox picBOpenRunner;
+        private System.Windows.Forms.PictureBox picBStartRunner;
+        private System.Windows.Forms.PictureBox picBOptimize;
+        private System.Windows.Forms.PictureBox picBArrowDown;
+        private System.Windows.Forms.PictureBox picBArrowUp;
+        private System.Windows.Forms.PictureBox picBNextLast;
+        private System.Windows.Forms.PictureBox picBNextMid;
+        private System.Windows.Forms.PictureBox picBNextFirst;
+        private System.Windows.Forms.PictureBox picBBuildNow;
+        private System.Windows.Forms.PictureBox picBPreviousFirst;
+        private System.Windows.Forms.PictureBox picBPreviousMid;
+        private System.Windows.Forms.PictureBox picBPreviousLast;
+        private System.Windows.Forms.Label lblNextLast;
+        private System.Windows.Forms.Label lblNextMid;
+        private System.Windows.Forms.Label lblNextFirst;
+        private System.Windows.Forms.Label lblNow;
+        private System.Windows.Forms.Label lblPreviousFirst;
+        private System.Windows.Forms.Label lblPreviousMid;
+        private System.Windows.Forms.Label lblPreviousLast;
     }
 }

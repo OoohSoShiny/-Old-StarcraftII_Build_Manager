@@ -18,7 +18,9 @@ namespace StarcraftBuildManager
         
         //The Lists for everything
         List<Prefab> prefabList;
-        List<string> stringSafeList;
+        List<string> stringSafeList, prefabNameList;
+        List<int> prefabTimestampList, prefabIndexList, prefabNumberList;
+        int listWalker = 0;
 
         public List<string> Safe_List
         { get { return stringSafeList; } set { stringSafeList = value; } }
@@ -28,9 +30,9 @@ namespace StarcraftBuildManager
         PictureBox[] building_Pictureboxes;
         PictureBox[] upgrade_Pictureboxes;
         PictureBox[] unit_Pictureboxes;
+        int timeProgressor = -1;
         
         //Calling used prefabs
-        
         //ZERG
 
         //Zerg Buildings
@@ -59,6 +61,12 @@ namespace StarcraftBuildManager
         public Prefab[] Upgrade_Array
         { get { return upgrade_Array; } }
 
+        //PROTOSS
+        //TERRAN
+        //Variables uses by every race
+        Prefab workerPrefab, supplyPrefab;
+        int workerCount = 12, mineralCount = 50, vespinCount = 0, larvaeCount = 3, supply, projectedWorker, projectedMineral, projectedLarvae, projectedSupply;
+        float mineralCollectionRate = 0.96f, vespinCollectionRate = 1f, vespinCollectionRateLow = 0.9f;
 
         public BuildWindow(string race, MainVariables givenMainVariables)
         {
@@ -68,6 +76,7 @@ namespace StarcraftBuildManager
             mainVariables = givenMainVariables;
             mainMethods = new MainMethods(this);
             mainVariables.Active_Race = race;
+
             building_Pictureboxes = new PictureBox[] {picbBuilding1, picbBuilding2, picbBuilding3, picbBuilding4, picbBuilding5, picbBuilding6, picbBuilding7, picbBuilding8, picbBuilding9, picbBuilding10, 
             picbBuilding11, picbBuilding12, picbBuilding13, picbBuilding14, picbBuilding15, picbBuilding16, picbBuilding17, picbBuilding18};
             unit_Pictureboxes = new PictureBox[] {picbUnit1, picbUnit2, picbUnit3, picbUnit4, picbUnit5, picbUnit6, picbUnit7, picbUnit8, picbUnit9, picbUnit10, picbUnit11, picbUnit12, picbUnit13, picbUnit14,
@@ -81,10 +90,23 @@ namespace StarcraftBuildManager
             picbTooltipTime.Image = mainVariables.BuildingArea_UiClock;
             picbMinerals.Image = mainVariables.BuildingArea_UiMinerals;
             picbVespin.Image = mainVariables.BuildingArea_UiVespin;
-            picBOpenRunner.Image = mainVariables.BuildingArea_OpenRunner;
+            picBOptimize.Image = mainVariables.BuildingArea_Optimize;
+            picBStartRunner.Image = mainVariables.BuildRunner_StartBM;
+            picBArrowDown.Image = mainVariables.BuildingArea_ArrowDown;
+            picBArrowUp.Image = mainVariables.BuildingArea_ArrowUp;
+            
             trackbarTimeline.Location = new Point(39, 46);
             lblTimeEnd.Location = new Point(36, 30);
             lbltimeStart.Location = new Point(36, 625);
+            
+            lblNow.Location = new Point(162, 329);
+            lblPreviousFirst.Location = new Point(162, 474);
+            lblPreviousMid.Location = new Point(162, 527);
+            picBPreviousLast.Location = new Point(162, 581);
+            lblNextFirst.Location = new Point(162, 180);
+            lblNextMid.Location = new Point(162, 124);
+            lblNextLast.Location = new Point(162, 68);
+
 
             lblCurrentTrackbarValue.Text = trackbarTimeline.Value.ToString();
             mainMethods.Fill_Picturebox(picbExit, mainVariables.BuildingArea_UiClose);
@@ -154,6 +176,10 @@ namespace StarcraftBuildManager
             ravager, roach, swarm_Host, ultralisk, viper, zergling};
             
             mainMethods.Fill_Picturebox_Array(unit_Pictureboxes, unit_Array);
+
+            supplyPrefab = overlord;
+            workerPrefab = drone;
+            supply = 2;
 
             //Initialzing upgrades
             melee_Attacks1 = new Prefab("Melee Attacks 1", 100, 100, 114f, mainVariables.Melee_AttacksBM);
@@ -760,6 +786,7 @@ namespace StarcraftBuildManager
         { picbBuilding1.DoDragDrop(upgrade_Array[41], DragDropEffects.Copy | DragDropEffects.Move); }
         #endregion
 
+        //Opens the Build Runner window and hides the Build Window
         private void picBOpenRunner_Click(object sender, EventArgs e)
         {
             if (Safe_List.Count > 0)
@@ -808,8 +835,9 @@ namespace StarcraftBuildManager
         {
             Prefab prefabGiven = (Prefab)e.Data.GetData(typeof(Prefab));
             
+            
             //Setting the time
-            int timing = trackbarTimeline.Value*2;
+            int timing = trackbarTimeline.Value;
 
             //Setting the index and which array to look for
             int indexFinder = Array.FindIndex(building_Array, prefabGiven.Equals); string arrayFinderString = "building";
@@ -834,9 +862,23 @@ namespace StarcraftBuildManager
             { timeString = timing.ToString(); }
 
             string addBuilding = timeString + "_" + arrayFinderString + "_" + indexFinder.ToString() + "_" + mainVariables.Individual_Number.ToString();
-            Update_Tooltip(prefabGiven);
+
+            prefabIndexList = new List<int> { };
+            prefabTimestampList = new List<int> { };
+            prefabNameList = new List<string> { };
+            prefabNumberList = new List<int> { };
+
             stringSafeList.Add(addBuilding);
             stringSafeList.Sort();
+            foreach (string currentString in Safe_List)
+            {
+                string[] currentArray = currentString.Split('_');
+                prefabTimestampList.Add(Convert.ToInt32(currentArray[0]));
+                prefabNameList.Add(currentArray[1]);
+                prefabIndexList.Add(Convert.ToInt32(currentArray[2]));
+                prefabNumberList.Add(Convert.ToInt32(currentArray[3]));
+            }
+            Update_Timeline(0);
         }
         
         //Showing the current clicked prefab in the tooltip menu
@@ -851,7 +893,132 @@ namespace StarcraftBuildManager
         //Updates the label that is linked to the Trackbar
         private void trackbarTimeline_ValueChanged(object sender, EventArgs e)
         {
-            lblCurrentTrackbarValue.Text = (trackbarTimeline.Value*2).ToString();
-        }       
+            lblCurrentTrackbarValue.Text = (trackbarTimeline.Value).ToString();
+        }
+
+        private void picBOptimize_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void picBArrowUp_Click(object sender, EventArgs e)
+        {
+            Update_Timeline(1);
+        }
+
+        private void picBArrowDown_Click(object sender, EventArgs e)
+        {
+            Update_Timeline(-1);
+        }
+
+        private void Update_Timeline(int listMover)
+        {
+            //Moves the list, the list mover is +1 or -1 to move the list up and down
+            listWalker += listMover;
+            PictureBox pictureBox = null;
+            int secondaryCounter;
+            Label label = null;
+
+            //Takes care that the listwalker will not land out of bounds
+            if (listWalker < 1)
+            { listWalker = 0; picBArrowDown.Enabled = false; picBArrowUp.Enabled = true; }
+            else if (listWalker >= Safe_List.Count - 1)
+            { listWalker = Safe_List.Count - 1; picBArrowUp.Enabled = false; picBArrowDown.Enabled = true; }
+            else
+            { picBArrowDown.Enabled = true; picBArrowUp.Enabled = true; }
+
+            //loops 7 times for each picturebox
+            for (int i = 0; i < 7; i++)
+            {
+                secondaryCounter = 0;
+                switch (i)
+                {
+                    case 0:
+                        pictureBox = picBBuildNow;
+                        label = lblNow;
+                        break;
+                    case 1:
+                        pictureBox = picBPreviousFirst;
+                        secondaryCounter--;
+                        label = lblPreviousFirst;
+                        break;
+                    case 2:
+                        pictureBox = picBPreviousMid;
+                        secondaryCounter -= 2;
+                        label = lblPreviousMid;
+                        break;
+                    case 3:
+                        pictureBox = picBPreviousLast;
+                        secondaryCounter -= 3;
+                        label = lblPreviousLast;
+                        break;
+                    case 4:
+                        pictureBox = picBNextFirst;
+                        secondaryCounter++;
+                        label = lblNextFirst;
+                        break;
+                    case 5:
+                        pictureBox = picBNextMid;
+                        secondaryCounter += 2;
+                        label = lblNextMid;
+                        break;
+                    case 6:
+                        pictureBox = picBNextLast;
+                        secondaryCounter += 3;
+                        label = lblNextLast;
+                        break;
+                }
+
+                //this walker takes care that empty pictureboxes are actually empty & without timestamp
+                int validifyWalker = listWalker + secondaryCounter;
+
+                if (validifyWalker < 0)
+                {
+                    pictureBox.Image = null;
+                    label.Text = "";
+                }
+                else if (validifyWalker > Safe_List.Count - 1)
+                {
+                    pictureBox.Image = null;
+                    label.Text = "";
+                }
+
+                //after it checks if everything is valid, it actually puts the fitting prefab bitmap into the according window, and updates the label
+                else
+                {
+                    Prefab foundPrefab = mainMethods.Prefab_Finder(prefabNameList[validifyWalker], prefabIndexList[validifyWalker]);
+                    pictureBox.Image = foundPrefab.Icon;
+                    label.Text = prefabTimestampList[validifyWalker].ToString();
+                    if (secondaryCounter == 0)
+                    {
+                        trackbarTimeline.Value = prefabTimestampList[validifyWalker];
+                    }
+                }
+            }
+        }
+        private void picBRunnerStart_Click(object sender, EventArgs e)
+        {
+            listWalker = 0;
+            Update_Timeline(0);
+            mainTimer.Enabled = true;
+            mainTimer.Start();
+            picBStartRunner.Enabled = false;
+        }
+        //Progresses the Timeline and automaticly progresses the timeline when a timestamp is reached
+        private void MainTimer_Tick(object sender, EventArgs e)
+        {
+            timeProgressor++;
+            trackbarTimeline.Value = timeProgressor;
+            lblCurrentTrackbarValue.Text = timeProgressor.ToString();
+
+            while (listWalker < prefabTimestampList.Count - 1 && timeProgressor == prefabTimestampList[listWalker + 1])
+            {
+                Update_Timeline(1);
+            }
+
+            if (timeProgressor >= prefabTimestampList[prefabTimestampList.Count - 1])
+            {
+                mainTimer.Stop();
+            }
+        }
     }
 }

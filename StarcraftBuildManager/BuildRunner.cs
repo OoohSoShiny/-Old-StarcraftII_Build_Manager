@@ -17,6 +17,7 @@ namespace StarcraftBuildManager
         MainVariables mainVariables;
         BuildWindow buildWindow;
         int listWalker = 0;
+        int timeProgressor = -1;
         List<int> prefabTimestampList;
         List<string> prefabNameList;
         List<int> prefabIndexList;
@@ -41,6 +42,7 @@ namespace StarcraftBuildManager
 
             picBArrowLeft.Enabled = false;
 
+            //Goes through the safe list and splits it up for individual lists
             foreach(string currentString in buildWindow.Safe_List)
             {
                 string[] currentArray = currentString.Split('_');
@@ -49,12 +51,18 @@ namespace StarcraftBuildManager
                 prefabIndexList.Add(Convert.ToInt32(currentArray[2]));
                 prefabNumberList.Add(Convert.ToInt32(currentArray[3]));
             }
+            //Calling the method with the default list start
             Update_Timeline(0);
         }
-
+        
+        //Startbutton for starting the timer
         private void picBRunnerStart_Click(object sender, EventArgs e)
         {
-
+            listWalker = 0;
+            Update_Timeline(0);
+            MainTimer.Enabled = true;
+            MainTimer.Start();
+            picBRunnerStart.Enabled = false;
         }
         
         //Next Item in the list
@@ -72,11 +80,13 @@ namespace StarcraftBuildManager
         //The previous 3 items in the list, the item now, and the next 3 items
         private void Update_Timeline(int listMover)
         {
+            //Moves the list, the list mover is +1 or -1 to move the list up and down
             listWalker += listMover;
             PictureBox pictureBox = null;
             int secondaryCounter;
             Label label = null;
 
+            //Takes care that the listwalker will not land out of bounds
             if (listWalker < 1)
             { listWalker = 0; picBArrowLeft.Enabled = false; picBArrowRight.Enabled = true; }
             else if(listWalker >= buildWindow.Safe_List.Count -1)
@@ -84,6 +94,7 @@ namespace StarcraftBuildManager
             else
             { picBArrowRight.Enabled = true;picBArrowLeft.Enabled = true; }
             
+            //loops 7 times for each picturebox
             for(int i = 0; i < 7; i++)
             {
                 secondaryCounter = 0;
@@ -124,6 +135,8 @@ namespace StarcraftBuildManager
                         label = lblNextLast;
                         break;
                 }
+
+                //this walker takes care that empty pictureboxes are actually empty & without timestamp
                 int validifyWalker = listWalker + secondaryCounter;
 
                 if (validifyWalker < 0)
@@ -136,29 +149,37 @@ namespace StarcraftBuildManager
                     pictureBox.Image = null;
                     label.Text = "";
                 }
+                
+                //after it checks if everything is valid, it actually puts the fitting prefab bitmap into the according window, and updates the label
                 else
                 {
-                    Prefab foundPrefab = Prefab_Finder(prefabNameList[validifyWalker], prefabIndexList[validifyWalker]);                    
+                    Prefab foundPrefab = mainMethods.Prefab_Finder(prefabNameList[validifyWalker], prefabIndexList[validifyWalker]);                    
                     pictureBox.Image = foundPrefab.Icon;
                     label.Text = prefabTimestampList[validifyWalker].ToString();
+                    if(secondaryCounter == 0)
+                    {
+                        timeBar.Value = prefabTimestampList[validifyWalker];
+                    }
                 }
             }
         }
 
-        private Prefab Prefab_Finder(string arrayString, int index)
+        //Progresses the Timeline and automaticly progresses the timeline when a timestamp is reached
+        private void MainTimer_Tick(object sender, EventArgs e)
         {
-            switch(arrayString)
+            timeProgressor++;
+            timeBar.Value = timeProgressor;
+            lblTimeValue.Text = timeProgressor.ToString();
+
+            while (listWalker < prefabTimestampList.Count - 1 && timeProgressor == prefabTimestampList[listWalker + 1])
             {
-                case "building":
-                    return buildWindow.Building_Array[index];
-
-                case "unit":
-                    return buildWindow.Unit_Array[index];
-
-                case "upgrade":
-                    return buildWindow.Upgrade_Array[index];
+                Update_Timeline(1);
             }
-            return null;
+            
+            if(timeProgressor >= prefabTimestampList[prefabTimestampList.Count-1])
+            {
+                MainTimer.Stop();
+            }
         }
     }
 }
