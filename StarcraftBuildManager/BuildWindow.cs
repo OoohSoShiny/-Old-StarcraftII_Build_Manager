@@ -106,6 +106,7 @@ namespace StarcraftBuildManager
             lblNextFirst.Location = new Point(162, 180);
             lblNextMid.Location = new Point(162, 124);
             lblNextLast.Location = new Point(162, 68);
+            picBPreviousLast.Location = new Point(106, 562);
 
 
             lblCurrentTrackbarValue.Text = trackbarTimeline.Value.ToString();
@@ -786,21 +787,6 @@ namespace StarcraftBuildManager
         { picbBuilding1.DoDragDrop(upgrade_Array[41], DragDropEffects.Copy | DragDropEffects.Move); }
         #endregion
 
-        //Opens the Build Runner window and hides the Build Window
-        private void picBOpenRunner_Click(object sender, EventArgs e)
-        {
-            if (Safe_List.Count > 0)
-            {
-                BuildRunner buildRunner = new BuildRunner(mainMethods, mainVariables, this);
-                buildRunner.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("No build found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void picbExit_MouseHover(object sender, EventArgs e)
         {
             lblMenuTooltip.Text = "Exit";
@@ -808,13 +794,6 @@ namespace StarcraftBuildManager
         private void picbExit_MouseLeave(object sender, EventArgs e)
         {
             lblMenuTooltip.Text = "";
-        }
-
-
-        //The main timer tick
-        private void mainTimer_Tick(object sender, EventArgs e)
-        {
-           
         }
 
         //Exit button
@@ -838,6 +817,7 @@ namespace StarcraftBuildManager
             
             //Setting the time
             int timing = trackbarTimeline.Value;
+            timeProgressor = trackbarTimeline.Value;
 
             //Setting the index and which array to look for
             int indexFinder = Array.FindIndex(building_Array, prefabGiven.Equals); string arrayFinderString = "building";
@@ -988,20 +968,21 @@ namespace StarcraftBuildManager
                     Prefab foundPrefab = mainMethods.Prefab_Finder(prefabNameList[validifyWalker], prefabIndexList[validifyWalker]);
                     pictureBox.Image = foundPrefab.Icon;
                     label.Text = prefabTimestampList[validifyWalker].ToString();
-                    if (secondaryCounter == 0)
-                    {
-                        trackbarTimeline.Value = prefabTimestampList[validifyWalker];
-                    }
                 }
             }
         }
+        //Timer Start
         private void picBRunnerStart_Click(object sender, EventArgs e)
         {
-            listWalker = 0;
-            Update_Timeline(0);
-            mainTimer.Enabled = true;
-            mainTimer.Start();
-            picBStartRunner.Enabled = false;
+            if (Safe_List.Count > 0)
+            {
+                listWalker = 0;
+                timeProgressor = -1;
+                Update_Timeline(0);
+                mainTimer.Enabled = true;
+                mainTimer.Start();
+                picBStartRunner.Enabled = false;
+            }
         }
         //Progresses the Timeline and automaticly progresses the timeline when a timestamp is reached
         private void MainTimer_Tick(object sender, EventArgs e)
