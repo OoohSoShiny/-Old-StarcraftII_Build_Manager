@@ -66,27 +66,30 @@ namespace StarcraftBuildManager
         readonly Bitmap buildingarea_UiVespin = new Bitmap(@"Pictures\Vespin_Icon.png");
         readonly Bitmap buildingarea_UiClock = new Bitmap(@"Pictures\Clock_Icon.png");
         readonly Bitmap buildarea_UiClose = new Bitmap(@"Pictures\CloseApp.png");
-        readonly Bitmap buildingarea_OpenRunner = new Bitmap(@"Pictures\BuildWindowOpenBuildRunner.png");
         readonly Bitmap buildarea_optimize = new Bitmap(@"Pictures\BuildMenuOptimize.png");
         readonly Bitmap buildWindow_arrowUp = new Bitmap(@"Pictures\ArrowUp.png");
         readonly Bitmap buildWindow_arrowDown = new Bitmap(@"Pictures\ArrowDown.png");
+        readonly Bitmap builingAreadRunnerStart = new Bitmap(@"Pictures\RunnerStart.png");
+        readonly Bitmap buildUiBackToMenu = new Bitmap(@"Pictures\BackToMenu.png");
 
-        public Bitmap BuildingArea_UiMinerals
+        public Bitmap BuildingArea_UiMineralsBM
         { get { return buildingarea_UiMinerals; } }
-        public Bitmap BuildingArea_UiVespin
+        public Bitmap BuildingArea_UiVespinBM
         { get { return buildingarea_UiVespin; } }
-        public Bitmap BuildingArea_UiClock
+        public Bitmap BuildingArea_UiClockBM
         { get { return buildingarea_UiClock; } }
-        public Bitmap BuildingArea_UiClose
+        public Bitmap BuildingArea_UiCloseBM
         { get { return buildarea_UiClose; } }
-        public Bitmap BuildingArea_OpenRunner
-        { get { return buildingarea_OpenRunner; } }
-        public Bitmap BuildingArea_Optimize
+        public Bitmap BuildingArea_OptimizeBM
         { get { return buildarea_optimize; } }
-        public Bitmap BuildingArea_ArrowDown
+        public Bitmap BuildingArea_ArrowDownBM
         { get { return buildWindow_arrowDown; } }
-        public Bitmap BuildingArea_ArrowUp
+        public Bitmap BuildingArea_ArrowUpBM
         { get { return buildWindow_arrowUp; } }
+        public Bitmap BuildingArea_StartBM
+        { get { return builingAreadRunnerStart; } }
+        public Bitmap BuildingArea_BackToMenu
+        { get { return buildUiBackToMenu; } }
 
 
         //Bitmaps New Build menu
@@ -103,22 +106,6 @@ namespace StarcraftBuildManager
         { get { return newBuildTerran; } }
         public Bitmap NewBuild_Back
         { get { return newBuildBack; } }
-
-        //Build Runner menu
-
-        readonly Bitmap buildRunnerBackground = new Bitmap(@"Backgrounds\BuildRunnerBackground.png");
-        readonly Bitmap buildRunnerStart = new Bitmap(@"Pictures\RunnerStart.png");
-        readonly Bitmap buildArrowRight = new Bitmap(@"Pictures\ArrowRight.png");
-        readonly Bitmap buildArrowLeft = new Bitmap(@"Pictures\ArrowLeft.png");
-
-        public Bitmap BuildRunner_BackgroundBM
-        { get { return buildRunnerBackground; } }
-        public Bitmap BuildRunner_StartBM
-        { get { return buildRunnerStart; } }
-        public Bitmap BuildRunner_ArrowRightBM
-        { get { return buildArrowRight; } }
-        public Bitmap BuildRunner_ArrowLeftBM
-        { get { return buildArrowLeft; } }
 
         //Bitmaps
         //ZERG

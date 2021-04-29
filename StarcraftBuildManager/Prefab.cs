@@ -15,9 +15,9 @@ namespace StarcraftBuildManager
         private readonly string name;
         private readonly int mineralCost;
         private readonly int vespinCost;
-        private readonly float buildTime;
+        private readonly int buildTime;
         private readonly Bitmap view;
-        private readonly float supply;
+        private readonly int supply;
 
         public string Name
         { get { return name; } }
@@ -25,14 +25,14 @@ namespace StarcraftBuildManager
         { get { return mineralCost; } }
         public int VespinCost
         { get { return vespinCost; } }
-        public float BuildTime
+        public int BuildTime
         { get { return buildTime; } }
         public Bitmap Icon
         { get { return view; } }
-        public float Supply
+        public int Supply
         { get { return supply; } }
 
-        public Prefab(string name, int mineralCost, int vespinCost, float buildTime, Bitmap view)
+        public Prefab(string name, int mineralCost, int vespinCost, int buildTime, Bitmap view)
         {
             this.name = name;
             this.mineralCost = mineralCost;
@@ -40,7 +40,7 @@ namespace StarcraftBuildManager
             this.buildTime = buildTime;
             this.view = view;
         }
-        public Prefab(string name, int mineralCost, int vespinCost, float buildTime, Bitmap view, float supply)
+        public Prefab(string name, int mineralCost, int vespinCost, int buildTime, Bitmap view, int supply)
         {
             this.name = name;
             this.mineralCost = mineralCost;

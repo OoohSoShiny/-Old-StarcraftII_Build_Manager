@@ -15,12 +15,14 @@ namespace StarcraftBuildManager
         //Methods and main variables
         MainVariables mainVariables;
         MainMethods mainMethods;
+        MainFrame mainFrame;
         
         //The Lists for everything
-        List<Prefab> prefabList;
-        List<string> stringSafeList, prefabNameList;
+        List<string> stringSafeList, prefabTypeList, targetTimeList;
+        string[] nextPartSafeArray;
         List<int> prefabTimestampList, prefabIndexList, prefabNumberList;
-        int listWalker = 0;
+        int listWalker = 0, targetListWalker = 0, targetTimeStamp = -1, nextTime = -1, nextIndex = 0;
+        string targetListAddAstring, targetTimeName = "", nextType = "";
 
         public List<string> Safe_List
         { get { return stringSafeList; } set { stringSafeList = value; } }
@@ -30,10 +32,11 @@ namespace StarcraftBuildManager
         PictureBox[] building_Pictureboxes;
         PictureBox[] upgrade_Pictureboxes;
         PictureBox[] unit_Pictureboxes;
-        int timeProgressor = -1;
-        
+        int timeProgressor = -1,  optimizeProgressor = 0;
+
         //Calling used prefabs
         //ZERG
+        int larvaeCount = 3;
 
         //Zerg Buildings
         Prefab hatchery, lair, hive, zerg_Extractor, spawning_Pool, evolution_Chamber, spine_Crawler, spore_Crawler,
@@ -64,17 +67,19 @@ namespace StarcraftBuildManager
         //PROTOSS
         //TERRAN
         //Variables uses by every race
-        Prefab workerPrefab, supplyPrefab;
-        int workerCount = 12, mineralCount = 50, vespinCount = 0, larvaeCount = 3, supply, projectedWorker, projectedMineral, projectedLarvae, projectedSupply;
-        float mineralCollectionRate = 0.96f, vespinCollectionRate = 1f, vespinCollectionRateLow = 0.9f;
+        Prefab workerPrefabNorm, supplyPrefabNorm, mainPrefabNorm, extractorPrefabNorm;
+        int workerCountMinerals = 12, workerCountVespin = 0, supply, mainBuildingCount = 1, extractorCount = 0;
+        float mineralCollectionRate = 0.96f, vespinCollectionRate = 1f, vespinCollectionRateLow = 0.9f, mineralCount = 50, vespinCount = 0;
+        bool supplyInProgress = false, extractorInProgress = false;
 
-        public BuildWindow(string race, MainVariables givenMainVariables)
+        public BuildWindow(string race, MainVariables givenMainVariables, MainFrame givenMainFrame)
         {
             //initialzing UI
             InitializeComponent();
 
             mainVariables = givenMainVariables;
             mainMethods = new MainMethods(this);
+            mainFrame = givenMainFrame;
             mainVariables.Active_Race = race;
 
             building_Pictureboxes = new PictureBox[] {picbBuilding1, picbBuilding2, picbBuilding3, picbBuilding4, picbBuilding5, picbBuilding6, picbBuilding7, picbBuilding8, picbBuilding9, picbBuilding10, 
@@ -87,13 +92,14 @@ namespace StarcraftBuildManager
             picbUpgrade38, picbUpgrade39, picbUpgrade40, picbUpgrade41, picbUpgrade42};
 
             this.BackgroundImage = mainVariables.BuildWindow_BackgroundBM;
-            picbTooltipTime.Image = mainVariables.BuildingArea_UiClock;
-            picbMinerals.Image = mainVariables.BuildingArea_UiMinerals;
-            picbVespin.Image = mainVariables.BuildingArea_UiVespin;
-            picBOptimize.Image = mainVariables.BuildingArea_Optimize;
-            picBStartRunner.Image = mainVariables.BuildRunner_StartBM;
-            picBArrowDown.Image = mainVariables.BuildingArea_ArrowDown;
-            picBArrowUp.Image = mainVariables.BuildingArea_ArrowUp;
+            picbTooltipTime.Image = mainVariables.BuildingArea_UiClockBM;
+            picbMinerals.Image = mainVariables.BuildingArea_UiMineralsBM;
+            picbVespin.Image = mainVariables.BuildingArea_UiVespinBM;
+            picBOptimize.Image = mainVariables.BuildingArea_OptimizeBM;
+            picBStartRunner.Image = mainVariables.BuildingArea_StartBM;
+            picBArrowDown.Image = mainVariables.BuildingArea_ArrowDownBM;
+            picBArrowUp.Image = mainVariables.BuildingArea_ArrowUpBM;
+            picBBackToMenu.Image = mainVariables.BuildingArea_BackToMenu;
             
             trackbarTimeline.Location = new Point(39, 46);
             lblTimeEnd.Location = new Point(36, 30);
@@ -110,7 +116,7 @@ namespace StarcraftBuildManager
 
 
             lblCurrentTrackbarValue.Text = trackbarTimeline.Value.ToString();
-            mainMethods.Fill_Picturebox(picbExit, mainVariables.BuildingArea_UiClose);
+            mainMethods.Fill_Picturebox(picbExit, mainVariables.BuildingArea_UiCloseBM);
 
             switch (race)
             {
@@ -131,23 +137,23 @@ namespace StarcraftBuildManager
         {              
 
             //Initializing the Buildings and set them on their place in the UI
-            hatchery = new Prefab("Hatchery", 300, 0, 100f, mainVariables.HatcheryBM, 4);
-            lair = new Prefab("Lair", 150, 100, 80f, mainVariables.LairBM);
-            hive = new Prefab("Hive", 200, 150, 100f, mainVariables.HiveBM);
-            zerg_Extractor = new Prefab("Extractor", 25, 0, 30f, mainVariables.Zerg_ExtractorBM, 1);
-            spawning_Pool = new Prefab("Spawning Pool", 200, 0, 65f, mainVariables.Spawning_PoolBM, 1);
-            evolution_Chamber = new Prefab("Evolution Chamber", 75, 0, 35f, mainVariables.Evolution_ChamberBM, 1);
-            spine_Crawler = new Prefab("Spine Crawler", 100, 0, 50f, mainVariables.Spine_CrawlerBM, 1);
-            spore_Crawler = new Prefab("Spore Crawler", 75, 0, 30f, mainVariables.Spore_CrawlerBM, 1);
-            hydralisk_Den = new Prefab("Hydralisk Den", 100, 100, 60f, mainVariables.Hydralisk_DenBM, 1);
-            baneling_Nest = new Prefab("Baneling Nest", 100, 50, 60f, mainVariables.Baneling_NestBM, 1);
-            roach_Warren = new Prefab("Roach Warren", 150, 0, 55f, mainVariables.Roach_WarrenBM, 1);
-            infestation_Pit = new Prefab("Infestation Pit", 100, 100, 50f, mainVariables.Infestation_PitBM, 1);
-            spire = new Prefab("Spire", 200, 200, 100f, mainVariables.SpireBM, 1);
+            hatchery = new Prefab("Hatchery", 300, 0, 100, mainVariables.HatcheryBM, 4);
+            lair = new Prefab("Lair", 150, 100, 80, mainVariables.LairBM);
+            hive = new Prefab("Hive", 200, 150, 100, mainVariables.HiveBM);
+            zerg_Extractor = new Prefab("Extractor", 25, 0, 30, mainVariables.Zerg_ExtractorBM, 1);
+            spawning_Pool = new Prefab("Spawning Pool", 200, 0, 65, mainVariables.Spawning_PoolBM, 1);
+            evolution_Chamber = new Prefab("Evolution Chamber", 75, 0, 35, mainVariables.Evolution_ChamberBM, 1);
+            spine_Crawler = new Prefab("Spine Crawler", 100, 0, 50, mainVariables.Spine_CrawlerBM, 1);
+            spore_Crawler = new Prefab("Spore Crawler", 75, 0, 30, mainVariables.Spore_CrawlerBM, 1);
+            hydralisk_Den = new Prefab("Hydralisk Den", 100, 100, 60, mainVariables.Hydralisk_DenBM, 1);
+            baneling_Nest = new Prefab("Baneling Nest", 100, 50, 60, mainVariables.Baneling_NestBM, 1);
+            roach_Warren = new Prefab("Roach Warren", 150, 0, 55, mainVariables.Roach_WarrenBM, 1);
+            infestation_Pit = new Prefab("Infestation Pit", 100, 100, 50, mainVariables.Infestation_PitBM, 1);
+            spire = new Prefab("Spire", 200, 200, 100, mainVariables.SpireBM, 1);
             greater_Spire = new Prefab("Greater Spire", 100, 150, 100, mainVariables.Greater_SpireBM);
-            nydus_Network = new Prefab("Nydus Network", 150, 200, 50f, mainVariables.Nydus_NetworkBM, 1);
-            ultralisk_Cavern = new Prefab("Ultralisk Cavern", 150, 200, 65f, mainVariables.Ultralisk_CavernBM, 1);
-            lurker_Den = new Prefab("Lurker Den", 150, 100, 57f, mainVariables.Lurker_DenBM, 1);
+            nydus_Network = new Prefab("Nydus Network", 150, 200, 50, mainVariables.Nydus_NetworkBM, 1);
+            ultralisk_Cavern = new Prefab("Ultralisk Cavern", 150, 200, 65, mainVariables.Ultralisk_CavernBM, 1);
+            lurker_Den = new Prefab("Lurker Den", 150, 100, 57, mainVariables.Lurker_DenBM, 1);
 
             building_Array = new Prefab[] {hatchery, lair, hive, zerg_Extractor, spawning_Pool, evolution_Chamber, spine_Crawler, spore_Crawler,
             hydralisk_Den, baneling_Nest, roach_Warren, infestation_Pit, spire, greater_Spire, nydus_Network, ultralisk_Cavern, lurker_Den};
@@ -155,64 +161,66 @@ namespace StarcraftBuildManager
             mainMethods.Fill_Picturebox_Array(building_Pictureboxes, building_Array);
             //Initialzing units 
 
-            baneling = new Prefab("Baneling", 50, 25, 44f, mainVariables.BanelingBM, -1.5f);
-            drone = new Prefab("Drone", 50, 0, 17f, mainVariables.DroneBM, -1);
-            overlord = new Prefab("Overlord", 100, 0, 25f, mainVariables.OverlordBM, 8);
-            zergling = new Prefab("Zergling", 50, 0, 24f, mainVariables.ZerglingBM, -1);
-            roach = new Prefab("Roach", 75, 25, 27f, mainVariables.RoachBM, -2);
-            queen = new Prefab("Queen", 150, 0, 50f, mainVariables.QueenBM, -2);
-            hydralisk = new Prefab("Hydralisk", 100, 50, 33f, mainVariables.HydraliskBM, -2);
-            mutalisk = new Prefab("Mutalisk", 100, 100, 33f, mainVariables.MutaliskBM, -2);
-            corruptor = new Prefab("Corrupter", 150, 100, 40f, mainVariables.CorrupterBM, -4);
-            infestor = new Prefab("Infestor", 100, 150, 50f, mainVariables.InfestorBM, -2);
-            swarm_Host = new Prefab("Swarm Host", 200, 100, 40f, mainVariables.Swarm_HostBM, -3);
-            ultralisk = new Prefab("Ultralisk", 300, 200, 55f, mainVariables.UltraliskBM, -6);
-            viper = new Prefab("Viper", 100, 200, 40f, mainVariables.ViperBM, -3);
-            brood_Lord = new Prefab("Brood Lord", 300, 250, 77f, mainVariables.Boord_LordBM, -4);
-            overseer = new Prefab("Overseer", 150, 50, 42f, mainVariables.OverseerBM);
-            lurker = new Prefab("Lurker", 150, 100, 42f, mainVariables.LurkerBM, -3);
-            ravager = new Prefab("Ravager", 100, 100, 28f, mainVariables.RavagerBM, -3);
+            baneling = new Prefab("Baneling", 50, 25, 44, mainVariables.BanelingBM, -1);
+            drone = new Prefab("Drone", 50, 0, 17, mainVariables.DroneBM, -1);
+            overlord = new Prefab("Overlord", 100, 0, 25, mainVariables.OverlordBM, 8);
+            zergling = new Prefab("Zergling", 50, 0, 24, mainVariables.ZerglingBM, -1);
+            roach = new Prefab("Roach", 75, 25, 27, mainVariables.RoachBM, -2);
+            queen = new Prefab("Queen", 150, 0, 50, mainVariables.QueenBM, -2);
+            hydralisk = new Prefab("Hydralisk", 100, 50, 33, mainVariables.HydraliskBM, -2);
+            mutalisk = new Prefab("Mutalisk", 100, 100, 33, mainVariables.MutaliskBM, -2);
+            corruptor = new Prefab("Corrupter", 150, 100, 40, mainVariables.CorrupterBM, -4);
+            infestor = new Prefab("Infestor", 100, 150, 50, mainVariables.InfestorBM, -2);
+            swarm_Host = new Prefab("Swarm Host", 200, 100, 40, mainVariables.Swarm_HostBM, -3);
+            ultralisk = new Prefab("Ultralisk", 300, 200, 55, mainVariables.UltraliskBM, -6);
+            viper = new Prefab("Viper", 100, 200, 40, mainVariables.ViperBM, -3);
+            brood_Lord = new Prefab("Brood Lord", 300, 250, 77, mainVariables.Boord_LordBM, -4);
+            overseer = new Prefab("Overseer", 150, 50, 42, mainVariables.OverseerBM);
+            lurker = new Prefab("Lurker", 150, 100, 42, mainVariables.LurkerBM, -3);
+            ravager = new Prefab("Ravager", 100, 100, 28, mainVariables.RavagerBM, -3);
             
             unit_Array = new Prefab[] {baneling, brood_Lord, corruptor, drone, hydralisk, infestor, lurker, mutalisk, overlord, overseer, queen,
             ravager, roach, swarm_Host, ultralisk, viper, zergling};
             
             mainMethods.Fill_Picturebox_Array(unit_Pictureboxes, unit_Array);
 
-            supplyPrefab = overlord;
-            workerPrefab = drone;
+            supplyPrefabNorm = overlord;
+            workerPrefabNorm = drone;
+            mainPrefabNorm = hatchery;
+            extractorPrefabNorm = zerg_Extractor;
             supply = 2;
 
             //Initialzing upgrades
-            melee_Attacks1 = new Prefab("Melee Attacks 1", 100, 100, 114f, mainVariables.Melee_AttacksBM);
-            melee_Attacks2 = new Prefab("Melee Attacks 2", 150, 150, 136f, mainVariables.Melee_AttacksBM);
-            melee_Attacks3 = new Prefab("Melee Attacks 3", 200, 200, 157f, mainVariables.Melee_AttacksBM);
-            ground_Carapace1 = new Prefab("Ground Carapace 1", 150, 150, 114f, mainVariables.Ground_CarapaceBM);
-            ground_Carapace2 = new Prefab("Ground Carapace 2", 225, 225, 136f, mainVariables.Ground_CarapaceBM);
-            ground_Carapace3 = new Prefab("Ground Carapace 3", 300, 300, 257f, mainVariables.Ground_CarapaceBM);
-            missile_Attacks1 = new Prefab("Missile Attacks 1", 100, 100, 114f, mainVariables.Missile_AttacksBM);
-            missile_Attacks2 = new Prefab("Missile Attacks 2", 150, 150, 136f, mainVariables.Missile_AttacksBM);
-            missile_Attacks3 = new Prefab("Missile Attacks 3", 200, 200, 157f, mainVariables.Missile_AttacksBM);
-            flyer_Attacks1 = new Prefab("Flyer Attacks 1", 100, 100, 114f, mainVariables.Zerg_FlyerAttacksBM);
-            flyer_Attacks2 = new Prefab("Flyer Attacks 2", 175, 175, 136f, mainVariables.Zerg_FlyerAttacksBM);
-            flyer_Attacks3 = new Prefab("Flyer Attacks 3", 250, 250, 157f, mainVariables.Zerg_FlyerAttacksBM);
-            flyer_Carapace1 = new Prefab("Flyer Carapace 1", 150, 150, 114f, mainVariables.Flyer_CarapaceBM);
-            flyer_Carapace2 = new Prefab("Flyer Carapace 2", 225, 225, 136f, mainVariables.Flyer_CarapaceBM);
+            melee_Attacks1 = new Prefab("Melee Attacks 1", 100, 100, 114, mainVariables.Melee_AttacksBM);
+            melee_Attacks2 = new Prefab("Melee Attacks 2", 150, 150, 136, mainVariables.Melee_AttacksBM);
+            melee_Attacks3 = new Prefab("Melee Attacks 3", 200, 200, 157, mainVariables.Melee_AttacksBM);
+            ground_Carapace1 = new Prefab("Ground Carapace 1", 150, 150, 114, mainVariables.Ground_CarapaceBM);
+            ground_Carapace2 = new Prefab("Ground Carapace 2", 225, 225, 136, mainVariables.Ground_CarapaceBM);
+            ground_Carapace3 = new Prefab("Ground Carapace 3", 300, 300, 257, mainVariables.Ground_CarapaceBM);
+            missile_Attacks1 = new Prefab("Missile Attacks 1", 100, 100, 114, mainVariables.Missile_AttacksBM);
+            missile_Attacks2 = new Prefab("Missile Attacks 2", 150, 150, 136, mainVariables.Missile_AttacksBM);
+            missile_Attacks3 = new Prefab("Missile Attacks 3", 200, 200, 157, mainVariables.Missile_AttacksBM);
+            flyer_Attacks1 = new Prefab("Flyer Attacks 1", 100, 100, 114, mainVariables.Zerg_FlyerAttacksBM);
+            flyer_Attacks2 = new Prefab("Flyer Attacks 2", 175, 175, 136, mainVariables.Zerg_FlyerAttacksBM);
+            flyer_Attacks3 = new Prefab("Flyer Attacks 3", 250, 250, 157, mainVariables.Zerg_FlyerAttacksBM);
+            flyer_Carapace1 = new Prefab("Flyer Carapace 1", 150, 150, 114, mainVariables.Flyer_CarapaceBM);
+            flyer_Carapace2 = new Prefab("Flyer Carapace 2", 225, 225, 136, mainVariables.Flyer_CarapaceBM);
             flyer_Carapace3 = new Prefab("Flyer Carapace 3", 300, 300, 157, mainVariables.Flyer_CarapaceBM);
-            chitinious_Plating = new Prefab("Chitinious Plating", 150, 150, 79f, mainVariables.Chitinous_PlatingBM);
-            adaptive_Talons = new Prefab("Adaptive Talons", 150, 150, 57f, mainVariables.Adaptive_TalonsBM);
-            anabolic_Synthesis = new Prefab("Anabolic Synthesis", 150, 150, 43f, mainVariables.Anabolic_SynthesisBM);
-            centrifugal_Hooks = new Prefab("Centrifugal Hooks", 150, 150, 79f, mainVariables.Centrifugal_HooksBM);
-            glial_Reconstitution = new Prefab("Glial Reconstitution", 100, 100, 79f, mainVariables.Glial_ReconstitutionBM);
-            metabolic_Boost = new Prefab("Metabolic Boost", 100, 100, 79f, mainVariables.Metabolic_BoostBM);
-            pneumatized_Carapace = new Prefab("Pneumatized Carapace", 100, 100, 43f, mainVariables.Pneumatited_CarapaceBM);
-            muscular_Augments = new Prefab("Muscular Augments", 100, 100, 71f, mainVariables.Muscular_AugmentsBM);
-            grooved_Spines = new Prefab("Grooved Spines", 100, 100, 71f, mainVariables.Grooved_SpinesBM);
-            seismic_Spines = new Prefab("Seismic Spines", 150, 150, 57f, mainVariables.Seismic_SpinesBM);
-            burrow = new Prefab("Burrow", 100, 100, 71f, mainVariables.BurrowBM);
-            pathogen_Glands = new Prefab("Pathogen Glands", 150, 150, 57f, mainVariables.Pathogen_GlandsBM);
-            neural_Parasite = new Prefab("Neural Parasite", 150, 150, 79f, mainVariables.Neural_ParasiteBM);
-            adrenal_Glands = new Prefab("Adrenal Glands", 200, 200, 93f, mainVariables.Adrenal_GlandsBM);
-            tunneling_Claws = new Prefab("Tunneling Claws", 100, 100, 79f, mainVariables.Tunneling_ClawsBM);
+            chitinious_Plating = new Prefab("Chitinious Plating", 150, 150, 79, mainVariables.Chitinous_PlatingBM);
+            adaptive_Talons = new Prefab("Adaptive Talons", 150, 150, 57, mainVariables.Adaptive_TalonsBM);
+            anabolic_Synthesis = new Prefab("Anabolic Synthesis", 150, 150, 43, mainVariables.Anabolic_SynthesisBM);
+            centrifugal_Hooks = new Prefab("Centrifugal Hooks", 150, 150, 79, mainVariables.Centrifugal_HooksBM);
+            glial_Reconstitution = new Prefab("Glial Reconstitution", 100, 100, 79, mainVariables.Glial_ReconstitutionBM);
+            metabolic_Boost = new Prefab("Metabolic Boost", 100, 100, 79, mainVariables.Metabolic_BoostBM);
+            pneumatized_Carapace = new Prefab("Pneumatized Carapace", 100, 100, 43, mainVariables.Pneumatited_CarapaceBM);
+            muscular_Augments = new Prefab("Muscular Augments", 100, 100, 71, mainVariables.Muscular_AugmentsBM);
+            grooved_Spines = new Prefab("Grooved Spines", 100, 100, 71, mainVariables.Grooved_SpinesBM);
+            seismic_Spines = new Prefab("Seismic Spines", 150, 150, 57, mainVariables.Seismic_SpinesBM);
+            burrow = new Prefab("Burrow", 100, 100, 71, mainVariables.BurrowBM);
+            pathogen_Glands = new Prefab("Pathogen Glands", 150, 150, 57, mainVariables.Pathogen_GlandsBM);
+            neural_Parasite = new Prefab("Neural Parasite", 150, 150, 79, mainVariables.Neural_ParasiteBM);
+            adrenal_Glands = new Prefab("Adrenal Glands", 200, 200, 93, mainVariables.Adrenal_GlandsBM);
+            tunneling_Claws = new Prefab("Tunneling Claws", 100, 100, 79, mainVariables.Tunneling_ClawsBM);
 
             upgrade_Array = new Prefab[] {adaptive_Talons, adrenal_Glands, anabolic_Synthesis, burrow, centrifugal_Hooks, chitinious_Plating, flyer_Attacks1,
             flyer_Carapace1, glial_Reconstitution, grooved_Spines, ground_Carapace1, melee_Attacks1, metabolic_Boost,
@@ -220,7 +228,6 @@ namespace StarcraftBuildManager
 
             mainMethods.Fill_Picturebox_Array(upgrade_Pictureboxes, upgrade_Array);
 
-            prefabList = new List<Prefab> { };
             stringSafeList = new List<string> { };
         }
         public void Protoss()
@@ -787,6 +794,25 @@ namespace StarcraftBuildManager
         { picbBuilding1.DoDragDrop(upgrade_Array[41], DragDropEffects.Copy | DragDropEffects.Move); }
         #endregion
 
+        //tiny UI icons for exit/back to menu
+        #region smallUiIcons
+        private void picBBackToMenu_MouseHover(object sender, EventArgs e)
+        {
+            lblMenuTooltip.Text = "Back to menu";
+        }
+
+        private void picBBackToMenu_MouseLeave(object sender, EventArgs e)
+        {
+            lblMenuTooltip.Text = "";
+        }
+
+        private void picBBackToMenu_Click(object sender, EventArgs e)
+        {
+            StartWindow startWindow = new StartWindow(mainFrame);
+            startWindow.Show();
+            this.Close();
+        }
+
         private void picbExit_MouseHover(object sender, EventArgs e)
         {
             lblMenuTooltip.Text = "Exit";
@@ -795,10 +821,9 @@ namespace StarcraftBuildManager
         {
             lblMenuTooltip.Text = "";
         }
-
-        //Exit button
+        #endregion
         private void picbExit_Click(object sender, EventArgs e)
-        { Environment.Exit(0); }
+        { mainFrame.Close(); }
 
         //Entering the target of the drag/drop event (a trackbar), breakpoint doesnt get triggered
         private void trackbarTimeline_DragEnter(object sender, DragEventArgs e)
@@ -812,8 +837,7 @@ namespace StarcraftBuildManager
         //dropping into the trackbar
         private void trackbarTimeline_DragDrop(object sender, DragEventArgs e)
         {
-            Prefab prefabGiven = (Prefab)e.Data.GetData(typeof(Prefab));
-            
+            Prefab prefabGiven = (Prefab)e.Data.GetData(typeof(Prefab));                        
             
             //Setting the time
             int timing = trackbarTimeline.Value;
@@ -845,7 +869,7 @@ namespace StarcraftBuildManager
 
             prefabIndexList = new List<int> { };
             prefabTimestampList = new List<int> { };
-            prefabNameList = new List<string> { };
+            prefabTypeList = new List<string> { };
             prefabNumberList = new List<int> { };
 
             stringSafeList.Add(addBuilding);
@@ -854,11 +878,58 @@ namespace StarcraftBuildManager
             {
                 string[] currentArray = currentString.Split('_');
                 prefabTimestampList.Add(Convert.ToInt32(currentArray[0]));
-                prefabNameList.Add(currentArray[1]);
+                prefabTypeList.Add(currentArray[1]);
                 prefabIndexList.Add(Convert.ToInt32(currentArray[2]));
                 prefabNumberList.Add(Convert.ToInt32(currentArray[3]));
             }
             Update_Timeline(0);
+        }
+        private void Optimizing_Timeline(Prefab prefab, int time)
+        {
+            Prefab prefabGiven = prefab;
+
+            //Setting the time
+            int timing =time;
+
+            //Setting the index and which array to look for
+            int indexFinder = Array.FindIndex(building_Array, prefabGiven.Equals); string arrayFinderString = "building";
+            if (indexFinder == -1)
+            {
+                indexFinder = Array.FindIndex(unit_Array, prefabGiven.Equals); arrayFinderString = "unit";
+            }
+            if (indexFinder == -1)
+            {
+                indexFinder = Array.FindIndex(upgrade_Array, prefabGiven.Equals); arrayFinderString = "upgrade";
+            }
+            //Setting up individual number
+            mainVariables.Individual_Number++;
+
+            //Adding this state into the safelist
+            string timeString;
+            if (timing < 10)
+            { timeString = "00" + timing.ToString(); }
+            else if (timing > 9 && timing < 100)
+            { timeString = "0" + timing.ToString(); }
+            else
+            { timeString = timing.ToString(); }
+
+            string addTimestamp = timeString + "_" + arrayFinderString + "_" + indexFinder.ToString() + "_" + mainVariables.Individual_Number.ToString();
+
+            prefabIndexList = new List<int> { };
+            prefabTimestampList = new List<int> { };
+            prefabTypeList = new List<string> { };
+            prefabNumberList = new List<int> { };
+
+            stringSafeList.Add(addTimestamp);
+            stringSafeList.Sort();
+            foreach (string currentString in Safe_List)
+            {
+                string[] currentArray = currentString.Split('_');
+                prefabTimestampList.Add(Convert.ToInt32(currentArray[0]));
+                prefabTypeList.Add(currentArray[1]);
+                prefabIndexList.Add(Convert.ToInt32(currentArray[2]));
+                prefabNumberList.Add(Convert.ToInt32(currentArray[3]));
+            }
         }
         
         //Showing the current clicked prefab in the tooltip menu
@@ -877,8 +948,12 @@ namespace StarcraftBuildManager
         }
 
         private void picBOptimize_Click(object sender, EventArgs e)
-        {
-
+        {            
+            if (Safe_List.Count > 0)
+            {
+                Enable_Disable_UI("disable");
+                Optimizer();
+            }
         }
         private void picBArrowUp_Click(object sender, EventArgs e)
         {
@@ -965,7 +1040,7 @@ namespace StarcraftBuildManager
                 //after it checks if everything is valid, it actually puts the fitting prefab bitmap into the according window, and updates the label
                 else
                 {
-                    Prefab foundPrefab = mainMethods.Prefab_Finder(prefabNameList[validifyWalker], prefabIndexList[validifyWalker]);
+                    Prefab foundPrefab = mainMethods.Prefab_Finder(prefabTypeList[validifyWalker], prefabIndexList[validifyWalker]);
                     pictureBox.Image = foundPrefab.Icon;
                     label.Text = prefabTimestampList[validifyWalker].ToString();
                 }
@@ -976,15 +1051,12 @@ namespace StarcraftBuildManager
         {
             if (Safe_List.Count > 0)
             {
-                listWalker = 0;
-                timeProgressor = -1;
-                Update_Timeline(0);
+                Enable_Disable_UI("disable");
                 mainTimer.Enabled = true;
                 mainTimer.Start();
-                picBStartRunner.Enabled = false;
             }
         }
-        //Progresses the Timeline and automaticly progresses the timeline when a timestamp is reached
+        //Automaticly progresses the timeline when a timestamp is reached
         private void MainTimer_Tick(object sender, EventArgs e)
         {
             timeProgressor++;
@@ -995,11 +1067,336 @@ namespace StarcraftBuildManager
             {
                 Update_Timeline(1);
             }
-
             if (timeProgressor >= prefabTimestampList[prefabTimestampList.Count - 1])
             {
+                Enable_Disable_UI("enable");
                 mainTimer.Stop();
             }
+        }
+        
+        //Counts how many minerals are expected at a given point
+        private float Expected_Minerals(int timePassed)
+        {
+            return mineralCount + (timePassed * mineralCollectionRate * workerCountMinerals);
+        }
+
+        //Counts how much vespin is expected at a given point
+        private float Expected_Vespin(int timePassed)
+        {
+            if (workerCountVespin % 3 == 0)
+            {
+                return vespinCount + (timePassed * vespinCollectionRateLow * workerCountVespin);
+            }
+            else
+            {
+                return vespinCount + (timePassed * vespinCollectionRate * workerCountVespin);
+            }
+        }
+
+        //Checks if the necessary requirements are met to build a worker without disrupting the next target
+        private bool Check_For_Worker(Prefab nextTargetPrefab)
+        {
+            if(Larvae_Exists() && mineralCount >= 50 && supply >= 2 && Reach_Mineral_Target(nextTargetPrefab) && workerCountMinerals + workerCountVespin <= mainBuildingCount*22)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //Checks if a new Main can be build
+        private bool Check_For_Main(Prefab nextTargetPrefab)
+        {
+            if (mineralCount >= mainPrefabNorm.MineralCost && Reach_Mineral_Target(nextTargetPrefab) && workerCountMinerals + workerCountVespin >= mainBuildingCount * 10 || mineralCount > 500 && workerCountVespin + workerCountMinerals > 30)
+            {return true; }
+            else
+            {return false;}
+        }
+        private bool Check_For_Extractor(Prefab nextTargetPrefab)
+        {
+            if (extractorInProgress == false && mineralCount >= extractorPrefabNorm.MineralCost && Reach_Mineral_Target(nextTargetPrefab) && extractorCount <= mainBuildingCount * 2 && workerCountMinerals > workerCountVespin*3 )
+            { return true; }
+            else
+            { return false; }
+        }
+        //Checks if an Overlord should be build
+        private bool Check_For_Overlord(Prefab nextTargetPrefab)
+        {
+            if (mineralCount >= 100 && Larvae_Exists() && Reach_Mineral_Target(nextTargetPrefab) && supplyInProgress == false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void Optimizer()
+        {
+            targetTimeList = new List<string> { };
+
+            //ACTUAL OPMIZITATION PROCESS
+            for (optimizeProgressor = 0; optimizeProgressor < 601; optimizeProgressor++)
+            {
+                if (mainVariables.Active_Race == "Zerg")
+                {
+                    if (optimizeProgressor % 11 == 0)
+                    {
+                        larvaeCount += mainBuildingCount;
+                        if (larvaeCount >= mainBuildingCount * 3)
+                        {
+                            larvaeCount = mainBuildingCount * 3;
+                        }
+                    }
+                }
+                //BREAK POINT FOR BUGFIXING
+                if(optimizeProgressor == 260)
+                {
+                    lblCurrentTrackbarValue.Text = "Muh";
+                }
+
+
+                if (targetTimeList.Count > targetListWalker)
+                {
+                    string[] targetTimeArray = targetTimeList[targetListWalker].Split('_');
+                    targetTimeStamp = Convert.ToInt32(targetTimeArray[0]);
+                    targetTimeName = targetTimeArray[1];
+                }
+                //Checks if something has been finished                
+                while(targetTimeList.Count > targetListWalker && targetTimeStamp >= optimizeProgressor)
+                {
+
+                    switch(targetTimeName)
+                    {
+                        case "Drone":
+                        case "SCV":
+                        case "Probe":
+                            Worker_Distribute();
+                            break;
+                        case "Supply Depot":
+                        case "Pylon":
+                        case "Overlord":
+                            supply += 8;
+                            supplyInProgress = false;
+                            break;
+                        case "Hatchery":
+                        case "Command Centre":
+                        case "Nexus":
+                            if(mainVariables.Active_Race == "Zerg")
+                            { supply += 3; }
+                            else
+                            { supply += 8; }
+                            mainBuildingCount++;
+                            break;
+                        case "Extractor":
+                            extractorCount++;
+                            extractorInProgress = false;
+                            break;
+                    }
+                    targetListWalker++;
+                }
+
+
+                while (listWalker < prefabTimestampList.Count - 1 && optimizeProgressor == prefabTimestampList[listWalker])
+                {
+                    listWalker++;
+                }
+                if (Safe_List.Count > listWalker)
+                {
+                    nextPartSafeArray = Safe_List[listWalker].Split('_');
+                    nextTime = Convert.ToInt32(nextPartSafeArray[0]);
+                    nextType = nextPartSafeArray[1];
+                    nextIndex = Convert.ToInt32(nextPartSafeArray[2]);
+                }
+
+                Prefab nextPrefab = mainMethods.Prefab_Finder(nextType, nextIndex);
+
+                //Calculates current minerals
+                mineralCount = Expected_Minerals(1);
+                vespinCount = Expected_Vespin(1);
+
+                //Checks if a worker should be build
+                if (Check_For_Worker(nextPrefab))
+                {
+                    mineralCount -= 50;
+                    supply -= 1;
+                    if (mainVariables.Active_Race == "Zerg")
+                    { larvaeCount -= 1; }
+                    Optimizing_Timeline(workerPrefabNorm, optimizeProgressor);
+                    targetTimeList.Add(Add_To_Timestamplist(workerPrefabNorm));
+                    targetTimeList.Sort();
+                    listWalker++;
+                }            
+                
+                //Checks if supply needed and orders it
+                if (supply <= 3)
+                {
+                    switch (mainVariables.Active_Race)
+                    {
+                        case "Zerg":
+                            if (Check_For_Overlord(nextPrefab))
+                            {
+                                mineralCount -= supplyPrefabNorm.MineralCost;
+                                supplyInProgress = true;
+                                if (mainVariables.Active_Race == "Zerg")
+                                { larvaeCount -= 1; }
+                                
+                                Optimizing_Timeline(supplyPrefabNorm, optimizeProgressor);
+                                targetTimeList.Add(Add_To_Timestamplist(supplyPrefabNorm));
+                                targetTimeList.Sort();
+                                listWalker++;
+                            }
+                            break;
+                        case "Terran":
+                            break;
+                        case "Protoss":
+                            break;
+                    }
+                }
+
+                if (Check_For_Main(nextPrefab))
+                {
+                    mineralCount -= mainPrefabNorm.MineralCost;
+                    if (mainVariables.Active_Race == "Zerg")
+                    { workerCountMinerals--; supply++; }
+                    Optimizing_Timeline(mainPrefabNorm, optimizeProgressor);
+                    targetTimeList.Add(Add_To_Timestamplist(mainPrefabNorm));
+                    targetTimeList.Sort();
+                    listWalker++;
+                }
+                if (Check_For_Extractor(nextPrefab))
+                {
+                    extractorInProgress = true;
+                    mineralCount -= extractorPrefabNorm.MineralCost;
+                    if (mainVariables.Active_Race == "Zerg")
+                    { workerCountMinerals--; supply++; }
+                    Optimizing_Timeline(extractorPrefabNorm, optimizeProgressor);
+                    targetTimeList.Add(Add_To_Timestamplist(extractorPrefabNorm));
+                    targetTimeList.Sort();
+                    listWalker++;
+                }
+            }
+            Enable_Disable_UI("enable");
+        }
+        //Checks if there is larvae that can be transformed to a unit
+        private bool Larvae_Exists()
+        {
+            if(larvaeCount > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //Activites and deactivates everything according all buttons etc., and resets all main variables, string is either "enable" or "disable"
+        private void Enable_Disable_UI(string abler)
+        {          
+            listWalker = 0;
+            timeProgressor = -1;
+            Update_Timeline(0);
+            optimizeProgressor = 0;
+            trackbarTimeline.Value = 0;
+            mineralCount = 50;
+            workerCountMinerals = 12;
+            workerCountVespin = 0;
+            extractorCount = 0;
+            mainBuildingCount = 1;
+            targetListWalker = 0;
+            targetTimeStamp = -1;
+            nextTime = -1; 
+            nextIndex = 0;
+            switch (mainVariables.Active_Race)
+            {
+                case "Zerg":
+                    larvaeCount = 3;
+                    break;
+                case "Terran":
+                    break;
+                case "Protoss":
+                    break;
+            }
+
+            switch (abler)
+            {
+                case "enable":
+                    picBStartRunner.Enabled = true;
+                    picBOptimize.Enabled = true;
+                    trackbarTimeline.Enabled = true;
+                    picBArrowUp.Enabled = true;
+                    picBArrowDown.Enabled = true;
+                    break;
+
+                case "disable":
+                    picBStartRunner.Enabled = false;
+                    picBOptimize.Enabled = false;
+                    trackbarTimeline.Enabled = false;
+                    picBArrowUp.Enabled = false;
+                    picBArrowDown.Enabled = false;
+                    break;
+            }
+        }
+
+        private int Check_Time_Next_Building()
+        {
+            return prefabTimestampList[listWalker] - optimizeProgressor;
+        }
+
+        private bool Reach_Mineral_Target(Prefab prefab)
+        {
+            if(Expected_Minerals(Check_Time_Next_Building()) > prefab.MineralCost)
+            { return true; }
+            else
+            { return false; }
+        }
+        private void Worker_Distribute()
+        {            
+            if(extractorCount >= 1 && workerCountVespin <= extractorCount * 3)
+            {
+                if (workerCountVespin == 0)
+                {
+                    workerCountVespin++;
+                }
+                else
+                {
+                    double ratio = workerCountMinerals / workerCountVespin;
+                    if (ratio >= 3 && workerCountVespin < extractorCount * 3)
+                    {
+                        workerCountVespin++;
+                    }
+                }
+            }
+            else
+            {
+                workerCountMinerals++;
+            }
+        }
+        private void Expected_Build_Finish(string finishedPrefab)
+        {
+
+        }
+
+        private string Add_To_Timestamplist(Prefab prefab)
+        {
+            if (workerPrefabNorm.BuildTime + optimizeProgressor < 10)
+            {
+                targetListAddAstring = "00" + (workerPrefabNorm.BuildTime + optimizeProgressor).ToString();
+            }
+            else if (workerPrefabNorm.BuildTime + optimizeProgressor < 100 && workerPrefabNorm.BuildTime + optimizeProgressor > 9)
+            {
+                targetListAddAstring = "0" + (workerPrefabNorm.BuildTime + optimizeProgressor).ToString();
+            }
+            else
+            {
+                targetListAddAstring = (workerPrefabNorm.BuildTime + optimizeProgressor).ToString();
+            }
+
+            string returnString = targetListAddAstring + "_" + prefab.Name;
+            return returnString;
         }
     }
 }

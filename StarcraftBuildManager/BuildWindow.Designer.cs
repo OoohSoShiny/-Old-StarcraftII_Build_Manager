@@ -155,6 +155,7 @@ namespace StarcraftBuildManager
             this.lblPreviousFirst = new System.Windows.Forms.Label();
             this.lblPreviousMid = new System.Windows.Forms.Label();
             this.lblPreviousLast = new System.Windows.Forms.Label();
+            this.picBBackToMenu = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackbarTimeline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbBuilding1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbBuilding2)).BeginInit();
@@ -265,6 +266,7 @@ namespace StarcraftBuildManager
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousMid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousLast)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBBackToMenu)).BeginInit();
             this.SuspendLayout();
             // 
             // trackbarTimeline
@@ -1695,12 +1697,25 @@ namespace StarcraftBuildManager
             this.lblPreviousLast.Size = new System.Drawing.Size(0, 13);
             this.lblPreviousLast.TabIndex = 64;
             // 
+            // picBBackToMenu
+            // 
+            this.picBBackToMenu.BackColor = System.Drawing.Color.Transparent;
+            this.picBBackToMenu.Location = new System.Drawing.Point(944, 28);
+            this.picBBackToMenu.Name = "picBBackToMenu";
+            this.picBBackToMenu.Size = new System.Drawing.Size(20, 20);
+            this.picBBackToMenu.TabIndex = 71;
+            this.picBBackToMenu.TabStop = false;
+            this.picBBackToMenu.Click += new System.EventHandler(this.picBBackToMenu_Click);
+            this.picBBackToMenu.MouseLeave += new System.EventHandler(this.picBBackToMenu_MouseLeave);
+            this.picBBackToMenu.MouseHover += new System.EventHandler(this.picBBackToMenu_MouseHover);
+            // 
             // BuildWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1070, 680);
+            this.Controls.Add(this.picBBackToMenu);
             this.Controls.Add(this.lblNextLast);
             this.Controls.Add(this.lblNextMid);
             this.Controls.Add(this.lblNextFirst);
@@ -1844,6 +1859,7 @@ namespace StarcraftBuildManager
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousFirst)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousMid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousLast)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBBackToMenu)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1976,5 +1992,6 @@ namespace StarcraftBuildManager
         private System.Windows.Forms.Label lblPreviousFirst;
         private System.Windows.Forms.Label lblPreviousMid;
         private System.Windows.Forms.Label lblPreviousLast;
+        private System.Windows.Forms.PictureBox picBBackToMenu;
     }
 }

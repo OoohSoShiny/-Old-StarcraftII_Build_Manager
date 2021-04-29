@@ -16,15 +16,17 @@ namespace StarcraftBuildManager
         MainMethods mainMethods;
         StartWindow startWindow;
         BuildWindow buildWindow;
+        MainFrame mainFrame;
         bool mainMenuActive = true;
-        public StartWindow(MainFrame mainFrame)
+        public StartWindow(MainFrame givenMainFrame)
         {
             InitializeComponent();
+            mainFrame = givenMainFrame;
             mainVariables = new MainVariables();
             mainMethods = new MainMethods();
             startWindow = this;
             Initialize_MainMenu();
-            mainFrame.Hide();
+            givenMainFrame.Hide();
             this.Icon = mainVariables.BuildManager_Icon;
         }
 
@@ -42,7 +44,7 @@ namespace StarcraftBuildManager
             }
             else
             {
-                buildWindow = new BuildWindow("Zerg", mainVariables);
+                buildWindow = new BuildWindow("Zerg", mainVariables, mainFrame) ;
                 buildWindow.Show();
                 this.Icon.Dispose();
                 this.Close();
@@ -58,7 +60,7 @@ namespace StarcraftBuildManager
             }
             else
             {
-                buildWindow = new BuildWindow("Protoss", mainVariables);
+                buildWindow = new BuildWindow("Protoss", mainVariables, mainFrame);
                 buildWindow.Show();
                 this.Icon.Dispose();
                 this.Close();
@@ -74,7 +76,7 @@ namespace StarcraftBuildManager
             }
             else
             {
-                buildWindow = new BuildWindow("Terran", mainVariables);
+                buildWindow = new BuildWindow("Terran", mainVariables, mainFrame);
                 buildWindow.Show();
                 this.Icon.Dispose();
                 this.Close();
