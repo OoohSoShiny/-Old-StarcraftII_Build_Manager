@@ -13,3 +13,4 @@ C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj
 C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.exe
 C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.pdb
 C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.BuildWindow.resources
+C:\Users\stbargholz\source\repos\StarcraftBuildManager\StarcraftBuildManager\obj\Debug\StarcraftBuildManager.LoadingScreen.resources

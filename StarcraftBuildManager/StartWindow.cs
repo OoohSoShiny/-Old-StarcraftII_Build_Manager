@@ -56,7 +56,9 @@ namespace StarcraftBuildManager
         {
             if(mainMenuActive)
             {
-
+                LoadingScreen loadingScreen = new LoadingScreen(mainVariables, this, mainFrame);
+                loadingScreen.Show();
+                this.Hide();
             }
             else
             {

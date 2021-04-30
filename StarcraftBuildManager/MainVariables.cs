@@ -71,6 +71,10 @@ namespace StarcraftBuildManager
         readonly Bitmap buildWindow_arrowDown = new Bitmap(@"Pictures\ArrowDown.png");
         readonly Bitmap builingAreadRunnerStart = new Bitmap(@"Pictures\RunnerStart.png");
         readonly Bitmap buildUiBackToMenu = new Bitmap(@"Pictures\BackToMenu.png");
+        readonly Bitmap buildingarea_UiSafe = new Bitmap(@"Pictures\safeIcon.png");
+        readonly Bitmap loadarea_load = new Bitmap(@"Pictures\LoadMenuLoad.png");
+        readonly Bitmap loadarea_loadBackground = new Bitmap(@"Backgrounds\LoadingScreenBackground.png");
+        readonly Bitmap loadarea_protosseyes = new Bitmap(@"Pictures\ProtossEyes.jpg");
 
         public Bitmap BuildingArea_UiMineralsBM
         { get { return buildingarea_UiMinerals; } }
@@ -90,6 +94,15 @@ namespace StarcraftBuildManager
         { get { return builingAreadRunnerStart; } }
         public Bitmap BuildingArea_BackToMenu
         { get { return buildUiBackToMenu; } }
+        public Bitmap Building_Area_SafeIconBM
+        { get { return buildingarea_UiSafe; } }
+        public Bitmap Loading_Area_LoadBM
+        { get { return loadarea_load; } }
+        public Bitmap Loading_Area_Background
+        { get { return loadarea_loadBackground; } }
+        public Bitmap Loading_Area_ProtossEyes
+        { get { return loadarea_protosseyes; } }
+        
 
 
         //Bitmaps New Build menu
@@ -279,5 +292,349 @@ namespace StarcraftBuildManager
         { get { return zerg_SeismicSpinesBM; } }
         public Bitmap Tunneling_ClawsBM
         { get { return zerg_TunnelingClawsBM; } }
+
+        //PROTOSS
+        //BUILDINGS
+        readonly Bitmap assimilator = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Assimilator.jpg");
+        readonly Bitmap cyberneticsCore = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Cybernetics_Core.jpg");
+        readonly Bitmap darkShrine = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Dark_Shrine.jpg");
+        readonly Bitmap fleetBeacon = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Fleet_Beacon.jpg");
+        readonly Bitmap forge = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Forge.jpg");
+        readonly Bitmap gateway = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Gateway.jpg");
+        readonly Bitmap nexus = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Nexus.jpg");
+        readonly Bitmap photonCannon = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Photon_Cannon.jpg");
+        readonly Bitmap pylon = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Pylon.jpg");
+        readonly Bitmap roboticsBay = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Robotics_Bay.jpg");
+        readonly Bitmap roboticsFacility = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Robotics_Facility.jpg");
+        readonly Bitmap starGate = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Stargate.jpg");
+        readonly Bitmap templarArchives = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Templar_Archives.jpg");
+        readonly Bitmap twilightCouncil = new Bitmap(@"Pictures\Protoss\Buildings\Icon_Protoss_Twilight_Council.jpg");
+        readonly Bitmap shieldBattery = new Bitmap(@"Pictures\Protoss\Buildings\ShieldBattery_SC2-LotV_Rend1.jpg");
+
+        public Bitmap Assimilator_BM
+        { get { return assimilator; } }
+        public Bitmap CyberneticsCore_BM
+        { get { return cyberneticsCore; } }
+        public Bitmap DarkShrine_BM
+        { get { return darkShrine; } }
+        public Bitmap FleetBeacon_BM
+        { get { return fleetBeacon; } }
+        public Bitmap Forge_BM
+        { get { return forge; } }
+        public Bitmap Gateway_BM
+        { get { return gateway; } }
+        public Bitmap Nexus_BM
+        { get { return nexus; } }
+        public Bitmap PhotonCannon_BM
+        { get { return photonCannon; } }
+        public Bitmap Pylon_BM
+        { get { return pylon; } }
+        public Bitmap RoboticsBay_BM
+        { get { return roboticsBay; } }
+        public Bitmap RoboticsFacility_BM
+        { get { return roboticsFacility; } }
+        public Bitmap Stargate_BM
+        { get { return starGate; } }
+        public Bitmap TemplarArchives_BM
+        { get { return templarArchives; } }
+        public Bitmap TwilightCouncil_BM
+        { get { return twilightCouncil; } }
+        public Bitmap Shieldbattery_BM
+        { get { return shieldBattery; } }
+
+        //UNITS
+        readonly Bitmap adept = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Adept.jpg");
+        readonly Bitmap archon = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Archon.jpg");
+        readonly Bitmap carrier = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Carrier.jpg");
+        readonly Bitmap colossus = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Colossus.jpg");
+        readonly Bitmap darkTemplar = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Dark_Templar.jpg");
+        readonly Bitmap disruptor = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Disruptor.jpg");
+        readonly Bitmap highTemplar = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_High_Templar.jpg");
+        readonly Bitmap immortal = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Immortal.jpg");
+        readonly Bitmap motherShip = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Mothership.jpg");
+
+        public Bitmap Adept_BM
+        { get { return adept; } }
+        public Bitmap Archon_BM
+        { get { return archon; } }
+        public Bitmap Carrier_BM
+        { get { return carrier; } }
+        public Bitmap Colossus_BM
+        { get { return colossus; } }
+        public Bitmap DarkTemplar_BM
+        { get { return darkTemplar; } }
+        public Bitmap Disruptor_BM
+        { get { return disruptor; } }
+        public Bitmap HighTemplar_BM
+        { get { return highTemplar; } }
+        public Bitmap Immortal_BM
+        { get { return immortal; } }
+        public Bitmap Mothership_BM
+        { get { return motherShip; } }
+
+        readonly Bitmap mothershipCore = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Mothership_Core.jpg");
+        readonly Bitmap observer = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Observer.jpg");
+        readonly Bitmap oracle = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Oracle.jpg");
+        readonly Bitmap phoenix = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Phoenix.jpg");
+        readonly Bitmap probe = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Probe.jpg");
+        readonly Bitmap sentry = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Sentry.jpg");
+        readonly Bitmap stalker = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Stalker.jpg");
+        readonly Bitmap tempest = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Tempest.jpg");
+        readonly Bitmap warpPrism = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Warp_Prism.jpg");
+        readonly Bitmap zealot = new Bitmap(@"Pictures\Protoss\Units\Icon_Protoss_Zealot.jpg");
+        readonly Bitmap voidRay = new Bitmap(@"Pictures\Protoss\Units\VoidRay_SC2_Rend1.jpg");
+
+        public Bitmap MothershipCore_BM
+        { get { return mothershipCore; } }
+        public Bitmap Observer_BM
+        { get { return observer; } }
+        public Bitmap Oracle_BM
+        { get { return oracle; } }
+        public Bitmap Phoenix_BM
+        { get { return phoenix; } }
+        public Bitmap Probe_BM
+        { get { return probe; } }
+        public Bitmap Sentry_BM
+        { get { return sentry; } }
+        public Bitmap Stalker_BM
+        { get { return stalker; } }
+        public Bitmap Tempest_BM
+        { get { return tempest; } }
+        public Bitmap WarpPrism_BM
+        { get { return warpPrism; } }
+        public Bitmap Zealot_BM
+        { get { return zealot; } }
+        public Bitmap VoidRaY_BM
+        { get { return voidRay; } }
+
+        //UPGRADES
+        readonly Bitmap airArmor = new Bitmap(@"Pictures\Protoss\Upgrades\AirArmor.png");
+        readonly Bitmap airWeapon = new Bitmap(@"Pictures\Protoss\Upgrades\AirWeaponAttack.png");
+        readonly Bitmap anionPulseCrystals = new Bitmap(@"Pictures\Protoss\AnionPulseCrystals.png");
+        readonly Bitmap blink = new Bitmap(@"Pictures\Protoss\Upgrades\Blink.png");
+        readonly Bitmap charge = new Bitmap(@"Pictures\Protoss\Upgrades\Charge.png");
+        readonly Bitmap extendedThermalLance = new Bitmap(@"Pictures\Protoss\Upgrades\ExtendedThermalLance.png");
+        readonly Bitmap fluxVanes= new Bitmap(@"Pictures\Protoss\Upgrades\FluxVanes.png");
+        readonly Bitmap graviticDrive = new Bitmap(@"Pictures\Protoss\Upgrades\GraviticDrive.png");
+        readonly Bitmap graviticBooster = new Bitmap(@"Pictures\Protoss\Upgrades\GraviticBooster.png");
+        readonly Bitmap gravitronCatapult = new Bitmap(@"Pictures\Protoss\GravitonCatapult.png");
+        readonly Bitmap groundArmor = new Bitmap(@"Pictures\Protoss\Upgrades\GroundArmor.png");
+
+        public Bitmap AirArmor_BM
+        { get { return airArmor; } }
+        public Bitmap AirWeapon_BM
+        { get { return airWeapon; } }
+        public Bitmap AnionPulseCrystals_BM
+        { get { return anionPulseCrystals; } }
+        public Bitmap Blink_BM
+        { get { return blink; } }
+        public Bitmap Charge_BM
+        { get { return charge; } }
+        public Bitmap ExtendedThermalLance_BM
+        { get { return extendedThermalLance; } }
+        public Bitmap FluxVanes_BM
+        { get { return fluxVanes; } }
+        public Bitmap GraviticDrive_BM
+        { get { return graviticDrive; } }
+        public Bitmap GraviticBooster_BM
+        { get { return graviticBooster; } }
+        public Bitmap GravitronCatapult_BM
+        { get { return gravitronCatapult; } }
+        public Bitmap GroundArmor_BM
+        { get { return groundArmor; } }
+
+        readonly Bitmap hallucination = new Bitmap(@"Pictures\Protoss\Upgrades\Hallucination.png");
+        readonly Bitmap groundAttack = new Bitmap(@"Pictures\Protoss\Upgrades\GroundAttack.png");
+        readonly Bitmap psionicStorm = new Bitmap(@"Pictures\Protoss\Upgrades\PsionicStorm.png");
+        readonly Bitmap resonatingGlaives = new Bitmap(@"Pictures\Protoss\Upgrades\ResonatingGlaives.png");
+        readonly Bitmap shadowStride = new Bitmap(@"Pictures\Protoss\Upgrades\ShadowStride.png");
+        readonly Bitmap shields = new Bitmap(@"Pictures\Protoss\Shields.png");
+        readonly Bitmap tectonicDestabilizers = new Bitmap(@"Pictures\Protoss\Upgrades\TectonicDestabilizers.png");
+        readonly Bitmap warpGate = new Bitmap(@"Pictures\Protoss\Upgrades\WarpGate.png");
+
+        public Bitmap Hallucination_BM
+        { get { return hallucination; } }
+        public Bitmap GroundAttack_BM
+        { get { return groundAttack; } }
+        public Bitmap Psionic_Storm_BM
+        { get { return psionicStorm; } }
+        public Bitmap ResonatingGlaives_BM
+        { get { return resonatingGlaives; } }
+        public Bitmap ShadowStride_BM
+        { get { return shadowStride; } }
+        public Bitmap Shields_BM
+        { get { return shields; } }
+        public Bitmap TectonicDestabilizers_BM
+        { get { return tectonicDestabilizers; } }
+        public Bitmap Warpgate_BM
+        { get { return warpGate; } }
+
+        //TERRAN
+        //BUILDINGS
+        readonly Bitmap armory = new Bitmap(@"Pictures\Terran\Buildings\Armory_SC2_Icon1.jpg");
+        readonly Bitmap barracks = new Bitmap(@"Pictures\Terran\Buildings\Barracks_SC2_Icon1.jpg");
+        readonly Bitmap bunker = new Bitmap(@"Pictures\Terran\Buildings\Bunker_SC2_Icon1.jpg");
+        readonly Bitmap commandCenter = new Bitmap(@"Pictures\Terran\Buildings\CommandCenter_SC2_Icon1.jpg");
+        readonly Bitmap engineeringBay = new Bitmap(@"Pictures\Terran\Buildings\EngineeringBay_SC2_Icon1.jpg");
+        readonly Bitmap factory = new Bitmap(@"Pictures\Terran\Buildings\Factory_SC2_Icon1.jpg");
+        readonly Bitmap fusionCore = new Bitmap(@"Pictures\Terran\Buildings\FusionCore_SC2_Icon1.jpg");
+        readonly Bitmap ghostAcademy = new Bitmap(@"Pictures\Terran\Buildings\GhostAcademy_SC2_Icon1.jpg");
+        readonly Bitmap missileTurret = new Bitmap(@"Pictures\Terran\Buildings\MissileTurret_SC2_Icon1.jpg");
+        readonly Bitmap orbitalCommand = new Bitmap(@"Pictures\Terran\Buildings\OrbitalCommand_SC2_Icon1.jpg");
+        readonly Bitmap planetaryFortress = new Bitmap(@"Pictures\Terran\Buildings\PlanetaryFortress_SC2_Icon1.jpg");
+        readonly Bitmap refinery = new Bitmap(@"Pictures\Terran\Buildings\Refinery_SC2_Icon1.jpg");
+        readonly Bitmap sensorTower = new Bitmap(@"Pictures\Terran\Buildings\SensorTower_SC2_Icon1.jpg");
+        readonly Bitmap starport = new Bitmap(@"Pictures\Terran\Buildings\Starport_SC2_Icon1.jpg");
+        readonly Bitmap supplyDepot = new Bitmap(@"Pictures\Terran\Buildings\SupplyDepot_SC2_Icon1.jpg");
+        
+        public Bitmap Armory_BM
+        { get { return armory; } }
+        public Bitmap Barracks_BM
+        { get { return barracks; } }
+        public Bitmap Bunker_BM
+        { get { return bunker; } }
+        public Bitmap CommandCenter_BM
+        { get { return commandCenter; } }
+        public Bitmap EngineeringBay_BM
+        { get { return engineeringBay; } }
+        public Bitmap Factory_BM
+        { get { return factory; } }
+        public Bitmap FusionCore_BM
+        { get { return fusionCore; } }
+        public Bitmap GhostAcademy_BM
+        { get { return ghostAcademy; } }
+        public Bitmap MissilyTurret_BM
+        { get { return missileTurret; } }
+        public Bitmap OrbitalCommand_BM
+        { get { return orbitalCommand; } }
+        public Bitmap PlanetaryFortress_BM
+        { get { return planetaryFortress; } }
+        public Bitmap Refinery_BM
+        { get { return refinery; } }
+        public Bitmap SensorTower_BM
+        { get { return sensorTower; } }
+        public Bitmap Starport_BM
+        { get { return starport; } }
+        public Bitmap SupplyDepot_BM
+        { get { return supplyDepot; } }
+
+        //UNITS
+        readonly Bitmap banshee = new Bitmap(@"Pictures\Terran\Buildings\Banshee_SC2_Icon1.jpg");
+        readonly Bitmap battleCruiser = new Bitmap(@"Pictures\Terran\Buildings\Battlecruiser_SC2_Icon1.jpg");
+        readonly Bitmap cyclone = new Bitmap(@"Pictures\Terran\Buildings\Cyclone_SC2-LotV_Icon1.jpg");
+        readonly Bitmap ghost = new Bitmap(@"Pictures\Terran\Buildings\Ghost_SC2_Icon1.jpg");
+        readonly Bitmap hellion = new Bitmap(@"Pictures\Terran\Buildings\Hellion_SC2_Icon1.jpg");
+        readonly Bitmap liberator = new Bitmap(@"Pictures\Terran\Buildings\Liberator_SC2-LotV_Icon1.jpg");
+        readonly Bitmap marauder = new Bitmap(@"Pictures\Terran\Buildings\Marauder_SC2_Icon1.jpg");
+        readonly Bitmap spaceMarine = new Bitmap(@"Pictures\Terran\Buildings\Marine_SC2_Icon1.jpg");
+        public Bitmap Banshee_BM
+        { get { return banshee; } }
+        public Bitmap BattleCruiser_BM
+        { get { return battleCruiser; } }
+        public Bitmap Cyclone_BM
+        { get { return cyclone; } }
+        public Bitmap Ghost_BM
+        { get { return ghost; } }
+        public Bitmap Hellion_BM
+        { get { return hellion; } }
+        public Bitmap Liberator_BM
+        { get { return liberator; } }
+        public Bitmap Marauder_BM
+        { get { return marauder; } }
+        public Bitmap SpaceMarine_BM
+        { get { return spaceMarine; } }
+
+        readonly Bitmap medivac = new Bitmap(@"Pictures\Terran\Buildings\Medivac_SC2_Icon1.jpg");
+        readonly Bitmap raven = new Bitmap(@"Pictures\Terran\Buildings\Raven_SC2_Icon1.jpg");
+        readonly Bitmap reaper = new Bitmap(@"Pictures\Terran\Buildings\Reaper_SC2_Icon1.jpg");
+        readonly Bitmap scv = new Bitmap(@"Pictures\Terran\Buildings\SCV_SC2_Icon1.jpg");
+        readonly Bitmap siegeTank = new Bitmap(@"Pictures\Terran\Buildings\SiegeTank_SC2_Icon1.jpg");
+        readonly Bitmap thor = new Bitmap(@"Pictures\Terran\Buildings\Thor_SC2_Icon1.jpg");
+        readonly Bitmap viking = new Bitmap(@"Pictures\Terran\Buildings\Viking_SC2_Icon1.jpg");
+        readonly Bitmap widowMine = new Bitmap(@"Pictures\Terran\Buildings\WidowMine_SC2-HotS_Icon1.jpg");
+
+        public Bitmap Medivac_BM
+        { get { return medivac; } }
+        public Bitmap Raven_BM
+        { get { return raven; } }
+        public Bitmap Reaper_BM
+        { get { return reaper; } }
+        public Bitmap SCV_BM
+        { get { return scv; } }
+        public Bitmap SiegeTank_BM
+        { get { return siegeTank; } }
+        public Bitmap Thor_BM
+        { get { return thor; } }
+        public Bitmap Viking_BM
+        { get { return viking; } }
+        public Bitmap WidowMine_BM
+        { get { return widowMine; } }
+
+        //UPGRADES
+        readonly Bitmap advancedBallistics = new Bitmap(@"Pictures\Terran\Upgrades\AdvancedBallistics.png");
+        readonly Bitmap cloakingField = new Bitmap(@"Pictures\Terran\Upgrades\CloakingField.png");
+        readonly Bitmap combatShield = new Bitmap(@"Pictures\Terran\Upgrades\CombatShield.png");
+        readonly Bitmap concussiveShells = new Bitmap(@"Pictures\Terran\Upgrades\ConcussiveShells.png");
+        readonly Bitmap corvidReactor = new Bitmap(@"Pictures\Terran\Upgrades\CorvidReactor.png");
+        readonly Bitmap drillingClaws = new Bitmap(@"Pictures\Terran\Upgrades\DrillingClaws.png");
+        readonly Bitmap hisecAutoTracking = new Bitmap(@"Pictures\Terran\Upgrades\HisecAutoTracking.png");
+        readonly Bitmap hyperflightRotor = new Bitmap(@"Pictures\Terran\Upgrades\HyperflightRotor.png");
+        readonly Bitmap infantryArmor = new Bitmap(@"Pictures\Terran\Upgrades\InfantryArmor.png");
+        readonly Bitmap infantryWeapon = new Bitmap(@"Pictures\Terran\Upgrades\InfantryWeapon.png");
+        readonly Bitmap infernalPreigniter = new Bitmap(@"Pictures\Terran\Upgrades\InfernalPreigniter.png");
+        public Bitmap AdvancedBallistics_BM
+        { get { return advancedBallistics; } }
+        public Bitmap CloakingField_BM
+        { get { return cloakingField; } }
+        public Bitmap CombatShield_BM
+        { get { return combatShield; } }
+        public Bitmap ConcussiveShells_BM
+        { get { return concussiveShells; } }
+        public Bitmap CorvidReactor_BM
+        { get { return corvidReactor; } }
+        public Bitmap DrillingClaws_BM
+        { get { return drillingClaws; } }
+        public Bitmap HisecAutoTracking_BM
+        { get { return hisecAutoTracking; } }
+        public Bitmap HyperFlightRotor_BM
+        { get { return hyperflightRotor; } }
+        public Bitmap InfantryArmor_BM
+        { get { return infantryArmor; } }
+        public Bitmap InfantryWeapon_BM
+        { get { return infantryWeapon; } }
+        public Bitmap InfernalPreigniter
+        { get { return infernalPreigniter; } }
+
+        readonly Bitmap magfieldaccelerator = new Bitmap(@"Pictures\Terran\Upgrades\MagfieldAccelerator.png");
+        readonly Bitmap neosteelArmor = new Bitmap(@"Pictures\Terran\Upgrades\NeosteelArmor.png");
+        readonly Bitmap personalCloaking = new Bitmap(@"Pictures\Terran\Upgrades\PersonalCloaking.png");
+        readonly Bitmap rapidReignitionSystem = new Bitmap(@"Pictures\Terran\Upgrades\RapidReignitionSystem.png");
+        readonly Bitmap shipWeapons = new Bitmap(@"Pictures\Terran\Upgrades\ShipWeapons.png");
+        readonly Bitmap smartServos = new Bitmap(@"Pictures\Terran\Upgrades\SmartServos.png");
+        readonly Bitmap stimpack = new Bitmap(@"Pictures\Terran\Upgrades\Stimpack.png");
+        readonly Bitmap vehicleAndShipPlating = new Bitmap(@"Pictures\Terran\Upgrades\VehicleAndShipPlating.png");
+        readonly Bitmap vehicleWeapon = new Bitmap(@"Pictures\Terran\Upgrades\VehicleWeapon.png");
+        readonly Bitmap weaponRefit = new Bitmap(@"Pictures\Terran\Upgrades\WeaponRefit.png");
+
+        public Bitmap MagfieldAccelerator_BM
+        { get { return magfieldaccelerator; } }
+        public Bitmap NeosteelArmor_BM
+        { get { return neosteelArmor; } }
+        public Bitmap PersonalCloaking_BM
+        { get { return personalCloaking; } }
+        public Bitmap RapidReignitionSystem_BM
+        { get { return rapidReignitionSystem; } }
+        public Bitmap ShipWeapons_BM
+        { get { return shipWeapons; } }
+        public Bitmap SmartServos_BM
+        { get { return smartServos; } }
+        public Bitmap Stimpack_BM
+        { get { return stimpack; } }
+        public Bitmap VehicleAndShipPlating_BM
+        { get { return vehicleAndShipPlating; } }
+        public Bitmap VehicleWeapon_BM
+        { get { return vehicleWeapon; } }
+        public Bitmap WeaponRefit_BM
+        { get { return weaponRefit; } }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,10 @@ namespace StarcraftBuildManager
         MainFrame mainFrame;
         
         //The Lists for everything
-        List<string> stringSafeList, prefabTypeList, targetTimeList;
+        List<string> stringSafeList, prefabTypeList, targetTimeList, loadedList;
         string[] nextPartSafeArray;
         List<int> prefabTimestampList, prefabIndexList, prefabNumberList;
-        int listWalker = 0, targetListWalker = 0, targetTimeStamp = -1, nextTime = -1, nextIndex = 0;
+        int listWalker = 0, targetListWalker = 0, targetTimeStamp = 1, nextTime = -1, nextIndex = 0;
         string targetListAddAstring, targetTimeName = "", nextType = "";
 
         public List<string> Safe_List
@@ -72,7 +73,7 @@ namespace StarcraftBuildManager
         float mineralCollectionRate = 0.96f, vespinCollectionRate = 1f, vespinCollectionRateLow = 0.9f, mineralCount = 50, vespinCount = 0;
         bool supplyInProgress = false, extractorInProgress = false;
 
-        public BuildWindow(string race, MainVariables givenMainVariables, MainFrame givenMainFrame)
+        public BuildWindow(string race, MainVariables givenMainVariables, MainFrame givenMainFrame, List<string> givenLoadedList = null)
         {
             //initialzing UI
             InitializeComponent();
@@ -81,6 +82,7 @@ namespace StarcraftBuildManager
             mainMethods = new MainMethods(this);
             mainFrame = givenMainFrame;
             mainVariables.Active_Race = race;
+            loadedList = givenLoadedList;
 
             building_Pictureboxes = new PictureBox[] {picbBuilding1, picbBuilding2, picbBuilding3, picbBuilding4, picbBuilding5, picbBuilding6, picbBuilding7, picbBuilding8, picbBuilding9, picbBuilding10, 
             picbBuilding11, picbBuilding12, picbBuilding13, picbBuilding14, picbBuilding15, picbBuilding16, picbBuilding17, picbBuilding18};
@@ -100,6 +102,7 @@ namespace StarcraftBuildManager
             picBArrowDown.Image = mainVariables.BuildingArea_ArrowDownBM;
             picBArrowUp.Image = mainVariables.BuildingArea_ArrowUpBM;
             picBBackToMenu.Image = mainVariables.BuildingArea_BackToMenu;
+            picBSafe.Image = mainVariables.Building_Area_SafeIconBM;
             
             trackbarTimeline.Location = new Point(39, 46);
             lblTimeEnd.Location = new Point(36, 30);
@@ -130,12 +133,35 @@ namespace StarcraftBuildManager
                     Terran();
                     break;
             }
+
+            //What happens when a list was loaded
+            if (loadedList != null)
+            {
+                stringSafeList = loadedList;
+                prefabIndexList = new List<int> { };
+                prefabTimestampList = new List<int> { };
+                prefabTypeList = new List<string> { };
+                prefabNumberList = new List<int> { };
+                for (int i = 1; i < stringSafeList.Count; i++)
+                {
+                    string[] loadStringArray = stringSafeList[i].Split('_');
+                    prefabTimestampList.Add(Convert.ToInt32(loadStringArray[0]));
+                    prefabTypeList.Add(loadStringArray[1]);
+                    prefabIndexList.Add(Convert.ToInt32(loadStringArray[2]));
+                    prefabNumberList.Add(Convert.ToInt32(loadStringArray[3]));
+                }
+                Update_Timeline(0);
+            }
+            else
+            {
+                stringSafeList = new List<string> { };
+            }
+
             this.Icon = mainVariables.BuildManager_Icon;
         }
 
         public void Zerg()
         {              
-
             //Initializing the Buildings and set them on their place in the UI
             hatchery = new Prefab("Hatchery", 300, 0, 100, mainVariables.HatcheryBM, 4);
             lair = new Prefab("Lair", 150, 100, 80, mainVariables.LairBM);
@@ -227,8 +253,6 @@ namespace StarcraftBuildManager
             missile_Attacks1, muscular_Augments, neural_Parasite, pathogen_Glands, pneumatized_Carapace, seismic_Spines, tunneling_Claws};
 
             mainMethods.Fill_Picturebox_Array(upgrade_Pictureboxes, upgrade_Array);
-
-            stringSafeList = new List<string> { };
         }
         public void Protoss()
         {
@@ -628,7 +652,6 @@ namespace StarcraftBuildManager
 
         private void picbUnit18_MouseDown(object sender, MouseEventArgs e)
         { picbBuilding1.DoDragDrop(unit_Array[17], DragDropEffects.Copy | DragDropEffects.Move); }
-
         private void picbUnit19_MouseDown(object sender, MouseEventArgs e)
         { picbBuilding1.DoDragDrop(unit_Array[18], DragDropEffects.Copy | DragDropEffects.Move); }
 
@@ -821,6 +844,51 @@ namespace StarcraftBuildManager
         {
             lblMenuTooltip.Text = "";
         }
+
+        private void picBSafe_Click(object sender, EventArgs e)
+        {
+           if(txtSave.Text != "")
+            {
+                string filePath = @"SafeFiles\" + txtSave.Text + ".txt";
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                    using (FileStream fs = File.Create(filePath))
+                    { }
+                    using (StreamWriter sw = new StreamWriter(filePath))
+                    {
+                        sw.WriteLine(mainVariables.Active_Race);
+                        foreach(string writeRow in Safe_List)
+                        {
+                            sw.WriteLine(writeRow);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
+            }
+           else
+            {
+                MessageBox.Show("Name field is empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            txtSave.Text = "";
+        }
+
+        private void picBSafe_MouseHover(object sender, EventArgs e)
+        {
+            lblMenuTooltip.Text = "Save";
+        }
+
+        private void picBSafe_MouseLeave(object sender, EventArgs e)
+        {
+            lblMenuTooltip.Text = "";
+        }
         #endregion
         private void picbExit_Click(object sender, EventArgs e)
         { mainFrame.Close(); }
@@ -922,6 +990,7 @@ namespace StarcraftBuildManager
 
             stringSafeList.Add(addTimestamp);
             stringSafeList.Sort();
+
             foreach (string currentString in Safe_List)
             {
                 string[] currentArray = currentString.Split('_');
@@ -1046,6 +1115,7 @@ namespace StarcraftBuildManager
                 }
             }
         }
+
         //Timer Start
         private void picBRunnerStart_Click(object sender, EventArgs e)
         {
@@ -1056,6 +1126,7 @@ namespace StarcraftBuildManager
                 mainTimer.Start();
             }
         }
+
         //Automaticly progresses the timeline when a timestamp is reached
         private void MainTimer_Tick(object sender, EventArgs e)
         {
@@ -1113,6 +1184,7 @@ namespace StarcraftBuildManager
             else
             {return false;}
         }
+
         private bool Check_For_Extractor(Prefab nextTargetPrefab)
         {
             if (extractorInProgress == false && mineralCount >= extractorPrefabNorm.MineralCost && Reach_Mineral_Target(nextTargetPrefab) && extractorCount <= mainBuildingCount * 2 && workerCountMinerals > workerCountVespin*3 )
@@ -1120,6 +1192,7 @@ namespace StarcraftBuildManager
             else
             { return false; }
         }
+
         //Checks if an Overlord should be build
         private bool Check_For_Overlord(Prefab nextTargetPrefab)
         {
@@ -1151,12 +1224,6 @@ namespace StarcraftBuildManager
                         }
                     }
                 }
-                //BREAK POINT FOR BUGFIXING
-                if(optimizeProgressor == 260)
-                {
-                    lblCurrentTrackbarValue.Text = "Muh";
-                }
-
 
                 if (targetTimeList.Count > targetListWalker)
                 {
@@ -1164,27 +1231,29 @@ namespace StarcraftBuildManager
                     targetTimeStamp = Convert.ToInt32(targetTimeArray[0]);
                     targetTimeName = targetTimeArray[1];
                 }
+              int  counter = 0;
                 //Checks if something has been finished                
-                while(targetTimeList.Count > targetListWalker && targetTimeStamp >= optimizeProgressor)
+                while(targetTimeList.Count > targetListWalker && targetTimeStamp == optimizeProgressor)
                 {
-
+                    targetTimeName = targetTimeList[counter].Split('_')[1];
+                    counter++;
                     switch(targetTimeName)
                     {
                         case "Drone":
                         case "SCV":
                         case "Probe":
-                            Worker_Distribute();
+                            Worker_Distribute(); //reached
                             break;
                         case "Supply Depot":
                         case "Pylon":
                         case "Overlord":
                             supply += 8;
-                            supplyInProgress = false;
+                            supplyInProgress = false;   //not reached
                             break;
                         case "Hatchery":
                         case "Command Centre":
                         case "Nexus":
-                            if(mainVariables.Active_Race == "Zerg")
+                            if(mainVariables.Active_Race == "Zerg") //reached
                             { supply += 3; }
                             else
                             { supply += 8; }
@@ -1192,24 +1261,30 @@ namespace StarcraftBuildManager
                             break;
                         case "Extractor":
                             extractorCount++;
-                            extractorInProgress = false;
+                            extractorInProgress = false;    //not reached
                             break;
                     }
                     targetListWalker++;
                 }
 
+                for(int i = listWalker; i < Safe_List.Count; i++)
+                {
+                    string[] safeListCheck = Safe_List[i].Split('_');
+                    int timeCheck = Convert.ToInt32(safeListCheck[0]);
+                    if(optimizeProgressor == timeCheck)
+                    {
+                        listWalker++;
+                        if (listWalker == Safe_List.Count)
+                        {
+                            listWalker = 0;
+                        }
+                    }
+                }
 
-                while (listWalker < prefabTimestampList.Count - 1 && optimizeProgressor == prefabTimestampList[listWalker])
-                {
-                    listWalker++;
-                }
-                if (Safe_List.Count > listWalker)
-                {
-                    nextPartSafeArray = Safe_List[listWalker].Split('_');
-                    nextTime = Convert.ToInt32(nextPartSafeArray[0]);
-                    nextType = nextPartSafeArray[1];
-                    nextIndex = Convert.ToInt32(nextPartSafeArray[2]);
-                }
+                nextPartSafeArray = Safe_List[listWalker].Split('_');
+                nextTime = Convert.ToInt32(nextPartSafeArray[0]);
+                nextType = nextPartSafeArray[1];
+                nextIndex = Convert.ToInt32(nextPartSafeArray[2]);
 
                 Prefab nextPrefab = mainMethods.Prefab_Finder(nextType, nextIndex);
 
@@ -1218,18 +1293,30 @@ namespace StarcraftBuildManager
                 vespinCount = Expected_Vespin(1);
 
                 //Checks if a worker should be build
-                if (Check_For_Worker(nextPrefab))
+                switch (mainVariables.Active_Race)
                 {
-                    mineralCount -= 50;
-                    supply -= 1;
-                    if (mainVariables.Active_Race == "Zerg")
-                    { larvaeCount -= 1; }
-                    Optimizing_Timeline(workerPrefabNorm, optimizeProgressor);
-                    targetTimeList.Add(Add_To_Timestamplist(workerPrefabNorm));
-                    targetTimeList.Sort();
-                    listWalker++;
-                }            
-                
+                    case "Zerg":
+                        for (int i = 0; i < larvaeCount; i++)
+                        {
+                            if (Check_For_Worker(nextPrefab))
+                            {
+                                mineralCount -= 50;
+                                supply -= 1;
+                                Optimizing_Timeline(workerPrefabNorm, optimizeProgressor);
+                                Add_To_Timestamp_List(workerPrefabNorm, "unit");
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        break;
+                    case "Terran":
+                        break;
+                    case "Protoss":
+                        break;
+                }
+
                 //Checks if supply needed and orders it
                 if (supply <= 3)
                 {
@@ -1239,14 +1326,9 @@ namespace StarcraftBuildManager
                             if (Check_For_Overlord(nextPrefab))
                             {
                                 mineralCount -= supplyPrefabNorm.MineralCost;
-                                supplyInProgress = true;
-                                if (mainVariables.Active_Race == "Zerg")
-                                { larvaeCount -= 1; }
-                                
+                                supplyInProgress = true;                             
                                 Optimizing_Timeline(supplyPrefabNorm, optimizeProgressor);
-                                targetTimeList.Add(Add_To_Timestamplist(supplyPrefabNorm));
-                                targetTimeList.Sort();
-                                listWalker++;
+                                Add_To_Timestamp_List(supplyPrefabNorm, "unit");
                             }
                             break;
                         case "Terran":
@@ -1255,29 +1337,27 @@ namespace StarcraftBuildManager
                             break;
                     }
                 }
-
+                //Checks if a new mainbuilding can be built
                 if (Check_For_Main(nextPrefab))
                 {
                     mineralCount -= mainPrefabNorm.MineralCost;
-                    if (mainVariables.Active_Race == "Zerg")
-                    { workerCountMinerals--; supply++; }
                     Optimizing_Timeline(mainPrefabNorm, optimizeProgressor);
-                    targetTimeList.Add(Add_To_Timestamplist(mainPrefabNorm));
-                    targetTimeList.Sort();
-                    listWalker++;
+                    Add_To_Timestamp_List(mainPrefabNorm, "building");
                 }
+                
+                //Checks if a new vespin Extractor can be built
                 if (Check_For_Extractor(nextPrefab))
                 {
                     extractorInProgress = true;
                     mineralCount -= extractorPrefabNorm.MineralCost;
-                    if (mainVariables.Active_Race == "Zerg")
-                    { workerCountMinerals--; supply++; }
                     Optimizing_Timeline(extractorPrefabNorm, optimizeProgressor);
-                    targetTimeList.Add(Add_To_Timestamplist(extractorPrefabNorm));
-                    targetTimeList.Sort();
-                    listWalker++;
+                    Add_To_Timestamp_List(extractorPrefabNorm, "building");
                 }
             }
+            lblTimeEnd.Text = "Vespinworker " + workerCountVespin.ToString();
+            lblMenuTooltip.Text = "Mineralworker: " + workerCountMinerals.ToString();
+            lbltimeStart.Text = "Mains: " + mainBuildingCount.ToString();
+            
             Enable_Disable_UI("enable");
         }
         //Checks if there is larvae that can be transformed to a unit
@@ -1307,13 +1387,16 @@ namespace StarcraftBuildManager
             extractorCount = 0;
             mainBuildingCount = 1;
             targetListWalker = 0;
-            targetTimeStamp = -1;
+            targetTimeStamp = 1;
             nextTime = -1; 
             nextIndex = 0;
+            extractorInProgress = false;
+            supplyInProgress = false;
             switch (mainVariables.Active_Race)
             {
                 case "Zerg":
                     larvaeCount = 3;
+                    supply = 2;
                     break;
                 case "Terran":
                     break;
@@ -1341,18 +1424,19 @@ namespace StarcraftBuildManager
             }
         }
 
-        private int Check_Time_Next_Building()
+        private int Check_Time_Next_Prefab()
         {
             return prefabTimestampList[listWalker] - optimizeProgressor;
         }
 
         private bool Reach_Mineral_Target(Prefab prefab)
         {
-            if(Expected_Minerals(Check_Time_Next_Building()) > prefab.MineralCost)
+            if(Expected_Minerals(Check_Time_Next_Prefab()) > prefab.MineralCost)
             { return true; }
             else
             { return false; }
         }
+
         private void Worker_Distribute()
         {            
             if(extractorCount >= 1 && workerCountVespin <= extractorCount * 3)
@@ -1375,28 +1459,47 @@ namespace StarcraftBuildManager
                 workerCountMinerals++;
             }
         }
-        private void Expected_Build_Finish(string finishedPrefab)
-        {
 
-        }
-
-        private string Add_To_Timestamplist(Prefab prefab)
+        //Builds the String for the Timestamp List, it is TIME_NAME (for example 001_Drone or 583_Overlord)
+        private string Timestamp_String_Builder(Prefab prefab)
         {
-            if (workerPrefabNorm.BuildTime + optimizeProgressor < 10)
+            if (prefab.BuildTime + optimizeProgressor < 10)
             {
-                targetListAddAstring = "00" + (workerPrefabNorm.BuildTime + optimizeProgressor).ToString();
+                targetListAddAstring = "00" + (prefab.BuildTime + optimizeProgressor).ToString();
             }
-            else if (workerPrefabNorm.BuildTime + optimizeProgressor < 100 && workerPrefabNorm.BuildTime + optimizeProgressor > 9)
+            else if (prefab.BuildTime + optimizeProgressor < 100 && prefab.BuildTime + optimizeProgressor > 9)
             {
-                targetListAddAstring = "0" + (workerPrefabNorm.BuildTime + optimizeProgressor).ToString();
+                targetListAddAstring = "0" + (prefab.BuildTime + optimizeProgressor).ToString();
             }
             else
             {
-                targetListAddAstring = (workerPrefabNorm.BuildTime + optimizeProgressor).ToString();
+                targetListAddAstring = (prefab.BuildTime + optimizeProgressor).ToString();
             }
-
             string returnString = targetListAddAstring + "_" + prefab.Name;
             return returnString;
+        }
+        
+        // normalizes the minimum process for every addition to the timestamplist to avoid repeating code
+        private void Add_To_Timestamp_List(Prefab prefab, string type)
+        {
+            switch(type)
+            {
+                case "unit":
+                    if (mainVariables.Active_Race == "Zerg")
+                        { larvaeCount -= 1; }
+                    break;
+                case "building":
+                    if (mainVariables.Active_Race == "Zerg")
+                        { workerCountMinerals--; supply++; }
+                    break;
+                case "upgrade":
+                    break;
+            }
+            listWalker++;
+            string addString = Timestamp_String_Builder(prefab);
+            targetTimeList.Add(addString);
+
+            targetTimeList.Sort();
         }
     }
 }

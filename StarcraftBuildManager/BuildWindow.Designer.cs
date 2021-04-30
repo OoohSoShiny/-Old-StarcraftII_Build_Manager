@@ -156,6 +156,8 @@ namespace StarcraftBuildManager
             this.lblPreviousMid = new System.Windows.Forms.Label();
             this.lblPreviousLast = new System.Windows.Forms.Label();
             this.picBBackToMenu = new System.Windows.Forms.PictureBox();
+            this.picBSafe = new System.Windows.Forms.PictureBox();
+            this.txtSave = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackbarTimeline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbBuilding1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbBuilding2)).BeginInit();
@@ -267,6 +269,7 @@ namespace StarcraftBuildManager
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousMid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousLast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBBackToMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBSafe)).BeginInit();
             this.SuspendLayout();
             // 
             // trackbarTimeline
@@ -1709,12 +1712,37 @@ namespace StarcraftBuildManager
             this.picBBackToMenu.MouseLeave += new System.EventHandler(this.picBBackToMenu_MouseLeave);
             this.picBBackToMenu.MouseHover += new System.EventHandler(this.picBBackToMenu_MouseHover);
             // 
+            // picBSafe
+            // 
+            this.picBSafe.BackColor = System.Drawing.Color.Transparent;
+            this.picBSafe.Location = new System.Drawing.Point(918, 28);
+            this.picBSafe.Name = "picBSafe";
+            this.picBSafe.Size = new System.Drawing.Size(20, 20);
+            this.picBSafe.TabIndex = 72;
+            this.picBSafe.TabStop = false;
+            this.picBSafe.Click += new System.EventHandler(this.picBSafe_Click);
+            this.picBSafe.MouseLeave += new System.EventHandler(this.picBSafe_MouseLeave);
+            this.picBSafe.MouseHover += new System.EventHandler(this.picBSafe_MouseHover);
+            // 
+            // txtSave
+            // 
+            this.txtSave.BackColor = System.Drawing.SystemColors.GrayText;
+            this.txtSave.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSave.Location = new System.Drawing.Point(812, 28);
+            this.txtSave.MaxLength = 10;
+            this.txtSave.Name = "txtSave";
+            this.txtSave.Size = new System.Drawing.Size(100, 21);
+            this.txtSave.TabIndex = 73;
+            // 
             // BuildWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1070, 680);
+            this.Controls.Add(this.txtSave);
+            this.Controls.Add(this.picBSafe);
             this.Controls.Add(this.picBBackToMenu);
             this.Controls.Add(this.lblNextLast);
             this.Controls.Add(this.lblNextMid);
@@ -1860,6 +1888,7 @@ namespace StarcraftBuildManager
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousMid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBPreviousLast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBBackToMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBSafe)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1993,5 +2022,7 @@ namespace StarcraftBuildManager
         private System.Windows.Forms.Label lblPreviousMid;
         private System.Windows.Forms.Label lblPreviousLast;
         private System.Windows.Forms.PictureBox picBBackToMenu;
+        private System.Windows.Forms.PictureBox picBSafe;
+        private System.Windows.Forms.TextBox txtSave;
     }
 }
