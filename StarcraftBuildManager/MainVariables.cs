@@ -410,14 +410,14 @@ namespace StarcraftBuildManager
         //UPGRADES
         readonly Bitmap airArmor = new Bitmap(@"Pictures\Protoss\Upgrades\AirArmor.png");
         readonly Bitmap airWeapon = new Bitmap(@"Pictures\Protoss\Upgrades\AirWeaponAttack.png");
-        readonly Bitmap anionPulseCrystals = new Bitmap(@"Pictures\Protoss\AnionPulseCrystals.png");
+        readonly Bitmap anionPulseCrystals = new Bitmap(@"Pictures\Protoss\Upgrades\AnionPulseCrystals.png");
         readonly Bitmap blink = new Bitmap(@"Pictures\Protoss\Upgrades\Blink.png");
         readonly Bitmap charge = new Bitmap(@"Pictures\Protoss\Upgrades\Charge.png");
         readonly Bitmap extendedThermalLance = new Bitmap(@"Pictures\Protoss\Upgrades\ExtendedThermalLance.png");
         readonly Bitmap fluxVanes= new Bitmap(@"Pictures\Protoss\Upgrades\FluxVanes.png");
         readonly Bitmap graviticDrive = new Bitmap(@"Pictures\Protoss\Upgrades\GraviticDrive.png");
         readonly Bitmap graviticBooster = new Bitmap(@"Pictures\Protoss\Upgrades\GraviticBooster.png");
-        readonly Bitmap gravitronCatapult = new Bitmap(@"Pictures\Protoss\GravitonCatapult.png");
+        readonly Bitmap gravitronCatapult = new Bitmap(@"Pictures\Protoss\Upgrades\GravitonCatapult.png");
         readonly Bitmap groundArmor = new Bitmap(@"Pictures\Protoss\Upgrades\GroundArmor.png");
 
         public Bitmap AirArmor_BM
@@ -448,7 +448,7 @@ namespace StarcraftBuildManager
         readonly Bitmap psionicStorm = new Bitmap(@"Pictures\Protoss\Upgrades\PsionicStorm.png");
         readonly Bitmap resonatingGlaives = new Bitmap(@"Pictures\Protoss\Upgrades\ResonatingGlaives.png");
         readonly Bitmap shadowStride = new Bitmap(@"Pictures\Protoss\Upgrades\ShadowStride.png");
-        readonly Bitmap shields = new Bitmap(@"Pictures\Protoss\Shields.png");
+        readonly Bitmap shields = new Bitmap(@"Pictures\Protoss\Upgrades\Shields.png");
         readonly Bitmap tectonicDestabilizers = new Bitmap(@"Pictures\Protoss\Upgrades\TectonicDestabilizers.png");
         readonly Bitmap warpGate = new Bitmap(@"Pictures\Protoss\Upgrades\WarpGate.png");
 
@@ -519,14 +519,14 @@ namespace StarcraftBuildManager
         { get { return supplyDepot; } }
 
         //UNITS
-        readonly Bitmap banshee = new Bitmap(@"Pictures\Terran\Buildings\Banshee_SC2_Icon1.jpg");
-        readonly Bitmap battleCruiser = new Bitmap(@"Pictures\Terran\Buildings\Battlecruiser_SC2_Icon1.jpg");
-        readonly Bitmap cyclone = new Bitmap(@"Pictures\Terran\Buildings\Cyclone_SC2-LotV_Icon1.jpg");
-        readonly Bitmap ghost = new Bitmap(@"Pictures\Terran\Buildings\Ghost_SC2_Icon1.jpg");
-        readonly Bitmap hellion = new Bitmap(@"Pictures\Terran\Buildings\Hellion_SC2_Icon1.jpg");
-        readonly Bitmap liberator = new Bitmap(@"Pictures\Terran\Buildings\Liberator_SC2-LotV_Icon1.jpg");
-        readonly Bitmap marauder = new Bitmap(@"Pictures\Terran\Buildings\Marauder_SC2_Icon1.jpg");
-        readonly Bitmap spaceMarine = new Bitmap(@"Pictures\Terran\Buildings\Marine_SC2_Icon1.jpg");
+        readonly Bitmap banshee = new Bitmap(@"Pictures\Terran\Units\Banshee_SC2_Icon1.jpg");
+        readonly Bitmap battleCruiser = new Bitmap(@"Pictures\Terran\Units\Battlecruiser_SC2_Icon1.jpg");
+        readonly Bitmap cyclone = new Bitmap(@"Pictures\Terran\Units\Cyclone_SC2-LotV_Icon1.jpg");
+        readonly Bitmap ghost = new Bitmap(@"Pictures\Terran\Units\Ghost_SC2_Icon1.jpg");
+        readonly Bitmap hellion = new Bitmap(@"Pictures\Terran\Units\Hellion_SC2_Icon1.jpg");
+        readonly Bitmap liberator = new Bitmap(@"Pictures\Terran\Units\Liberator_SC2-LotV_Icon1.jpg");
+        readonly Bitmap marauder = new Bitmap(@"Pictures\Terran\Units\Marauder_SC2_Icon1.jpg");
+        readonly Bitmap spaceMarine = new Bitmap(@"Pictures\Terran\Units\Marine_SC2_Icon1.jpg");
         public Bitmap Banshee_BM
         { get { return banshee; } }
         public Bitmap BattleCruiser_BM
@@ -544,14 +544,14 @@ namespace StarcraftBuildManager
         public Bitmap SpaceMarine_BM
         { get { return spaceMarine; } }
 
-        readonly Bitmap medivac = new Bitmap(@"Pictures\Terran\Buildings\Medivac_SC2_Icon1.jpg");
-        readonly Bitmap raven = new Bitmap(@"Pictures\Terran\Buildings\Raven_SC2_Icon1.jpg");
-        readonly Bitmap reaper = new Bitmap(@"Pictures\Terran\Buildings\Reaper_SC2_Icon1.jpg");
-        readonly Bitmap scv = new Bitmap(@"Pictures\Terran\Buildings\SCV_SC2_Icon1.jpg");
-        readonly Bitmap siegeTank = new Bitmap(@"Pictures\Terran\Buildings\SiegeTank_SC2_Icon1.jpg");
-        readonly Bitmap thor = new Bitmap(@"Pictures\Terran\Buildings\Thor_SC2_Icon1.jpg");
-        readonly Bitmap viking = new Bitmap(@"Pictures\Terran\Buildings\Viking_SC2_Icon1.jpg");
-        readonly Bitmap widowMine = new Bitmap(@"Pictures\Terran\Buildings\WidowMine_SC2-HotS_Icon1.jpg");
+        readonly Bitmap medivac = new Bitmap(@"Pictures\Terran\Units\Medivac_SC2_Icon1.jpg");
+        readonly Bitmap raven = new Bitmap(@"Pictures\Terran\Units\Raven_SC2_Icon1.jpg");
+        readonly Bitmap reaper = new Bitmap(@"Pictures\Terran\Units\Reaper_SC2_Icon1.jpg");
+        readonly Bitmap scv = new Bitmap(@"Pictures\Terran\Units\SCV_SC2_Icon1.jpg");
+        readonly Bitmap siegeTank = new Bitmap(@"Pictures\Terran\Units\SiegeTank_SC2_Icon1.jpg");
+        readonly Bitmap thor = new Bitmap(@"Pictures\Terran\Units\Thor_SC2_Icon1.jpg");
+        readonly Bitmap viking = new Bitmap(@"Pictures\Terran\Units\Viking_SC2_Icon1.jpg");
+        readonly Bitmap widowMine = new Bitmap(@"Pictures\Terran\Units\WidowMine_SC2-HotS_Icon1.jpg");
 
         public Bitmap Medivac_BM
         { get { return medivac; } }
@@ -602,7 +602,7 @@ namespace StarcraftBuildManager
         { get { return infantryArmor; } }
         public Bitmap InfantryWeapon_BM
         { get { return infantryWeapon; } }
-        public Bitmap InfernalPreigniter
+        public Bitmap InfernalPreigniter_BM
         { get { return infernalPreigniter; } }
 
         readonly Bitmap magfieldaccelerator = new Bitmap(@"Pictures\Terran\Upgrades\MagfieldAccelerator.png");
@@ -615,6 +615,7 @@ namespace StarcraftBuildManager
         readonly Bitmap vehicleAndShipPlating = new Bitmap(@"Pictures\Terran\Upgrades\VehicleAndShipPlating.png");
         readonly Bitmap vehicleWeapon = new Bitmap(@"Pictures\Terran\Upgrades\VehicleWeapon.png");
         readonly Bitmap weaponRefit = new Bitmap(@"Pictures\Terran\Upgrades\WeaponRefit.png");
+        readonly Bitmap enhancedShockwaves = new Bitmap(@"Pictures\Terran\Upgrades\EnhancedShockwaves.png");
 
         public Bitmap MagfieldAccelerator_BM
         { get { return magfieldaccelerator; } }
@@ -636,5 +637,7 @@ namespace StarcraftBuildManager
         { get { return vehicleWeapon; } }
         public Bitmap WeaponRefit_BM
         { get { return weaponRefit; } }
+        public Bitmap EnhancedShockwaves_BM
+        { get { return enhancedShockwaves; } }
     }
 }

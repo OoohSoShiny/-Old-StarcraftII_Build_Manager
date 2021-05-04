@@ -17,23 +17,22 @@ namespace StarcraftBuildManager
         MainVariables mainVariables;
         MainMethods mainMethods;
         MainFrame mainFrame;
-        
+
         //The Lists for everything
-        List<string> stringSafeList, prefabTypeList, targetTimeList, loadedList;
+        List<string> stringSafeList, prefabTypeList, targetTimeList, loadedList, givenPrefabTimestamps;
         string[] nextPartSafeArray;
         List<int> prefabTimestampList, prefabIndexList, prefabNumberList;
-        int listWalker = 0, targetListWalker = 0, targetTimeStamp = 1, nextTime = -1, nextIndex = 0;
-        string targetListAddAstring, targetTimeName = "", nextType = "";
+        int listWalker = 0, addedToLists = 0, nextTime = 0, nextIndex = 0, timestampWalker = 0, currentWorkerInProgress = 0;
+        string targetListAddAstring, nextType = "";
 
         public List<string> Safe_List
         { get { return stringSafeList; } set { stringSafeList = value; } }
+        Prefab nextPrefab;
 
 
         //UI Elements
-        PictureBox[] building_Pictureboxes;
-        PictureBox[] upgrade_Pictureboxes;
-        PictureBox[] unit_Pictureboxes;
-        int timeProgressor = -1,  optimizeProgressor = 0;
+        PictureBox[] building_Pictureboxes, upgrade_Pictureboxes, unit_Pictureboxes;
+        int timeProgressor = -1,  optimizeProgressor = -1;
 
         //Calling used prefabs
         //ZERG
@@ -66,7 +65,30 @@ namespace StarcraftBuildManager
         { get { return upgrade_Array; } }
 
         //PROTOSS
+        //Buildings
+        Prefab assimilator, cybernetics_Core, dark_Shrine, fleetBeacon, forge, gateway, nexus, photon_Cannon, pylon, robotics_bay,
+            robotics_Facility, stargate, templar_Archives, twilight_Council, shieldBattery;
+        //units
+        Prefab adept, archon, carrier, colossus, dark_Templar, disruptor, high_Templar, immortal, mothership, mothership_Core,
+            observer, oracle, phoenix, probe, sentry, stalker, tempest, warp_Prism, zealot, void_Ray;
+        //Upgrades
+        Prefab air_Armor1, air_Armor2, air_Armor3, air_WeaponAttack1, air_WeaponAttack2, air_WeaponAttack3, anion_Pulse_Crystals, blink,
+            charge, extended_Thermal_Lance, flux_Vanes, gravitic_Booster, gravitic_Drive, gravitron_Catapult, ground_Armor1, ground_Armor2,
+            ground_Armor3, ground_Attack1, ground_Attack2, ground_Attack3, shields1, shields2, shields3, hallucination, psionic_Storm,
+            resonating_Glaives, shadow_Stride, tectonic_Destabilizers, warpgate;
         //TERRAN
+        //Buildings
+        Prefab armory, barracks, bunker, command_Center, engineering_Bay, factory, fusion_Core, ghost_Academy, missile_Turret, orbital_Command,
+            planetary_Fortress, refinery, sensor_Tower, starport, supply_Depot;
+        //Units
+        Prefab banshee, battlecruiser, cyclone, ghost, hellion, liberator, marauder, space_Marine, medivac, raven, reaper,
+            scv, siege_Tank, thor, viking, widow_Mine;
+        //Upgrades
+        Prefab advanced_Ballistics, cloaking_Field, combat_Shield, concussive_Shells, corvid_Reactor, drilling_Claws, enhanced_Shockwave,
+            hisec_Auto_Tracking, hyperflight_Rotor, infantry_Armor1, infantry_Armor2, infantry_Armor3, infantry_Weapon1, infantry_Weapon2, infantry_Weapon3,
+            infernal_Preigniter, magfield_Accelerator, neosteel_Armor, personal_Cloaking, rapid_Resignition_System, ship_Weapons1, ship_Weapons2, ship_Weapons3,
+            smart_Servos, stimpack, vehicle_Weapon1, vehicle_Weapon2, vehicle_Weapon3, vehicle_And_Ship_Plating1, vehicle_And_Ship_Plating2, vehicle_And_Ship_Plating3,
+            weapon_Refit;
         //Variables uses by every race
         Prefab workerPrefabNorm, supplyPrefabNorm, mainPrefabNorm, extractorPrefabNorm;
         int workerCountMinerals = 12, workerCountVespin = 0, supply, mainBuildingCount = 1, extractorCount = 0;
@@ -83,6 +105,7 @@ namespace StarcraftBuildManager
             mainFrame = givenMainFrame;
             mainVariables.Active_Race = race;
             loadedList = givenLoadedList;
+            givenPrefabTimestamps = new List<string> { };
 
             building_Pictureboxes = new PictureBox[] {picbBuilding1, picbBuilding2, picbBuilding3, picbBuilding4, picbBuilding5, picbBuilding6, picbBuilding7, picbBuilding8, picbBuilding9, picbBuilding10, 
             picbBuilding11, picbBuilding12, picbBuilding13, picbBuilding14, picbBuilding15, picbBuilding16, picbBuilding17, picbBuilding18};
@@ -256,10 +279,189 @@ namespace StarcraftBuildManager
         }
         public void Protoss()
         {
+            //Units
+            archon = new Prefab("Archon", 100, 300, 87, mainVariables.Archon_BM, -4);
+            adept = new Prefab("Adept", 100, 25, 30, mainVariables.Adept_BM, -2);
+            carrier = new Prefab("Carrier", 350, 250, 64, mainVariables.Carrier_BM, -6);
+            colossus = new Prefab("Colossus", 300, 200, 54, mainVariables.Colossus_BM, -6);
+            dark_Templar = new Prefab("Dark Templar", 125, 125, 29, mainVariables.DarkTemplar_BM, -2);
+            disruptor = new Prefab("Disruptor", 150, 150, 36, mainVariables.Disruptor_BM, -3);
+            high_Templar = new Prefab("High Templar", 50, 150, 39, mainVariables.HighTemplar_BM, -2);
+            immortal = new Prefab("Immortal", 275, 100, 39, mainVariables.Immortal_BM, -4);
+            mothership = new Prefab("Mothership", 300, 300, 71, mainVariables.Mothership_BM, -8);
+            mothership_Core = new Prefab("Mothership Core", 100, 100, 21, mainVariables.MothershipCore_BM, -2);
+            observer = new Prefab("Observer", 25, 75, 21, mainVariables.Observer_BM, -1);
+            phoenix = new Prefab("Phoenix", 150, 100, 25, mainVariables.Phoenix_BM, -2);
+            probe = new Prefab("Probe", 50, 0, 12, mainVariables.Probe_BM, -1);
+            sentry = new Prefab("Sentry", 50, 100, 26, mainVariables.Sentry_BM, -2);
+            stalker = new Prefab("Stalker", 125, 50, 30, mainVariables.Stalker_BM, -2);
+            void_Ray = new Prefab("Void Ray", 200, 150, 37, mainVariables.VoidRaY_BM, -4);
+            warp_Prism = new Prefab("Warp Prism", 250, 0, 36, mainVariables.WarpPrism_BM, -2);
+            zealot = new Prefab("Zealot", 100, 0, 27, mainVariables.Zealot_BM, -2);
+            oracle = new Prefab("Oracle", 150, 150, 37, mainVariables.Oracle_BM, -3);
+            tempest = new Prefab("Tempest", 250, 175, 43, mainVariables.Tempest_BM, -5);
 
+            unit_Array = new Prefab[] { archon, adept, carrier, colossus, dark_Templar, disruptor, high_Templar, immortal,
+            mothership, mothership_Core, observer, phoenix, probe, sentry, stalker, void_Ray, warp_Prism, zealot, oracle, tempest };
+            mainMethods.Fill_Picturebox_Array(unit_Pictureboxes, unit_Array);
+
+            //Buildings
+            nexus = new Prefab("Nexus", 400, 0, 71, mainVariables.Nexus_BM, 15);
+            assimilator = new Prefab("Assimilator", 75, 0, 21, mainVariables.Assimilator_BM);
+            cybernetics_Core = new Prefab("Cybernetics Core", 150, 0, 36, mainVariables.CyberneticsCore_BM);
+            dark_Shrine = new Prefab("Dark Shrine", 150, 150, 71, mainVariables.DarkShrine_BM);
+            fleetBeacon = new Prefab("Fleet Beacon", 300, 200, 43, mainVariables.FleetBeacon_BM);
+            forge = new Prefab("Forge", 150, 0, 32, mainVariables.Forge_BM);
+            gateway = new Prefab("Gateway", 150, 0, 46, mainVariables.Gateway_BM);
+            photon_Cannon = new Prefab("Photon Cannon", 150, 0, 29, mainVariables.PhotonCannon_BM);
+            pylon = new Prefab("Pylon", 100, 0, 18, mainVariables.Pylon_BM, 8);
+            robotics_Facility = new Prefab("Robotics Facility", 150, 100, 46, mainVariables.RoboticsFacility_BM);
+            robotics_bay = new Prefab("Robotics Bay", 150, 150, 46, mainVariables.RoboticsBay_BM);
+            shieldBattery = new Prefab("Shield Battery", 100, 0, 29, mainVariables.Shieldbattery_BM);
+            stargate = new Prefab("Stargate", 150, 150, 43, mainVariables.Stargate_BM);
+            templar_Archives = new Prefab("Templar Archives", 150, 200, 36, mainVariables.TemplarArchives_BM);
+            twilight_Council = new Prefab("Twilight Council", 150, 100, 36, mainVariables.TwilightCouncil_BM);
+
+            building_Array = new Prefab[] {nexus, assimilator, cybernetics_Core, dark_Shrine, fleetBeacon, forge, gateway, photon_Cannon,
+            pylon, robotics_Facility, robotics_bay, shieldBattery, stargate, templar_Archives, twilight_Council };
+            mainMethods.Fill_Picturebox_Array(building_Pictureboxes, building_Array);
+
+            //Upgrades
+            ground_Attack1 = new Prefab("Ground Attack 1", 100, 100, 129, mainVariables.GroundAttack_BM);
+            ground_Attack2 = new Prefab("Ground Attack 2", 150, 150, 154, mainVariables.GroundAttack_BM);
+            ground_Attack3 = new Prefab("Ground Attack 3", 200, 200, 179, mainVariables.GroundAttack_BM);
+            air_WeaponAttack1 = new Prefab("Air Weapon 1", 100, 100, 129, mainVariables.AirWeapon_BM);
+            air_WeaponAttack2 = new Prefab("Air Weapon 2", 175, 175, 154, mainVariables.AirWeapon_BM);
+            air_WeaponAttack3 = new Prefab("Air Weapon 3", 250, 250, 179, mainVariables.AirWeapon_BM);
+            ground_Armor1 = new Prefab("Ground Armor 1", 100, 100, 129, mainVariables.GroundArmor_BM);
+            ground_Armor2 = new Prefab("Ground Armor 2", 150, 150, 154, mainVariables.GroundArmor_BM);
+            ground_Armor3 = new Prefab("Ground Armor 3", 200, 200, 179, mainVariables.GroundArmor_BM);
+            air_Armor1 = new Prefab("Air Armor 1", 150, 150, 129, mainVariables.AirArmor_BM);
+            air_Armor2 = new Prefab("Air Armor 2", 225, 225, 154, mainVariables.AirArmor_BM);
+            air_Armor3 = new Prefab("Air Armor 3", 300, 300, 179, mainVariables.AirArmor_BM);
+            shields1 = new Prefab("Shields 1", 150, 150, 129, mainVariables.Shields_BM);
+            shields2 = new Prefab("Shields 2", 225, 225, 154, mainVariables.Shields_BM);
+            shields3 = new Prefab("Shields 3", 300, 300, 179, mainVariables.Shields_BM);
+            charge = new Prefab("Charge", 100, 100, 100, mainVariables.Charge_BM);
+            gravitic_Drive = new Prefab("Gravitic Drive", 100, 100, 57, mainVariables.GraviticDrive_BM);
+            gravitic_Booster = new Prefab("Gravitic Boosters", 100, 100, 57, mainVariables.GraviticBooster_BM);
+            flux_Vanes = new Prefab("Flux Vanes", 100, 100, 57, mainVariables.FluxVanes_BM);
+            resonating_Glaives = new Prefab("Resonating Glaives", 100, 100, 100, mainVariables.ResonatingGlaives_BM);
+            anion_Pulse_Crystals = new Prefab("Anion Pulse-Crystals", 150, 150, 64, mainVariables.AnionPulseCrystals_BM);
+            extended_Thermal_Lance = new Prefab("Extended Thermal Lance", 150, 150, 100, mainVariables.ExtendedThermalLance_BM);
+            psionic_Storm = new Prefab("Psionic Storm", 200, 200, 79, mainVariables.Psionic_Storm_BM);
+            blink = new Prefab("Blink", 150, 150, 121, mainVariables.Blink_BM);
+            hallucination = new Prefab("Hallucination", 100, 100, 80, mainVariables.Hallucination_BM);
+            shadow_Stride = new Prefab("Shadow Stride", 100, 100, 100, mainVariables.ShadowStride_BM);
+            warpgate = new Prefab("Warpgate", 50, 50, 100, mainVariables.Warpgate_BM);
+            tectonic_Destabilizers = new Prefab("Tectonic Destabilizers", 150, 150, 100, mainVariables.TectonicDestabilizers_BM);
+            gravitron_Catapult = new Prefab("Graviton Catapult", 150, 150, 57, mainVariables.GravitronCatapult_BM);
+
+            upgrade_Array = new Prefab[] {ground_Attack1, ground_Armor1, shields1, air_Armor1, air_WeaponAttack1, charge, gravitic_Drive,
+            gravitic_Booster, flux_Vanes, resonating_Glaives, anion_Pulse_Crystals, extended_Thermal_Lance, psionic_Storm, blink, hallucination,
+            shadow_Stride, warpgate, tectonic_Destabilizers, gravitron_Catapult};
+            mainMethods.Fill_Picturebox_Array(upgrade_Pictureboxes, upgrade_Array);
+
+            supplyPrefabNorm = pylon;
+            workerPrefabNorm = probe;
+            mainPrefabNorm = nexus;
+            extractorPrefabNorm = assimilator;
+            supply = 2;
         }
         public void Terran()
         {
+            //Buildings
+            armory = new Prefab("Armory", 150, 100, 46, mainVariables.Armory_BM);
+            barracks = new Prefab("Barracks", 150, 100, 46, mainVariables.Barracks_BM);
+            bunker = new Prefab("Bunker", 100, 0, 29, mainVariables.Bunker_BM);
+            command_Center = new Prefab("Command Center", 400, 0, 71, mainVariables.CommandCenter_BM, 15);
+            orbital_Command = new Prefab("Orbital Command", 150, 0, 25, mainVariables.OrbitalCommand_BM);
+            planetary_Fortress = new Prefab("Planetary Fortress", 150, 150, 36, mainVariables.PlanetaryFortress_BM);
+            engineering_Bay = new Prefab("Engineering Bay", 125, 0, 35, mainVariables.EngineeringBay_BM);
+            factory = new Prefab("Factory", 150, 100, 43, mainVariables.Factory_BM);
+            fusion_Core = new Prefab("Fusion Core", 150, 150, 46, mainVariables.FusionCore_BM);
+            ghost_Academy = new Prefab("Ghost Academy", 150, 50, 29, mainVariables.GhostAcademy_BM);
+            missile_Turret = new Prefab("Missile Turret", 100, 0, 18, mainVariables.MissilyTurret_BM);
+            refinery = new Prefab("Refinery", 75, 0, 21, mainVariables.Refinery_BM);
+            sensor_Tower = new Prefab("Sensor Tower", 125, 100, 18, mainVariables.SensorTower_BM);
+            starport = new Prefab("Starport", 150, 100, 36, mainVariables.Starport_BM);
+            supply_Depot = new Prefab("Supply Depot", 100, 0, 21, mainVariables.SupplyDepot_BM);
+
+            building_Array = new Prefab[] {command_Center, supply_Depot, refinery, orbital_Command, planetary_Fortress, barracks, bunker,
+            engineering_Bay, factory, fusion_Core, ghost_Academy, missile_Turret, sensor_Tower, starport };
+
+            mainMethods.Fill_Picturebox_Array(building_Pictureboxes, building_Array);
+
+            //Units
+            banshee = new Prefab("Banshee", 150, 100, 43, mainVariables.Banshee_BM, -3);
+            battlecruiser = new Prefab("Battlecruiser", 400, 300, 64, mainVariables.BattleCruiser_BM, -6);
+            ghost = new Prefab("Ghost", 150, 125, 29, mainVariables.Ghost_BM, -2);
+            hellion = new Prefab("Hellion", 100, 0, 21, mainVariables.Hellion_BM, -2);
+            marauder = new Prefab("Marauder", 100, 25, 30, mainVariables.Marauder_BM, -2);
+            space_Marine = new Prefab("Space Marine", 50, 0, 25, mainVariables.SpaceMarine_BM, -1);
+            medivac = new Prefab("Medivac", 100, 100, 30, mainVariables.Medivac_BM, -2);
+            raven = new Prefab("Raven", 100, 200, 43, mainVariables.Raven_BM, -2);
+            reaper = new Prefab("Reaper", 50, 50, 32, mainVariables.Reaper_BM, -1);
+            scv = new Prefab("SCV", 50, 0, 12, mainVariables.SCV_BM, -1);
+            siege_Tank = new Prefab("Siege Tank", 150, 125, 31, mainVariables.SiegeTank_BM, -3);
+            thor = new Prefab("Thor", 300, 200, 43, mainVariables.Thor_BM, -6);
+            viking = new Prefab("Viking", 150, 75, 30, mainVariables.Viking_BM, -2);
+            widow_Mine = new Prefab("Widow Mine", 75, 25, 21, mainVariables.WidowMine_BM, -2);
+            liberator = new Prefab("Liberator", 150, 150, 43, mainVariables.Liberator_BM, -3);
+            cyclone = new Prefab("Cyclone", 150, 100, 32, mainVariables.Cyclone_BM, -3);
+
+            unit_Array = new Prefab[] {scv, space_Marine, banshee, battlecruiser, ghost, hellion, marauder, space_Marine, medivac,
+            raven, reaper, siege_Tank, thor, viking, widow_Mine, liberator, cyclone};
+
+            mainMethods.Fill_Picturebox_Array(unit_Pictureboxes, unit_Array);
+
+            //Upgrades
+            infantry_Weapon1 = new Prefab("Infantry Weapon 1", 100, 100, 114, mainVariables.InfantryWeapon_BM);
+            infantry_Weapon2 = new Prefab("Infantry Weapon 2", 175, 175, 136, mainVariables.InfantryWeapon_BM);
+            infantry_Weapon3 = new Prefab("Infantry Weapon 3", 250, 250, 157, mainVariables.InfantryWeapon_BM);
+            infantry_Armor1 = new Prefab("Infantry Armor 1", 100, 100, 114, mainVariables.InfantryArmor_BM);
+            infantry_Armor2 = new Prefab("Infantry Armor 2", 175, 175, 136, mainVariables.InfantryArmor_BM);
+            infantry_Armor3 = new Prefab("Infantry Armor 3", 250, 250, 157, mainVariables.InfantryArmor_BM);
+            vehicle_Weapon1 = new Prefab("Vehicle Weapon 1", 100, 100, 114, mainVariables.VehicleWeapon_BM);
+            vehicle_Weapon2 = new Prefab("Vehicle Weapon 2", 175, 175, 136, mainVariables.VehicleWeapon_BM);
+            vehicle_Weapon3 = new Prefab("Vehicle Weapon 3", 250, 250, 157, mainVariables.VehicleWeapon_BM);
+            ship_Weapons1 = new Prefab("Ship Weapon 1", 100, 100, 114, mainVariables.ShipWeapons_BM);
+            ship_Weapons2 = new Prefab("Ship Weapon 2", 175, 175, 136, mainVariables.ShipWeapons_BM);
+            ship_Weapons3 = new Prefab("Ship Weapon 3", 250, 250, 157, mainVariables.ShipWeapons_BM);
+            vehicle_And_Ship_Plating1 = new Prefab("VS Plating 1", 100, 100, 114, mainVariables.VehicleAndShipPlating_BM);
+            vehicle_And_Ship_Plating2 = new Prefab("VS Plating 2", 175, 175, 136, mainVariables.VehicleAndShipPlating_BM);
+            vehicle_And_Ship_Plating3 = new Prefab("VS Plating 3", 250, 250, 157, mainVariables.VehicleAndShipPlating_BM);
+            hyperflight_Rotor = new Prefab("Hyperflight Rotor", 150, 150, 121, mainVariables.HyperFlightRotor_BM);
+            smart_Servos = new Prefab("Smart Servos", 100, 100, 79, mainVariables.SmartServos_BM);
+            rapid_Resignition_System = new Prefab("Rapid Reignition System", 100, 100, 57, mainVariables.RapidReignitionSystem_BM);
+            advanced_Ballistics = new Prefab("Advanced Ballistics", 150, 150, 79, mainVariables.AdvancedBallistics_BM);
+            hisec_Auto_Tracking = new Prefab("Hi-Sec Auto Tracking", 100, 100, 57, mainVariables.HisecAutoTracking_BM);
+            enhanced_Shockwave = new Prefab("Enhanced Shockwaves", 150, 150, 79, mainVariables.EnhancedShockwaves_BM);
+            magfield_Accelerator = new Prefab("Mag-Field Accelerator", 100, 100, 100, mainVariables.MagfieldAccelerator_BM);
+            cloaking_Field = new Prefab("Cloaking Field", 100, 100, 79, mainVariables.CloakingField_BM);
+            concussive_Shells = new Prefab("Concussive Shells", 50, 50, 43, mainVariables.ConcussiveShells_BM);
+            personal_Cloaking = new Prefab("Personal Cloaking", 150, 150, 86, mainVariables.PersonalCloaking_BM);
+            stimpack = new Prefab("Stimpack", 100, 100, 100, mainVariables.Stimpack_BM);
+            weapon_Refit = new Prefab("Weapon Refit", 150, 150, 100, mainVariables.WeaponRefit_BM);
+            corvid_Reactor = new Prefab("Corvid Reactor", 150, 150, 79, mainVariables.CorvidReactor_BM);
+            drilling_Claws = new Prefab("Drilling Claws", 75, 75, 79, mainVariables.DrillingClaws_BM);
+            combat_Shield = new Prefab("Combad Shield", 100, 100, 79, mainVariables.CombatShield_BM);
+            neosteel_Armor = new Prefab("Neosteel Armor", 150, 150, 100, mainVariables.NeosteelArmor_BM);
+            infernal_Preigniter = new Prefab("Infernal Pre-Igniter", 100, 100, 79, mainVariables.InfernalPreigniter_BM);
+
+            upgrade_Array = new Prefab[] {infantry_Armor1, infantry_Weapon1, vehicle_Weapon1, ship_Weapons1, vehicle_And_Ship_Plating1,
+            hyperflight_Rotor, smart_Servos, rapid_Resignition_System, advanced_Ballistics, hisec_Auto_Tracking, enhanced_Shockwave,
+            magfield_Accelerator, cloaking_Field, concussive_Shells, personal_Cloaking, stimpack, weapon_Refit, corvid_Reactor, drilling_Claws,
+            combat_Shield, neosteel_Armor, infernal_Preigniter };
+
+            mainMethods.Fill_Picturebox_Array(upgrade_Pictureboxes, upgrade_Array);
+
+            supplyPrefabNorm = supply_Depot;
+            workerPrefabNorm = scv;
+            mainPrefabNorm = command_Center;
+            extractorPrefabNorm = refinery;
+            supply = 2;
+
 
         }
 
@@ -941,6 +1143,8 @@ namespace StarcraftBuildManager
             prefabNumberList = new List<int> { };
 
             stringSafeList.Add(addBuilding);
+            givenPrefabTimestamps.Add(addBuilding);
+            givenPrefabTimestamps.Sort();
             stringSafeList.Sort();
             foreach (string currentString in Safe_List)
             {
@@ -1134,7 +1338,7 @@ namespace StarcraftBuildManager
             trackbarTimeline.Value = timeProgressor;
             lblCurrentTrackbarValue.Text = timeProgressor.ToString();
 
-            while (listWalker < prefabTimestampList.Count - 1 && timeProgressor == prefabTimestampList[listWalker + 1])
+            while (listWalker < prefabTimestampList.Count - 1 && timeProgressor == prefabTimestampList[listWalker])
             {
                 Update_Timeline(1);
             }
@@ -1179,7 +1383,7 @@ namespace StarcraftBuildManager
         //Checks if a new Main can be build
         private bool Check_For_Main(Prefab nextTargetPrefab)
         {
-            if (mineralCount >= mainPrefabNorm.MineralCost && Reach_Mineral_Target(nextTargetPrefab) && workerCountMinerals + workerCountVespin >= mainBuildingCount * 10 || mineralCount > 500 && workerCountVespin + workerCountMinerals > 30)
+            if (mineralCount >= mainPrefabNorm.MineralCost && Reach_Mineral_Target(nextTargetPrefab) && workerCountMinerals + workerCountVespin >= mainBuildingCount * 10 && mainBuildingCount <= 4 || mineralCount > 500 && workerCountVespin + workerCountMinerals > 30 && mainBuildingCount <= 4)
             {return true; }
             else
             {return false;}
@@ -1205,92 +1409,78 @@ namespace StarcraftBuildManager
                 return false;
             }
         }
+        private bool Check_For_Pylon(Prefab nextTargetPrefab)
+        {
+            if (mineralCount >= 100 && Reach_Mineral_Target(nextTargetPrefab) && supplyInProgress == false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         private void Optimizer()
         {
-            targetTimeList = new List<string> { };
+            nextPartSafeArray = Safe_List[0].Split('_');
+            nextTime = Convert.ToInt32(nextPartSafeArray[0]);
+            nextType = nextPartSafeArray[1];
+            nextIndex = Convert.ToInt32(nextPartSafeArray[2]);
+            nextPrefab = mainMethods.Prefab_Finder(nextType, nextIndex);
 
             //ACTUAL OPMIZITATION PROCESS
             for (optimizeProgressor = 0; optimizeProgressor < 601; optimizeProgressor++)
             {
-                if (mainVariables.Active_Race == "Zerg")
+                if (mainVariables.Active_Race == "Zerg" && optimizeProgressor % 11 == 0 && larvaeCount < mainBuildingCount * 3)
                 {
-                    if (optimizeProgressor % 11 == 0)
+                    larvaeCount += mainBuildingCount;
+                    if(larvaeCount > 3*mainBuildingCount)
+                    { larvaeCount = mainBuildingCount * 3; }
+                }
+
+                if (targetTimeList.Count > timestampWalker)
+                {
+                    while (optimizeProgressor == Convert.ToInt32(targetTimeList[timestampWalker].Split('_')[0]))
                     {
-                        larvaeCount += mainBuildingCount;
-                        if (larvaeCount >= mainBuildingCount * 3)
+                        string name = targetTimeList[timestampWalker + addedToLists].Split('_')[1];
+                        Timeline_TimeDone(name);
+                        timestampWalker++;
+                        if(timestampWalker >= targetTimeList.Count)
                         {
-                            larvaeCount = mainBuildingCount * 3;
+                            break;
                         }
                     }
                 }
 
-                if (targetTimeList.Count > targetListWalker)
+                while(optimizeProgressor == nextTime)
                 {
-                    string[] targetTimeArray = targetTimeList[targetListWalker].Split('_');
-                    targetTimeStamp = Convert.ToInt32(targetTimeArray[0]);
-                    targetTimeName = targetTimeArray[1];
+                    listWalker++;
+
+                    if(listWalker >= nextPartSafeArray.Length)
+                    { break; }
+                    mineralCount -= nextPrefab.MineralCost;
+                    vespinCount -= nextPrefab.MineralCost;
+                    supply += nextPrefab.Supply;
+
+                    if (listWalker >= givenPrefabTimestamps.Count)
+                    { listWalker = 0; }
+
+                    nextPartSafeArray = givenPrefabTimestamps[listWalker].Split('_');
+                    nextTime = Convert.ToInt32(nextPartSafeArray[0]);
+                    nextType = nextPartSafeArray[1];
+                    nextIndex = Convert.ToInt32(nextPartSafeArray[2]);
+
+                    nextPrefab = mainMethods.Prefab_Finder(nextType, nextIndex);                    
                 }
-              int  counter = 0;
-                //Checks if something has been finished                
-                while(targetTimeList.Count > targetListWalker && targetTimeStamp == optimizeProgressor)
+                if(optimizeProgressor == 300)
                 {
-                    targetTimeName = targetTimeList[counter].Split('_')[1];
-                    counter++;
-                    switch(targetTimeName)
-                    {
-                        case "Drone":
-                        case "SCV":
-                        case "Probe":
-                            Worker_Distribute(); //reached
-                            break;
-                        case "Supply Depot":
-                        case "Pylon":
-                        case "Overlord":
-                            supply += 8;
-                            supplyInProgress = false;   //not reached
-                            break;
-                        case "Hatchery":
-                        case "Command Centre":
-                        case "Nexus":
-                            if(mainVariables.Active_Race == "Zerg") //reached
-                            { supply += 3; }
-                            else
-                            { supply += 8; }
-                            mainBuildingCount++;
-                            break;
-                        case "Extractor":
-                            extractorCount++;
-                            extractorInProgress = false;    //not reached
-                            break;
-                    }
-                    targetListWalker++;
+
                 }
-
-                for(int i = listWalker; i < Safe_List.Count; i++)
-                {
-                    string[] safeListCheck = Safe_List[i].Split('_');
-                    int timeCheck = Convert.ToInt32(safeListCheck[0]);
-                    if(optimizeProgressor == timeCheck)
-                    {
-                        listWalker++;
-                        if (listWalker == Safe_List.Count)
-                        {
-                            listWalker = 0;
-                        }
-                    }
-                }
-
-                nextPartSafeArray = Safe_List[listWalker].Split('_');
-                nextTime = Convert.ToInt32(nextPartSafeArray[0]);
-                nextType = nextPartSafeArray[1];
-                nextIndex = Convert.ToInt32(nextPartSafeArray[2]);
-
-                Prefab nextPrefab = mainMethods.Prefab_Finder(nextType, nextIndex);
 
                 //Calculates current minerals
-                mineralCount = Expected_Minerals(1);
-                vespinCount = Expected_Vespin(1);
+                mineralCount = mineralCount + (workerCountMinerals * mineralCollectionRate);
+                vespinCount = vespinCount + (workerCountVespin * vespinCollectionRate);
 
                 //Checks if a worker should be build
                 switch (mainVariables.Active_Race)
@@ -1301,7 +1491,7 @@ namespace StarcraftBuildManager
                             if (Check_For_Worker(nextPrefab))
                             {
                                 mineralCount -= 50;
-                                supply -= 1;
+                                supply--;
                                 Optimizing_Timeline(workerPrefabNorm, optimizeProgressor);
                                 Add_To_Timestamp_List(workerPrefabNorm, "unit");
                             }
@@ -1312,8 +1502,15 @@ namespace StarcraftBuildManager
                         }
                         break;
                     case "Terran":
-                        break;
                     case "Protoss":
+                        if (Check_For_Worker(nextPrefab) && currentWorkerInProgress <= mainBuildingCount * 2)
+                        {
+                            currentWorkerInProgress++;
+                            mineralCount -= 50;
+                            supply--;
+                            Optimizing_Timeline(workerPrefabNorm, optimizeProgressor);
+                            Add_To_Timestamp_List(workerPrefabNorm, "unit");
+                        }
                         break;
                 }
 
@@ -1332,8 +1529,18 @@ namespace StarcraftBuildManager
                             }
                             break;
                         case "Terran":
+                            if (Check_For_Pylon(nextPrefab))
+                            {
+                                workerCountMinerals--;
+                                Add_To_Timestamp_List(workerPrefabNorm, "unit", supply_Depot.BuildTime);
+                                Standard_Supply_Process();
+                            }
                             break;
                         case "Protoss":
+                            if(Check_For_Pylon(nextPrefab))
+                            {
+                                Standard_Supply_Process();
+                            }
                             break;
                     }
                 }
@@ -1354,10 +1561,6 @@ namespace StarcraftBuildManager
                     Add_To_Timestamp_List(extractorPrefabNorm, "building");
                 }
             }
-            lblTimeEnd.Text = "Vespinworker " + workerCountVespin.ToString();
-            lblMenuTooltip.Text = "Mineralworker: " + workerCountMinerals.ToString();
-            lbltimeStart.Text = "Mains: " + mainBuildingCount.ToString();
-            
             Enable_Disable_UI("enable");
         }
         //Checks if there is larvae that can be transformed to a unit
@@ -1373,9 +1576,58 @@ namespace StarcraftBuildManager
             }
         }
 
+        //avoiding double code for terran/Protoss
+        private void Standard_Supply_Process()
+        {
+            mineralCount -= 100;
+            supplyInProgress = true;
+            Optimizing_Timeline(supplyPrefabNorm, optimizeProgressor);
+            Add_To_Timestamp_List(supplyPrefabNorm, "building");
+        }
+
+        //This is called when something is finished, to check if the item in question influences future ressources
+        private void Timeline_TimeDone(string name)
+        {
+            switch (name)
+            {
+                case "Drone":
+                case "SCV":
+                case "Probe":
+                    Worker_Distribute();
+                    currentWorkerInProgress--;
+                    break;
+                case "Supply Depot":
+                case "Pylon":
+                case "Overlord":
+                    supply += 8;
+                    supplyInProgress = false;
+                    break;
+                case "Hatchery":
+                case "Command Centre":
+                case "Nexus":
+                    supply += mainPrefabNorm.Supply;
+                    mainBuildingCount++;
+                    break;
+                case "Extractor":
+                case "Assimilator":
+                case "Refinery":
+                    extractorCount++;
+                    extractorInProgress = false;
+                    break;
+            }
+        }
+
         //Activites and deactivates everything according all buttons etc., and resets all main variables, string is either "enable" or "disable"
         private void Enable_Disable_UI(string abler)
-        {          
+        {
+            givenPrefabTimestamps = new List<string> { };
+            foreach(string safeString in Safe_List)
+            {
+                givenPrefabTimestamps.Add(safeString);
+            }
+
+            currentWorkerInProgress = 0;
+            targetTimeList = new List<string> { };
             listWalker = 0;
             timeProgressor = -1;
             Update_Timeline(0);
@@ -1386,9 +1638,8 @@ namespace StarcraftBuildManager
             workerCountVespin = 0;
             extractorCount = 0;
             mainBuildingCount = 1;
-            targetListWalker = 0;
-            targetTimeStamp = 1;
-            nextTime = -1; 
+            timestampWalker = 0;
+            nextTime = 0; 
             nextIndex = 0;
             extractorInProgress = false;
             supplyInProgress = false;
@@ -1399,8 +1650,8 @@ namespace StarcraftBuildManager
                     supply = 2;
                     break;
                 case "Terran":
-                    break;
                 case "Protoss":
+                    supply = 2;
                     break;
             }
 
@@ -1423,12 +1674,13 @@ namespace StarcraftBuildManager
                     break;
             }
         }
-
+        //Returns how much time will pass until the next given timestamp is reached
         private int Check_Time_Next_Prefab()
         {
-            return prefabTimestampList[listWalker] - optimizeProgressor;
+            return nextTime - optimizeProgressor;
         }
 
+        //Returns if you can build something and still reach the given timestamp
         private bool Reach_Mineral_Target(Prefab prefab)
         {
             if(Expected_Minerals(Check_Time_Next_Prefab()) > prefab.MineralCost)
@@ -1437,22 +1689,12 @@ namespace StarcraftBuildManager
             { return false; }
         }
 
+        //Returns if the worker should become a vespin or a mineral worker
         private void Worker_Distribute()
         {            
-            if(extractorCount >= 1 && workerCountVespin <= extractorCount * 3)
+            if(extractorCount >= 1 && workerCountVespin <= extractorCount * 3 && workerCountVespin < workerCountMinerals/3)
             {
-                if (workerCountVespin == 0)
-                {
-                    workerCountVespin++;
-                }
-                else
-                {
-                    double ratio = workerCountMinerals / workerCountVespin;
-                    if (ratio >= 3 && workerCountVespin < extractorCount * 3)
-                    {
-                        workerCountVespin++;
-                    }
-                }
+                workerCountVespin++;                                    
             }
             else
             {
@@ -1461,27 +1703,27 @@ namespace StarcraftBuildManager
         }
 
         //Builds the String for the Timestamp List, it is TIME_NAME (for example 001_Drone or 583_Overlord)
-        private string Timestamp_String_Builder(Prefab prefab)
+        private string Timestamp_String_Builder(Prefab prefab, int delay = 0)
         {
-            if (prefab.BuildTime + optimizeProgressor < 10)
+            if (prefab.BuildTime + optimizeProgressor + delay < 100)
             {
-                targetListAddAstring = "00" + (prefab.BuildTime + optimizeProgressor).ToString();
-            }
-            else if (prefab.BuildTime + optimizeProgressor < 100 && prefab.BuildTime + optimizeProgressor > 9)
-            {
-                targetListAddAstring = "0" + (prefab.BuildTime + optimizeProgressor).ToString();
+                targetListAddAstring = "0" + (prefab.BuildTime + optimizeProgressor + delay).ToString();
             }
             else
             {
-                targetListAddAstring = (prefab.BuildTime + optimizeProgressor).ToString();
+                targetListAddAstring = (delay + prefab.BuildTime + optimizeProgressor).ToString();
             }
             string returnString = targetListAddAstring + "_" + prefab.Name;
             return returnString;
         }
         
         // normalizes the minimum process for every addition to the timestamplist to avoid repeating code
-        private void Add_To_Timestamp_List(Prefab prefab, string type)
+        private void Add_To_Timestamp_List(Prefab prefab, string type, int delay = 0)
         {
+            if(delay != 0)
+            {
+                delay -= prefab.BuildTime;
+            }
             switch(type)
             {
                 case "unit":
@@ -1495,10 +1737,8 @@ namespace StarcraftBuildManager
                 case "upgrade":
                     break;
             }
-            listWalker++;
-            string addString = Timestamp_String_Builder(prefab);
+            string addString = Timestamp_String_Builder(prefab, delay);
             targetTimeList.Add(addString);
-
             targetTimeList.Sort();
         }
     }
